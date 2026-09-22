@@ -1,0 +1,16 @@
+[
+  { "organelle_id": "celnucleus",    "text": "controlecentrum van de cel, bevat DNA" },
+  { "organelle_id": "nucleolus",     "text": "maakt ribosomen" },
+  { "organelle_id": "mitochondrien", "text": "energiecentrales van de cel" },
+  { "organelle_id": "ribosomen",     "text": "maken eiwitten" },
+  { "organelle_id": "golgi",         "text": "verpakt en sorteert eiwitten" },
+  { "organelle_id": "ruw_er",        "text": "maakt eiwitten" },
+  { "organelle_id": "glad_er",       "text": "maakt vetten en hormonen" },
+  { "organelle_id": "lysosomen",     "text": "breken afval af" },
+  { "organelle_id": "centriolen",    "text": "helpen bij celdeling" },
+  { "organelle_id": "chloroplasten", "text": "fotosynthese" },
+  { "organelle_id": "vacuole",       "text": "opslag + stevigheid" },
+  { "organelle_id": "celwand",       "text": "bescherming + structuur" },
+  { "organelle_id": "celmembraan",   "text": "regelt transport" },
+  { "organelle_id": "microvilli",    "text": "vergroten oppervlak voor opname" }
+]
