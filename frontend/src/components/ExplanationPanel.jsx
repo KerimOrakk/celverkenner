@@ -1,14 +1,15 @@
 import { forwardRef, useRef, useState } from 'react';
 import Button from '../ui/Button.jsx';
 import RichText from './RichText.jsx';
+import { useLang } from '../i18n/index.jsx';
 
-function whereFound(cellTypes = []) {
+function whereFound(cellTypes = [], t) {
   const animal = cellTypes.includes('dierlijk');
   const plant = cellTypes.includes('plantaardig');
-  if (animal && plant) return 'Dierlijke cellen en plantencellen';
-  if (animal) return 'Alleen dierlijke cellen';
-  if (plant) return 'Alleen plantencellen';
-  return 'Onbekend';
+  if (animal && plant) return t('found.both');
+  if (animal) return t('found.animal');
+  if (plant) return t('found.plant');
+  return t('found.unknown');
 }
 
 const formatNumber = (value) => String(Number(value.toFixed(2))).replace('.', ',');
@@ -18,6 +19,7 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
   { organelle, count, glossary, onClose, onPrevious, onNext },
   ref,
 ) {
+  const { t } = useLang();
   const open = Boolean(organelle);
   // "Meer uitleg" stays open while you walk through the organelles.
   const [expanded, setExpanded] = useState(false);
@@ -39,7 +41,7 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
           <header className="panel__header">
             <span className="panel__swatch" style={{ background: shown.color }} aria-hidden="true" />
             <h2 className="panel__title">{shown.name}</h2>
-            <button type="button" className="panel__close" onClick={onClose} aria-label="Uitleg sluiten">
+            <button type="button" className="panel__close" onClick={onClose} aria-label={t('panel.close')}>
               <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true">
                 <path d="M2 2l10 10M12 2 2 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
@@ -60,12 +62,12 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
                 <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
                   <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 </svg>
-                {expanded ? 'Minder uitleg' : 'Meer uitleg'}
+                {expanded ? t('panel.less') : t('panel.more')}
               </button>
               {expanded && (
                 <div id="panel-details" className="panel__details">
                   <RichText text={shown.details} glossary={glossary} />
-                  <p className="panel__details-hint">Tik op een gekleurd woord voor de betekenis.</p>
+                  <p className="panel__details-hint">{t('panel.termHint')}</p>
                 </div>
               )}
             </div>
@@ -73,31 +75,31 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
 
           <dl className="panel__facts">
             <div>
-              <dt>In dit model</dt>
-              <dd>{shownCount > 1 ? `${shownCount} stuks` : '1 stuk'}</dd>
+              <dt>{t('panel.inModel')}</dt>
+              <dd>{shownCount > 1 ? t('panel.many', { n: shownCount }) : t('panel.one')}</dd>
             </div>
             <div>
-              <dt>Komt voor in</dt>
-              <dd>{whereFound(shown.cell_types)}</dd>
+              <dt>{t('panel.foundIn')}</dt>
+              <dd>{whereFound(shown.cell_types, t)}</dd>
             </div>
             {shown.scale != null && (
               <div>
-                <dt>Schaal</dt>
-                <dd>{formatNumber(shown.scale)} (celmembraan = 1)</dd>
+                <dt>{t('panel.scale')}</dt>
+                <dd>{formatNumber(shown.scale)} {t('panel.scaleNote')}</dd>
               </div>
             )}
           </dl>
 
           {(shown.positions.length > 0 || shown.random) && (
             <details className="panel__positions">
-              <summary>Posities in de cel (x, y, z)</summary>
+              <summary>{t('panel.positions')}</summary>
               <ul>
                 {shown.positions.map((position, index) => (
                   <li key={index}>({position.map(formatNumber).join('; ')})</li>
                 ))}
                 {shown.random && (
                   <li>
-                    plus {shown.random.count} willekeurig geplaatst binnen ±{formatNumber(shown.random.range)}
+                    {t('panel.random', { n: shown.random.count, r: formatNumber(shown.random.range) })}
                   </li>
                 )}
               </ul>
@@ -106,10 +108,10 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
 
           <footer className="panel__footer">
             <Button variant="quiet" size="sm" onClick={onPrevious}>
-              Vorige
+              {t('panel.prev')}
             </Button>
             <Button variant="quiet" size="sm" onClick={onNext}>
-              Volgende
+              {t('panel.next')}
             </Button>
           </footer>
         </div>

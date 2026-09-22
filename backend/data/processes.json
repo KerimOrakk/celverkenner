@@ -1,0 +1,357 @@
+[
+  {
+    "id": "eiwitroute",
+    "cells": [
+      "hartcel",
+      "darmcel",
+      "plantencel"
+    ],
+    "name": {
+      "nl": "De route van een eiwit",
+      "en": "The route of a protein"
+    },
+    "summary": {
+      "nl": "Van DNA in de kern tot afgifte buiten de cel.",
+      "en": "From DNA in the nucleus to release outside the cell."
+    },
+    "steps": [
+      {
+        "organelle_id": "celnucleus",
+        "title": {
+          "nl": "Het DNA wordt afgelezen",
+          "en": "The DNA is read"
+        },
+        "text": {
+          "nl": "In de kern wordt een stukje [[dna|DNA]] gekopieerd naar [[mrna|mRNA]]. Dat verlaat de kern door de [[kernporien|kernporiën]].",
+          "en": "In the nucleus a piece of [[dna|DNA]] is copied into [[mrna|mRNA]], which leaves the nucleus through the [[kernporien|nuclear pores]]."
+        }
+      },
+      {
+        "organelle_id": "ruw_er",
+        "title": {
+          "nl": "Ribosomen bouwen het eiwit",
+          "en": "Ribosomes build the protein"
+        },
+        "text": {
+          "nl": "Ribosomen op het ruw ER lezen het mRNA en rijgen [[aminozuren]] aan elkaar ([[translatie]]). Het nieuwe eiwit komt in het ER terecht en krijgt zijn vorm.",
+          "en": "Ribosomes on the rough ER read the mRNA and string [[aminozuren|amino acids]] together ([[translatie|translation]]). The new protein ends up inside the ER and takes its shape."
+        }
+      },
+      {
+        "organelle_id": "golgi",
+        "title": {
+          "nl": "Bewerken en sorteren",
+          "en": "Modifying and sorting"
+        },
+        "text": {
+          "nl": "In [[blaasjes]] reist het eiwit naar het Golgi-apparaat. Daar krijgt het bijvoorbeeld suikergroepen en een adreslabel.",
+          "en": "The protein travels to the Golgi apparatus in [[blaasjes|vesicles]]. There it receives sugar groups and an address label, for example."
+        }
+      },
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Afgifte naar buiten",
+          "en": "Release to the outside"
+        },
+        "text": {
+          "nl": "Een blaasje versmelt met het celmembraan en laat het eiwit los ([[exocytose]]): een hormoon, een verteringsenzym of bouwmateriaal.",
+          "en": "A vesicle fuses with the cell membrane and releases the protein ([[exocytose|exocytosis]]): a hormone, a digestive enzyme or building material."
+        }
+      }
+    ]
+  },
+  {
+    "id": "celademhaling",
+    "cells": [
+      "hartcel",
+      "darmcel",
+      "plantencel"
+    ],
+    "name": {
+      "nl": "Celademhaling",
+      "en": "Cellular respiration"
+    },
+    "summary": {
+      "nl": "Hoe de cel energie haalt uit glucose en zuurstof.",
+      "en": "How the cell gets energy from glucose and oxygen."
+    },
+    "steps": [
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Brandstof komt binnen",
+          "en": "Fuel comes in"
+        },
+        "text": {
+          "nl": "[[glucose|Glucose]] en zuurstof gaan door het celmembraan naar binnen, via [[transporteiwitten]] en [[diffusie]].",
+          "en": "[[glucose|Glucose]] and oxygen enter through the cell membrane, via [[transporteiwitten|transport proteins]] and [[diffusie|diffusion]]."
+        }
+      },
+      {
+        "organelle_id": "mitochondrien",
+        "title": {
+          "nl": "Verbranding in het mitochondrion",
+          "en": "Burning in the mitochondrion"
+        },
+        "text": {
+          "nl": "Op de [[cristae]] wordt glucose met zuurstof afgebroken tot CO₂ en water. De energie die vrijkomt wordt opgeslagen in [[atp|ATP]].",
+          "en": "On the [[cristae]] glucose is broken down with oxygen into CO₂ and water. The energy released is stored in [[atp|ATP]]."
+        }
+      },
+      {
+        "organelle_id": "ribosomen",
+        "title": {
+          "nl": "ATP drijft de cel aan",
+          "en": "ATP powers the cell"
+        },
+        "text": {
+          "nl": "Het ATP wordt overal in de cel gebruikt: ribosomen bouwen er eiwitten mee, pompen in het membraan werken erop en spiercellen trekken ermee samen.",
+          "en": "The ATP is used everywhere in the cell: ribosomes build proteins with it, membrane pumps run on it and muscle cells contract with it."
+        }
+      },
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Afval naar buiten",
+          "en": "Waste goes out"
+        },
+        "text": {
+          "nl": "Het CO₂ verlaat de cel via het membraan en wordt door het bloed naar de longen gebracht.",
+          "en": "The CO₂ leaves the cell through the membrane and is carried by the blood to the lungs."
+        }
+      }
+    ]
+  },
+  {
+    "id": "fotosynthese",
+    "cells": [
+      "plantencel"
+    ],
+    "name": {
+      "nl": "Fotosynthese",
+      "en": "Photosynthesis"
+    },
+    "summary": {
+      "nl": "Zonlicht, water en CO₂ worden suiker en zuurstof.",
+      "en": "Sunlight, water and CO₂ become sugar and oxygen."
+    },
+    "steps": [
+      {
+        "organelle_id": "celwand",
+        "title": {
+          "nl": "CO₂ en water komen binnen",
+          "en": "CO₂ and water come in"
+        },
+        "text": {
+          "nl": "CO₂ uit de lucht komt door de [[porien|poriën]] van de celwand en door het membraan naar binnen. Water komt via de wortels.",
+          "en": "CO₂ from the air enters through the [[porien|pores]] of the cell wall and through the membrane. Water arrives via the roots."
+        }
+      },
+      {
+        "organelle_id": "chloroplasten",
+        "title": {
+          "nl": "Licht wordt opgevangen",
+          "en": "Light is captured"
+        },
+        "text": {
+          "nl": "In de [[thylakoiden|thylakoïden]] vangt [[chlorofyl]] het zonlicht op. Met die energie wordt water gesplitst en komt zuurstof vrij. In het [[stroma]] wordt CO₂ vastgelegd in [[glucose]].",
+          "en": "In the [[thylakoiden|thylakoids]] [[chlorofyl|chlorophyll]] captures the sunlight. That energy splits water and releases oxygen. In the [[stroma]] CO₂ is fixed into [[glucose]]."
+        }
+      },
+      {
+        "organelle_id": "vacuole",
+        "title": {
+          "nl": "Opslag",
+          "en": "Storage"
+        },
+        "text": {
+          "nl": "Een deel van de suiker wordt opgeslagen: als zetmeel in de chloroplast en als [[celsap]] in de vacuole. De vacuole houdt met water ook de [[turgor]] op peil.",
+          "en": "Part of the sugar is stored: as starch in the chloroplast and as [[celsap|cell sap]] in the vacuole. With water the vacuole also keeps up the [[turgor]]."
+        }
+      },
+      {
+        "organelle_id": "mitochondrien",
+        "title": {
+          "nl": "Ook een plant ademt",
+          "en": "A plant respires too"
+        },
+        "text": {
+          "nl": "De mitochondriën breken glucose af tot [[atp|ATP]], dag en nacht. Overdag maakt de plant meer suiker dan hij verbruikt; die winst wordt groei.",
+          "en": "The mitochondria break glucose down into [[atp|ATP]], day and night. During the day the plant makes more sugar than it uses; the surplus becomes growth."
+        }
+      }
+    ]
+  },
+  {
+    "id": "opname",
+    "cells": [
+      "darmcel"
+    ],
+    "name": {
+      "nl": "Opname in de darm",
+      "en": "Absorption in the intestine"
+    },
+    "summary": {
+      "nl": "Hoe voedingsstoffen van de darm naar het bloed gaan.",
+      "en": "How nutrients travel from the intestine to the blood."
+    },
+    "steps": [
+      {
+        "organelle_id": "microvilli",
+        "title": {
+          "nl": "Groot oppervlak",
+          "en": "Large surface"
+        },
+        "text": {
+          "nl": "De [[borstelzoom]] van microvilli vergroot het oppervlak tot wel twintig keer. Voedingsstoffen uit de darm raken zo veel meer membraan.",
+          "en": "The [[borstelzoom|brush border]] of microvilli enlarges the surface up to twenty times, so nutrients from the gut touch much more membrane."
+        }
+      },
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Transport naar binnen",
+          "en": "Transport inwards"
+        },
+        "text": {
+          "nl": "[[transporteiwitten|Transporteiwitten]] in het membraan pompen glucose en [[aminozuren]] de cel in. Dat is actief transport en kost energie.",
+          "en": "[[transporteiwitten|Transport proteins]] in the membrane pump glucose and [[aminozuren|amino acids]] into the cell. That is active transport and costs energy."
+        }
+      },
+      {
+        "organelle_id": "mitochondrien",
+        "title": {
+          "nl": "Energie voor het pompen",
+          "en": "Energy for pumping"
+        },
+        "text": {
+          "nl": "Actief transport kost [[atp|ATP]]. Daarom liggen er veel mitochondriën vlak onder de borstelzoom.",
+          "en": "Active transport costs [[atp|ATP]]. That is why many mitochondria lie right under the brush border."
+        }
+      },
+      {
+        "organelle_id": "glad_er",
+        "title": {
+          "nl": "Vetten worden verpakt",
+          "en": "Fats are packaged"
+        },
+        "text": {
+          "nl": "Vetten worden in het glad ER opnieuw samengesteld en verpakt, zodat ze de cel aan de onderkant kunnen verlaten richting het bloed en de lymfe.",
+          "en": "Fats are reassembled and packaged in the smooth ER so they can leave the cell at the bottom, towards the blood and lymph."
+        }
+      }
+    ]
+  },
+  {
+    "id": "celdeling",
+    "cells": [
+      "darmcel",
+      "hartcel"
+    ],
+    "name": {
+      "nl": "Celdeling",
+      "en": "Cell division"
+    },
+    "summary": {
+      "nl": "Eén cel wordt twee identieke cellen. Darmcellen doen dit elke paar dagen.",
+      "en": "One cell becomes two identical cells. Intestinal cells do this every few days."
+    },
+    "steps": [
+      {
+        "organelle_id": "celnucleus",
+        "title": {
+          "nl": "DNA wordt gekopieerd",
+          "en": "DNA is copied"
+        },
+        "text": {
+          "nl": "Vóór de deling wordt al het [[dna|DNA]] gekopieerd. Het [[chromatine]] rolt zich op tot zichtbare [[chromosomen]].",
+          "en": "Before division all the [[dna|DNA]] is copied. The [[chromatine|chromatin]] coils up into visible [[chromosomen|chromosomes]]."
+        }
+      },
+      {
+        "organelle_id": "centriolen",
+        "title": {
+          "nl": "De spoelfiguur ontstaat",
+          "en": "The spindle forms"
+        },
+        "text": {
+          "nl": "De centriolen gaan naar twee kanten van de cel en bouwen de [[spoelfiguur]] van [[microtubuli]]. De kernmembraan valt uiteen.",
+          "en": "The centrioles move to opposite sides of the cell and build the [[spoelfiguur|spindle]] of [[microtubuli|microtubules]]. The nuclear envelope breaks down."
+        }
+      },
+      {
+        "organelle_id": "celnucleus",
+        "title": {
+          "nl": "Chromosomen worden verdeeld",
+          "en": "Chromosomes are divided"
+        },
+        "text": {
+          "nl": "De spoelfiguur trekt van elk chromosoom één helft naar elke kant. Om beide helften ontstaat een nieuwe [[kernmembraan]].",
+          "en": "The spindle pulls one half of each chromosome to each side. A new [[kernmembraan|nuclear envelope]] forms around both halves."
+        }
+      },
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Twee cellen",
+          "en": "Two cells"
+        },
+        "text": {
+          "nl": "Het celmembraan snoert in het midden in ([[actine]] trekt het samen) en er zijn twee identieke dochtercellen.",
+          "en": "The cell membrane pinches in at the middle ([[actine|actin]] pulls it together) and there are two identical daughter cells."
+        }
+      }
+    ]
+  },
+  {
+    "id": "afvalverwerking",
+    "cells": [
+      "hartcel",
+      "darmcel"
+    ],
+    "name": {
+      "nl": "Afval opruimen",
+      "en": "Clearing waste"
+    },
+    "summary": {
+      "nl": "Versleten onderdelen en indringers worden afgebroken en hergebruikt.",
+      "en": "Worn-out parts and intruders are broken down and recycled."
+    },
+    "steps": [
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Iets komt binnen",
+          "en": "Something comes in"
+        },
+        "text": {
+          "nl": "Een versleten organel of een deeltje van buiten (zoals een bacterie) wordt in een blaasje verpakt.",
+          "en": "A worn-out organelle or a particle from outside (such as a bacterium) is wrapped in a vesicle."
+        }
+      },
+      {
+        "organelle_id": "lysosomen",
+        "title": {
+          "nl": "Verteren",
+          "en": "Digesting"
+        },
+        "text": {
+          "nl": "Het blaasje versmelt met een lysosoom. De [[enzymen]] breken de inhoud af tot bouwstenen ([[autofagie]]).",
+          "en": "The vesicle fuses with a lysosome. The [[enzymen|enzymes]] break the contents down into building blocks ([[autofagie|autophagy]])."
+        }
+      },
+      {
+        "organelle_id": "ribosomen",
+        "title": {
+          "nl": "Hergebruik",
+          "en": "Recycling"
+        },
+        "text": {
+          "nl": "De vrijgekomen [[aminozuren]] worden door ribosomen gebruikt voor nieuwe eiwitten. Niets gaat verloren.",
+          "en": "The released [[aminozuren|amino acids]] are used by ribosomes for new proteins. Nothing is wasted."
+        }
+      }
+    ]
+  }
+]

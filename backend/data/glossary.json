@@ -1,207 +1,453 @@
 [
   {
     "id": "cellulose",
-    "term": "Cellulose",
-    "definition": "Lange, onvertakte suikerketen die stevige vezels vormt. Het belangrijkste bouwmateriaal van de plantaardige celwand."
+    "term": {
+      "nl": "Cellulose",
+      "en": "Cellulose"
+    },
+    "definition": {
+      "nl": "Lange, onvertakte suikerketen die stevige vezels vormt. Het belangrijkste bouwmateriaal van de plantaardige celwand.",
+      "en": "A long, unbranched chain of sugar units that forms tough fibres. The main building material of the plant cell wall."
+    }
   },
   {
     "id": "porien",
-    "term": "Poriën",
-    "definition": "Zeer kleine openingen in de celwand waardoor water en opgeloste stoffen kunnen passeren. Daardoor is de wand doorlaatbaar."
+    "term": {
+      "nl": "Poriën",
+      "en": "Pores"
+    },
+    "definition": {
+      "nl": "Zeer kleine openingen in de celwand waardoor water en opgeloste stoffen kunnen passeren. Daardoor is de wand doorlaatbaar.",
+      "en": "Very small openings in the cell wall through which water and dissolved substances can pass, making the wall permeable."
+    }
   },
   {
     "id": "plasmodesmata",
-    "term": "Plasmodesmata",
-    "definition": "Kanaalachtige verbindingen door de celwand heen, waardoor het cytoplasma van twee naast elkaar liggende cellen rechtstreeks met elkaar in contact staat."
+    "term": {
+      "nl": "Plasmodesmata",
+      "en": "Plasmodesmata"
+    },
+    "definition": {
+      "nl": "Kanaalachtige verbindingen door de celwand heen, waardoor het cytoplasma van twee naast elkaar liggende cellen rechtstreeks met elkaar in contact staat.",
+      "en": "Channel-like connections through the cell wall that link the cytoplasm of two neighbouring cells directly."
+    }
   },
   {
     "id": "fosfolipiden",
-    "term": "Fosfolipiden",
-    "definition": "Vetmoleculen met een waterminnende kop en twee watervrezende staarten. In een dubbele laag vormen ze de basis van elk membraan."
+    "term": {
+      "nl": "Fosfolipiden",
+      "en": "Phospholipids"
+    },
+    "definition": {
+      "nl": "Vetmoleculen met een waterminnende kop en twee watervrezende staarten. In een dubbele laag vormen ze de basis van elk membraan.",
+      "en": "Fat molecules with a water-loving head and two water-fearing tails. In a double layer they form the basis of every membrane."
+    }
   },
   {
     "id": "membraaneiwitten",
-    "term": "Membraaneiwitten",
-    "definition": "Eiwitten die in of op het celmembraan zitten. Ze werken als poort, pomp, ontvanger van signalen of herkenningsteken."
+    "term": {
+      "nl": "Membraaneiwitten",
+      "en": "Membrane proteins"
+    },
+    "definition": {
+      "nl": "Eiwitten die in of op het celmembraan zitten. Ze werken als poort, pomp, ontvanger van signalen of herkenningsteken.",
+      "en": "Proteins that sit in or on the cell membrane. They act as gates, pumps, signal receivers or identity tags."
+    }
   },
   {
     "id": "diffusie",
-    "term": "Diffusie",
-    "definition": "Verplaatsing van stoffen van een plek met hoge concentratie naar een plek met lage concentratie, zonder dat de cel er energie voor gebruikt."
+    "term": {
+      "nl": "Diffusie",
+      "en": "Diffusion"
+    },
+    "definition": {
+      "nl": "Verplaatsing van stoffen van een plek met hoge concentratie naar een plek met lage concentratie, zonder dat de cel er energie voor gebruikt.",
+      "en": "Movement of substances from a place of high concentration to a place of low concentration, without the cell spending energy."
+    }
   },
   {
     "id": "transporteiwitten",
-    "term": "Transporteiwitten",
-    "definition": "Membraaneiwitten die bepaalde stoffen door het membraan laten of ze met energie naar binnen of buiten pompen."
+    "term": {
+      "nl": "Transporteiwitten",
+      "en": "Transport proteins"
+    },
+    "definition": {
+      "nl": "Membraaneiwitten die bepaalde stoffen door het membraan laten of ze met energie naar binnen of buiten pompen.",
+      "en": "Membrane proteins that let specific substances through the membrane or pump them in or out using energy."
+    }
   },
   {
     "id": "selectief_permeabel",
-    "term": "Selectief permeabel",
-    "definition": "Laat alleen bepaalde stoffen door. Het membraan bepaalt zo wat de cel in en uit mag."
+    "term": {
+      "nl": "Selectief permeabel",
+      "en": "Selectively permeable"
+    },
+    "definition": {
+      "nl": "Laat alleen bepaalde stoffen door. Het membraan bepaalt zo wat de cel in en uit mag.",
+      "en": "Only lets certain substances through. The membrane decides what may enter and leave the cell."
+    }
   },
   {
     "id": "kernmembraan",
-    "term": "Kernmembraan",
-    "definition": "Dubbel membraan rond de celkern dat het DNA scheidt van het cytoplasma."
+    "term": {
+      "nl": "Kernmembraan",
+      "en": "Nuclear envelope"
+    },
+    "definition": {
+      "nl": "Dubbel membraan rond de celkern dat het DNA scheidt van het cytoplasma.",
+      "en": "Double membrane around the nucleus that separates the DNA from the cytoplasm."
+    }
   },
   {
     "id": "kernporien",
-    "term": "Kernporiën",
-    "definition": "Openingen in de kernmembraan waardoor mRNA en eiwitten de kern in en uit kunnen."
+    "term": {
+      "nl": "Kernporiën",
+      "en": "Nuclear pores"
+    },
+    "definition": {
+      "nl": "Openingen in de kernmembraan waardoor mRNA en eiwitten de kern in en uit kunnen.",
+      "en": "Openings in the nuclear envelope through which mRNA and proteins can enter and leave the nucleus."
+    }
   },
   {
     "id": "dna",
-    "term": "DNA",
-    "definition": "Desoxyribonucleïnezuur: het lange molecuul met de erfelijke informatie. De handleiding voor alle eiwitten van de cel."
+    "term": {
+      "nl": "DNA",
+      "en": "DNA"
+    },
+    "definition": {
+      "nl": "Desoxyribonucleïnezuur: het lange molecuul met de erfelijke informatie. De handleiding voor alle eiwitten van de cel.",
+      "en": "Deoxyribonucleic acid: the long molecule that carries the hereditary information. The instruction manual for all the proteins of the cell."
+    }
   },
   {
     "id": "chromatine",
-    "term": "Chromatine",
-    "definition": "DNA dat om eiwitten (histonen) is gewikkeld. De gewone, losse vorm van het DNA tussen twee celdelingen in."
+    "term": {
+      "nl": "Chromatine",
+      "en": "Chromatin"
+    },
+    "definition": {
+      "nl": "DNA dat om eiwitten (histonen) is gewikkeld. De gewone, losse vorm van het DNA tussen twee celdelingen in.",
+      "en": "DNA wound around proteins (histones). The normal, loose form of the DNA between two cell divisions."
+    }
   },
   {
     "id": "chromosomen",
-    "term": "Chromosomen",
-    "definition": "Sterk opgerold chromatine dat tijdens de celdeling als losse staafjes zichtbaar wordt. Een mens heeft er 46."
+    "term": {
+      "nl": "Chromosomen",
+      "en": "Chromosomes"
+    },
+    "definition": {
+      "nl": "Sterk opgerold chromatine dat tijdens de celdeling als losse staafjes zichtbaar wordt. Een mens heeft er 46.",
+      "en": "Tightly coiled chromatin that becomes visible as separate rods during cell division. A human has 46."
+    }
   },
   {
     "id": "mrna",
-    "term": "mRNA",
-    "definition": "Boodschapper-RNA: een kopie van een stukje DNA die de kern verlaat en door ribosomen wordt afgelezen."
+    "term": {
+      "nl": "mRNA",
+      "en": "mRNA"
+    },
+    "definition": {
+      "nl": "Boodschapper-RNA: een kopie van een stukje DNA die de kern verlaat en door ribosomen wordt afgelezen.",
+      "en": "Messenger RNA: a copy of a piece of DNA that leaves the nucleus and is read by ribosomes."
+    }
   },
   {
     "id": "rrna",
-    "term": "rRNA",
-    "definition": "Ribosomaal RNA: het RNA waaruit ribosomen voor het grootste deel bestaan."
+    "term": {
+      "nl": "rRNA",
+      "en": "rRNA"
+    },
+    "definition": {
+      "nl": "Ribosomaal RNA: het RNA waaruit ribosomen voor het grootste deel bestaan.",
+      "en": "Ribosomal RNA: the RNA that makes up most of a ribosome."
+    }
   },
   {
     "id": "cristae",
-    "term": "Cristae",
-    "definition": "De plooien van het binnenste membraan van een mitochondrion. Hoe meer plooien, hoe meer ATP er gemaakt kan worden."
+    "term": {
+      "nl": "Cristae",
+      "en": "Cristae"
+    },
+    "definition": {
+      "nl": "De plooien van het binnenste membraan van een mitochondrion. Hoe meer plooien, hoe meer ATP er gemaakt kan worden.",
+      "en": "The folds of the inner membrane of a mitochondrion. The more folds, the more ATP can be made."
+    }
   },
   {
     "id": "celademhaling",
-    "term": "Celademhaling",
-    "definition": "Het afbreken van glucose met zuurstof tot CO₂ en water. De energie die daarbij vrijkomt wordt opgeslagen in ATP."
+    "term": {
+      "nl": "Celademhaling",
+      "en": "Cellular respiration"
+    },
+    "definition": {
+      "nl": "Het afbreken van glucose met zuurstof tot CO₂ en water. De energie die daarbij vrijkomt wordt opgeslagen in ATP.",
+      "en": "Breaking down glucose with oxygen into CO₂ and water. The energy released is stored in ATP."
+    }
   },
   {
     "id": "atp",
-    "term": "ATP",
-    "definition": "Adenosinetrifosfaat: het molecuul waarin de cel energie bewaart en meteen kan gebruiken, bijvoorbeeld om een spier te laten samentrekken."
+    "term": {
+      "nl": "ATP",
+      "en": "ATP"
+    },
+    "definition": {
+      "nl": "Adenosinetrifosfaat: het molecuul waarin de cel energie bewaart en meteen kan gebruiken, bijvoorbeeld om een spier te laten samentrekken.",
+      "en": "Adenosine triphosphate: the molecule in which the cell stores energy it can use immediately, for example to contract a muscle."
+    }
   },
   {
     "id": "aminozuren",
-    "term": "Aminozuren",
-    "definition": "De twintig bouwstenen waaruit alle eiwitten zijn opgebouwd."
+    "term": {
+      "nl": "Aminozuren",
+      "en": "Amino acids"
+    },
+    "definition": {
+      "nl": "De twintig bouwstenen waaruit alle eiwitten zijn opgebouwd.",
+      "en": "The twenty building blocks from which all proteins are made."
+    }
   },
   {
     "id": "translatie",
-    "term": "Translatie",
-    "definition": "Het maken van een eiwit door een ribosoom, aan de hand van de code op het mRNA."
+    "term": {
+      "nl": "Translatie",
+      "en": "Translation"
+    },
+    "definition": {
+      "nl": "Het maken van een eiwit door een ribosoom, aan de hand van de code op het mRNA.",
+      "en": "Making a protein on a ribosome, following the code on the mRNA."
+    }
   },
   {
     "id": "cisternen",
-    "term": "Cisternen",
-    "definition": "De platte, gestapelde membraanzakjes waaruit het Golgi-apparaat bestaat."
+    "term": {
+      "nl": "Cisternen",
+      "en": "Cisternae"
+    },
+    "definition": {
+      "nl": "De platte, gestapelde membraanzakjes waaruit het Golgi-apparaat bestaat.",
+      "en": "The flat, stacked membrane sacs that make up the Golgi apparatus."
+    }
   },
   {
     "id": "blaasjes",
-    "term": "Blaasjes",
-    "definition": "Kleine bolletjes van membraan (vesikels) waarin stoffen door de cel worden vervoerd."
+    "term": {
+      "nl": "Blaasjes",
+      "en": "Vesicles"
+    },
+    "definition": {
+      "nl": "Kleine bolletjes van membraan (vesikels) waarin stoffen door de cel worden vervoerd.",
+      "en": "Small membrane bubbles in which substances are transported through the cell."
+    }
   },
   {
     "id": "exocytose",
-    "term": "Exocytose",
-    "definition": "Het naar buiten brengen van stoffen doordat een blaasje versmelt met het celmembraan en zijn inhoud loslaat."
+    "term": {
+      "nl": "Exocytose",
+      "en": "Exocytosis"
+    },
+    "definition": {
+      "nl": "Het naar buiten brengen van stoffen doordat een blaasje versmelt met het celmembraan en zijn inhoud loslaat.",
+      "en": "Releasing substances to the outside when a vesicle fuses with the cell membrane and lets its contents go."
+    }
   },
   {
     "id": "lipiden",
-    "term": "Lipiden",
-    "definition": "Vetten en vetachtige stoffen. Bouwmateriaal voor membranen en een manier om energie op te slaan."
+    "term": {
+      "nl": "Lipiden",
+      "en": "Lipids"
+    },
+    "definition": {
+      "nl": "Vetten en vetachtige stoffen. Bouwmateriaal voor membranen en een manier om energie op te slaan.",
+      "en": "Fats and fat-like substances. Building material for membranes and a way to store energy."
+    }
   },
   {
     "id": "steroidhormonen",
-    "term": "Steroïdhormonen",
-    "definition": "Hormonen die uit cholesterol worden gemaakt, zoals oestrogeen, testosteron en cortisol."
+    "term": {
+      "nl": "Steroïdhormonen",
+      "en": "Steroid hormones"
+    },
+    "definition": {
+      "nl": "Hormonen die uit cholesterol worden gemaakt, zoals oestrogeen, testosteron en cortisol.",
+      "en": "Hormones made from cholesterol, such as oestrogen, testosterone and cortisol."
+    }
   },
   {
     "id": "calcium",
-    "term": "Calcium",
-    "definition": "Calciumionen (Ca²⁺) werken in de cel als signaal. In spiercellen geven ze het sein om samen te trekken."
+    "term": {
+      "nl": "Calcium",
+      "en": "Calcium"
+    },
+    "definition": {
+      "nl": "Calciumionen (Ca²⁺) werken in de cel als signaal. In spiercellen geven ze het sein om samen te trekken.",
+      "en": "Calcium ions (Ca²⁺) act as a signal in the cell. In muscle cells they give the order to contract."
+    }
   },
   {
     "id": "enzymen",
-    "term": "Enzymen",
-    "definition": "Eiwitten die chemische reacties versnellen zonder zelf verbruikt te worden."
+    "term": {
+      "nl": "Enzymen",
+      "en": "Enzymes"
+    },
+    "definition": {
+      "nl": "Eiwitten die chemische reacties versnellen zonder zelf verbruikt te worden.",
+      "en": "Proteins that speed up chemical reactions without being used up themselves."
+    }
   },
   {
     "id": "autofagie",
-    "term": "Autofagie",
-    "definition": "Letterlijk 'zichzelf eten': het opruimen en hergebruiken van versleten onderdelen van de cel via lysosomen."
+    "term": {
+      "nl": "Autofagie",
+      "en": "Autophagy"
+    },
+    "definition": {
+      "nl": "Letterlijk 'zichzelf eten': het opruimen en hergebruiken van versleten onderdelen van de cel via lysosomen.",
+      "en": "Literally 'self-eating': clearing away and recycling worn-out parts of the cell via lysosomes."
+    }
   },
   {
     "id": "microtubuli",
-    "term": "Microtubuli",
-    "definition": "Holle eiwitbuisjes die de cel vorm geven en dienen als rails voor transport en voor de celdeling."
+    "term": {
+      "nl": "Microtubuli",
+      "en": "Microtubules"
+    },
+    "definition": {
+      "nl": "Holle eiwitbuisjes die de cel vorm geven en dienen als rails voor transport en voor de celdeling.",
+      "en": "Hollow protein tubes that give the cell its shape and serve as rails for transport and for cell division."
+    }
   },
   {
     "id": "centrosoom",
-    "term": "Centrosoom",
-    "definition": "Het gebied vlak bij de kern met de twee centriolen, van waaruit de microtubuli worden opgebouwd."
+    "term": {
+      "nl": "Centrosoom",
+      "en": "Centrosome"
+    },
+    "definition": {
+      "nl": "Het gebied vlak bij de kern met de twee centriolen, van waaruit de microtubuli worden opgebouwd.",
+      "en": "The region near the nucleus containing the two centrioles, from which the microtubules are built."
+    }
   },
   {
     "id": "spoelfiguur",
-    "term": "Spoelfiguur",
-    "definition": "Het netwerk van microtubuli dat tijdens de celdeling de chromosomen naar de twee kanten van de cel trekt."
+    "term": {
+      "nl": "Spoelfiguur",
+      "en": "Spindle"
+    },
+    "definition": {
+      "nl": "Het netwerk van microtubuli dat tijdens de celdeling de chromosomen naar de twee kanten van de cel trekt.",
+      "en": "The network of microtubules that pulls the chromosomes to the two sides of the cell during division."
+    }
   },
   {
     "id": "actine",
-    "term": "Actine",
-    "definition": "Eiwit dat dunne vezels vormt. Geeft stevigheid aan microvilli en laat spiercellen samentrekken."
+    "term": {
+      "nl": "Actine",
+      "en": "Actin"
+    },
+    "definition": {
+      "nl": "Eiwit dat dunne vezels vormt. Geeft stevigheid aan microvilli en laat spiercellen samentrekken.",
+      "en": "A protein that forms thin fibres. Gives microvilli their firmness and lets muscle cells contract."
+    }
   },
   {
     "id": "borstelzoom",
-    "term": "Borstelzoom",
-    "definition": "De 'borstel' van dicht opeenstaande microvilli aan de bovenkant van darmcellen."
+    "term": {
+      "nl": "Borstelzoom",
+      "en": "Brush border"
+    },
+    "definition": {
+      "nl": "De 'borstel' van dicht opeenstaande microvilli aan de bovenkant van darmcellen.",
+      "en": "The 'brush' of densely packed microvilli on top of intestinal cells."
+    }
   },
   {
     "id": "thylakoiden",
-    "term": "Thylakoïden",
-    "definition": "Platte membraanzakjes in de chloroplast waarin het chlorofyl zit en het licht wordt opgevangen."
+    "term": {
+      "nl": "Thylakoïden",
+      "en": "Thylakoids"
+    },
+    "definition": {
+      "nl": "Platte membraanzakjes in de chloroplast waarin het chlorofyl zit en het licht wordt opgevangen.",
+      "en": "Flat membrane sacs inside the chloroplast that contain the chlorophyll and capture the light."
+    }
   },
   {
     "id": "grana",
-    "term": "Grana",
-    "definition": "Stapels thylakoïden, als muntstukken op elkaar."
+    "term": {
+      "nl": "Grana",
+      "en": "Grana"
+    },
+    "definition": {
+      "nl": "Stapels thylakoïden, als muntstukken op elkaar.",
+      "en": "Stacks of thylakoids, like piles of coins."
+    }
   },
   {
     "id": "chlorofyl",
-    "term": "Chlorofyl",
-    "definition": "Het groene pigment dat lichtenergie opvangt voor de fotosynthese."
+    "term": {
+      "nl": "Chlorofyl",
+      "en": "Chlorophyll"
+    },
+    "definition": {
+      "nl": "Het groene pigment dat lichtenergie opvangt voor de fotosynthese.",
+      "en": "The green pigment that captures light energy for photosynthesis."
+    }
   },
   {
     "id": "stroma",
-    "term": "Stroma",
-    "definition": "De vloeistof in de chloroplast rond de thylakoïden. Hier wordt CO₂ vastgelegd in suikers."
+    "term": {
+      "nl": "Stroma",
+      "en": "Stroma"
+    },
+    "definition": {
+      "nl": "De vloeistof in de chloroplast rond de thylakoïden. Hier wordt CO₂ vastgelegd in suikers.",
+      "en": "The fluid inside the chloroplast around the thylakoids. Here CO₂ is fixed into sugars."
+    }
   },
   {
     "id": "celsap",
-    "term": "Celsap",
-    "definition": "De vloeistof in de vacuole: water met opgeloste suikers, zouten, kleurstoffen en afvalstoffen."
+    "term": {
+      "nl": "Celsap",
+      "en": "Cell sap"
+    },
+    "definition": {
+      "nl": "De vloeistof in de vacuole: water met opgeloste suikers, zouten, kleurstoffen en afvalstoffen.",
+      "en": "The fluid in the vacuole: water with dissolved sugars, salts, pigments and waste products."
+    }
   },
   {
     "id": "turgor",
-    "term": "Turgor",
-    "definition": "De druk van de met water gevulde vacuole tegen de celwand. Houdt de plant stevig en rechtop."
+    "term": {
+      "nl": "Turgor",
+      "en": "Turgor"
+    },
+    "definition": {
+      "nl": "De druk van de met water gevulde vacuole tegen de celwand. Houdt de plant stevig en rechtop.",
+      "en": "The pressure of the water-filled vacuole against the cell wall. Keeps the plant firm and upright."
+    }
   },
   {
     "id": "cytoplasma",
-    "term": "Cytoplasma",
-    "definition": "Alles binnen het celmembraan behalve de kern: een waterige vloeistof met daarin de organellen."
+    "term": {
+      "nl": "Cytoplasma",
+      "en": "Cytoplasm"
+    },
+    "definition": {
+      "nl": "Alles binnen het celmembraan behalve de kern: een waterige vloeistof met daarin de organellen.",
+      "en": "Everything inside the cell membrane except the nucleus: a watery fluid containing the organelles."
+    }
   },
   {
     "id": "glucose",
-    "term": "Glucose",
-    "definition": "Druivensuiker: de brandstof die de cel in de mitochondriën afbreekt om energie te winnen."
+    "term": {
+      "nl": "Glucose",
+      "en": "Glucose"
+    },
+    "definition": {
+      "nl": "Druivensuiker: de brandstof die de cel in de mitochondriën afbreekt om energie te winnen.",
+      "en": "Grape sugar: the fuel the cell breaks down in the mitochondria to gain energy."
+    }
   }
 ]

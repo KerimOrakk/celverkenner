@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLang } from '../i18n/index.jsx';
 
 const TERM_PATTERN = /\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g;
 
@@ -24,6 +25,7 @@ const inSentence = (term) => (/^[A-Z][a-z]/.test(term) ? term[0].toLowerCase() +
  * elsewhere, the ✕ or pressing the same word again closes it.
  */
 export default function RichText({ text, glossary }) {
+  const { t } = useLang();
   const rootRef = useRef(null);
   const [openId, setOpenId] = useState(null);
 
@@ -76,7 +78,7 @@ export default function RichText({ text, glossary }) {
       {active && (
         <div id="term-popover" role="note" aria-label={active.term} className="term-popover" key={active.id}>
           <strong className="term-popover__title">{active.term}</strong>
-          <button type="button" className="term-popover__close" onClick={() => setOpenId(null)} aria-label="Sluiten">
+          <button type="button" className="term-popover__close" onClick={() => setOpenId(null)} aria-label={t('term.close')}>
             <svg viewBox="0 0 14 14" width="11" height="11" aria-hidden="true">
               <path d="M2 2l10 10M12 2 2 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>

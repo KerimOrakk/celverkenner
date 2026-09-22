@@ -1,103 +1,530 @@
 [
   {
     "id": "hartcel",
-    "name": "Hartcel",
+    "name": {
+      "nl": "Hartcel",
+      "en": "Heart cell"
+    },
     "type": "dierlijk",
-    "type_label": "Dierlijke cel",
-    "tagline": "Een spiercel die nooit pauze neemt",
-    "description": "Je hart klopt zo'n 100.000 keer per dag. Daarom zit een hartcel propvol mitochondriën: die leveren de energie voor elke slag.",
+    "type_label": {
+      "nl": "Dierlijke cel",
+      "en": "Animal cell"
+    },
+    "tagline": {
+      "nl": "Een spiercel die nooit pauze neemt",
+      "en": "A muscle cell that never takes a break"
+    },
+    "description": {
+      "nl": "Je hart klopt zo'n 100.000 keer per dag. Daarom zit een hartcel propvol mitochondriën: die leveren de energie voor elke slag.",
+      "en": "Your heart beats about 100,000 times a day. That is why a heart cell is packed with mitochondria: they supply the energy for every beat."
+    },
     "shape": {
       "kind": "ellipsoid",
-      "radii": [1.2, 0.85, 0.85],
+      "radii": [
+        1.2,
+        0.85,
+        0.85
+      ],
       "flat_top": null,
       "flat_bottom": null,
       "membrane_color": "#F28B82"
     },
     "organelles": [
-      { "organelle_id": "celmembraan", "positions": [[0, 0, 0]], "scale": 1.0 },
-      { "organelle_id": "celnucleus", "positions": [[0.1, 0.2, 0]], "scale": 0.35 },
-      { "organelle_id": "nucleolus", "positions": [[0.1, 0.2, 0]], "scale": 0.15 },
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "celnucleus",
+        "positions": [
+          [
+            0.1,
+            0.2,
+            0
+          ]
+        ],
+        "scale": 0.35
+      },
+      {
+        "organelle_id": "nucleolus",
+        "positions": [
+          [
+            0.1,
+            0.2,
+            0
+          ]
+        ],
+        "scale": 0.15
+      },
       {
         "organelle_id": "mitochondrien",
-        "positions": [[0.4, 0.1, 0.1], [0.3, -0.2, 0.2], [0.1, -0.4, -0.1], [-0.3, 0.3, 0.1], [-0.4, -0.1, -0.2]],
-        "random": { "count": 14, "range": 0.5 }
+        "positions": [
+          [
+            0.4,
+            0.1,
+            0.1
+          ],
+          [
+            0.3,
+            -0.2,
+            0.2
+          ],
+          [
+            0.1,
+            -0.4,
+            -0.1
+          ],
+          [
+            -0.3,
+            0.3,
+            0.1
+          ],
+          [
+            -0.4,
+            -0.1,
+            -0.2
+          ]
+        ],
+        "random": {
+          "count": 14,
+          "range": 0.5
+        }
       },
-      { "organelle_id": "ribosomen", "positions": [], "random": { "count": 170, "range": 0.6 } },
-      { "organelle_id": "golgi", "positions": [[-0.2, 0.3, 0.1]] },
-      { "organelle_id": "ruw_er", "positions": [[0.3, -0.1, 0.1]] },
-      { "organelle_id": "glad_er", "positions": [[-0.3, -0.2, -0.1]] },
+      {
+        "organelle_id": "ribosomen",
+        "positions": [],
+        "random": {
+          "count": 170,
+          "range": 0.6
+        }
+      },
+      {
+        "organelle_id": "golgi",
+        "positions": [
+          [
+            -0.2,
+            0.3,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "ruw_er",
+        "positions": [
+          [
+            0.3,
+            -0.1,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "glad_er",
+        "positions": [
+          [
+            -0.3,
+            -0.2,
+            -0.1
+          ]
+        ]
+      },
       {
         "organelle_id": "lysosomen",
-        "positions": [[0.2, -0.3, 0.2], [-0.1, 0.4, -0.2], [-0.3, -0.4, 0.1], [0.4, 0.2, -0.1]]
+        "positions": [
+          [
+            0.2,
+            -0.3,
+            0.2
+          ],
+          [
+            -0.1,
+            0.4,
+            -0.2
+          ],
+          [
+            -0.3,
+            -0.4,
+            0.1
+          ],
+          [
+            0.4,
+            0.2,
+            -0.1
+          ]
+        ]
       },
-      { "organelle_id": "centriolen", "positions": [[-0.4, 0.4, 0], [-0.45, 0.45, 0.05]] }
+      {
+        "organelle_id": "centriolen",
+        "positions": [
+          [
+            -0.4,
+            0.4,
+            0
+          ],
+          [
+            -0.45,
+            0.45,
+            0.05
+          ]
+        ]
+      }
     ]
   },
   {
     "id": "darmcel",
-    "name": "Darmcel",
+    "name": {
+      "nl": "Darmcel",
+      "en": "Intestinal cell"
+    },
     "type": "dierlijk",
-    "type_label": "Dierlijke cel",
-    "tagline": "De opnamespecialist van je dunne darm",
-    "description": "Bovenop deze cel staan honderden microvilli. Samen vergroten ze het oppervlak waarmee voedingsstoffen uit je eten worden opgenomen.",
+    "type_label": {
+      "nl": "Dierlijke cel",
+      "en": "Animal cell"
+    },
+    "tagline": {
+      "nl": "De opnamespecialist van je dunne darm",
+      "en": "The absorption specialist of your small intestine"
+    },
+    "description": {
+      "nl": "Bovenop deze cel staan honderden microvilli. Samen vergroten ze het oppervlak waarmee voedingsstoffen uit je eten worden opgenomen.",
+      "en": "Hundreds of microvilli sit on top of this cell. Together they enlarge the surface through which nutrients from your food are absorbed."
+    },
     "shape": {
       "kind": "ellipsoid",
-      "radii": [0.82, 1.05, 0.82],
+      "radii": [
+        0.82,
+        1.05,
+        0.82
+      ],
       "flat_top": 0.6,
       "flat_bottom": -0.88,
       "membrane_color": "#F48FB1"
     },
     "organelles": [
-      { "organelle_id": "celmembraan", "positions": [[0, 0, 0]], "scale": 1.0 },
-      { "organelle_id": "microvilli", "positions": [[0, 0.6, 0]] },
-      { "organelle_id": "celnucleus", "positions": [[0.1, 0.2, 0]], "scale": 0.35 },
-      { "organelle_id": "nucleolus", "positions": [[0.1, 0.2, 0]], "scale": 0.15 },
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "microvilli",
+        "positions": [
+          [
+            0,
+            0.6,
+            0
+          ]
+        ]
+      },
+      {
+        "organelle_id": "celnucleus",
+        "positions": [
+          [
+            0.1,
+            0.2,
+            0
+          ]
+        ],
+        "scale": 0.35
+      },
+      {
+        "organelle_id": "nucleolus",
+        "positions": [
+          [
+            0.1,
+            0.2,
+            0
+          ]
+        ],
+        "scale": 0.15
+      },
       {
         "organelle_id": "mitochondrien",
-        "positions": [[0.4, 0.1, 0.1], [0.3, -0.2, 0.2], [0.1, -0.4, -0.1], [-0.3, 0.3, 0.1], [-0.4, -0.1, -0.2]],
-        "random": { "count": 6, "range": 0.5 }
+        "positions": [
+          [
+            0.4,
+            0.1,
+            0.1
+          ],
+          [
+            0.3,
+            -0.2,
+            0.2
+          ],
+          [
+            0.1,
+            -0.4,
+            -0.1
+          ],
+          [
+            -0.3,
+            0.3,
+            0.1
+          ],
+          [
+            -0.4,
+            -0.1,
+            -0.2
+          ]
+        ],
+        "random": {
+          "count": 6,
+          "range": 0.5
+        }
       },
-      { "organelle_id": "ribosomen", "positions": [], "random": { "count": 150, "range": 0.6 } },
-      { "organelle_id": "golgi", "positions": [[-0.2, 0.3, 0.1]] },
-      { "organelle_id": "ruw_er", "positions": [[0.3, -0.1, 0.1]] },
-      { "organelle_id": "glad_er", "positions": [[-0.3, -0.2, -0.1]] },
+      {
+        "organelle_id": "ribosomen",
+        "positions": [],
+        "random": {
+          "count": 150,
+          "range": 0.6
+        }
+      },
+      {
+        "organelle_id": "golgi",
+        "positions": [
+          [
+            -0.2,
+            0.3,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "ruw_er",
+        "positions": [
+          [
+            0.3,
+            -0.1,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "glad_er",
+        "positions": [
+          [
+            -0.3,
+            -0.2,
+            -0.1
+          ]
+        ]
+      },
       {
         "organelle_id": "lysosomen",
-        "positions": [[0.2, -0.3, 0.2], [-0.1, 0.4, -0.2], [-0.3, -0.4, 0.1], [0.4, 0.2, -0.1]]
+        "positions": [
+          [
+            0.2,
+            -0.3,
+            0.2
+          ],
+          [
+            -0.1,
+            0.4,
+            -0.2
+          ],
+          [
+            -0.3,
+            -0.4,
+            0.1
+          ],
+          [
+            0.4,
+            0.2,
+            -0.1
+          ]
+        ]
       },
-      { "organelle_id": "centriolen", "positions": [[-0.4, 0.4, 0], [-0.45, 0.45, 0.05]] }
+      {
+        "organelle_id": "centriolen",
+        "positions": [
+          [
+            -0.4,
+            0.4,
+            0
+          ],
+          [
+            -0.45,
+            0.45,
+            0.05
+          ]
+        ]
+      }
     ]
   },
   {
     "id": "plantencel",
-    "name": "Plantencel",
+    "name": {
+      "nl": "Plantencel",
+      "en": "Plant cell"
+    },
     "type": "plantaardig",
-    "type_label": "Plantencel",
-    "tagline": "Een stevige doos vol zonne-energie",
-    "description": "Een plantencel heeft drie dingen die een dierlijke cel mist: een celwand, een grote vacuole en chloroplasten die zonlicht omzetten in suikers.",
+    "type_label": {
+      "nl": "Plantencel",
+      "en": "Plant cell"
+    },
+    "tagline": {
+      "nl": "Een stevige doos vol zonne-energie",
+      "en": "A sturdy box full of solar energy"
+    },
+    "description": {
+      "nl": "Een plantencel heeft drie dingen die een dierlijke cel mist: een celwand, een grote vacuole en chloroplasten die zonlicht omzetten in suikers.",
+      "en": "A plant cell has three things an animal cell lacks: a cell wall, a large vacuole and chloroplasts that turn sunlight into sugars."
+    },
     "shape": {
       "kind": "box",
-      "radii": [1.0, 0.8, 0.75],
+      "radii": [
+        1.0,
+        0.8,
+        0.75
+      ],
       "flat_top": null,
       "flat_bottom": null,
       "membrane_color": "#C5E1A5"
     },
     "organelles": [
-      { "organelle_id": "celwand", "positions": [[0, 0, 0]], "scale": 1.1 },
-      { "organelle_id": "celmembraan", "positions": [[0, 0, 0]], "scale": 1.0 },
-      { "organelle_id": "celnucleus", "positions": [[-0.2, 0.2, 0]], "scale": 0.25 },
-      { "organelle_id": "nucleolus", "positions": [[-0.2, 0.2, 0]], "scale": 0.1 },
+      {
+        "organelle_id": "celwand",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.1
+      },
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "celnucleus",
+        "positions": [
+          [
+            -0.2,
+            0.2,
+            0
+          ]
+        ],
+        "scale": 0.25
+      },
+      {
+        "organelle_id": "nucleolus",
+        "positions": [
+          [
+            -0.2,
+            0.2,
+            0
+          ]
+        ],
+        "scale": 0.1
+      },
       {
         "organelle_id": "chloroplasten",
-        "positions": [[0.4, 0.2, 0.1], [0.3, -0.3, 0.2], [-0.4, 0.1, -0.1], [-0.3, -0.2, 0.3]],
-        "random": { "count": 9, "range": 0.5 }
+        "positions": [
+          [
+            0.4,
+            0.2,
+            0.1
+          ],
+          [
+            0.3,
+            -0.3,
+            0.2
+          ],
+          [
+            -0.4,
+            0.1,
+            -0.1
+          ],
+          [
+            -0.3,
+            -0.2,
+            0.3
+          ]
+        ],
+        "random": {
+          "count": 9,
+          "range": 0.5
+        }
       },
-      { "organelle_id": "vacuole", "positions": [[0.3, 0, 0]] },
-      { "organelle_id": "golgi", "positions": [[-0.3, 0.3, 0.1]] },
-      { "organelle_id": "ruw_er", "positions": [[0.2, -0.2, 0.1]] },
-      { "organelle_id": "glad_er", "positions": [[-0.3, -0.3, -0.1]] },
-      { "organelle_id": "ribosomen", "positions": [], "random": { "count": 150, "range": 0.6 } },
-      { "organelle_id": "mitochondrien", "positions": [], "random": { "count": 7, "range": 0.5 } }
+      {
+        "organelle_id": "vacuole",
+        "positions": [
+          [
+            0.3,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "organelle_id": "golgi",
+        "positions": [
+          [
+            -0.3,
+            0.3,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "ruw_er",
+        "positions": [
+          [
+            0.2,
+            -0.2,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "glad_er",
+        "positions": [
+          [
+            -0.3,
+            -0.3,
+            -0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "ribosomen",
+        "positions": [],
+        "random": {
+          "count": 150,
+          "range": 0.6
+        }
+      },
+      {
+        "organelle_id": "mitochondrien",
+        "positions": [],
+        "random": {
+          "count": 7,
+          "range": 0.5
+        }
+      }
     ]
   }
 ]

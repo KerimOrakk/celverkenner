@@ -1,0 +1,22 @@
+{
+  "name": "CelVerkenner 3D",
+  "short_name": "CelVerkenner",
+  "description": "Verken een hartcel, darmcel en plantencel in 3D. Explore a heart cell, intestinal cell and plant cell in 3D.",
+  "lang": "nl",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0F0F1A",
+  "theme_color": "#0F0F1A",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Hartcel", "url": "/viewer/hartcel", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Plantencel", "url": "/viewer/plantencel", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Vergelijken", "url": "/vergelijk", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -12,7 +12,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from data import repository
-from routers import cells, explanations, glossary, organelles
+from routers import cells, comparison, explanations, glossary, organelles, processes
 
 
 @asynccontextmanager
@@ -45,6 +45,8 @@ app.include_router(cells.router)
 app.include_router(organelles.router)
 app.include_router(explanations.router)
 app.include_router(glossary.router)
+app.include_router(comparison.router)
+app.include_router(processes.router)
 
 
 @app.get("/", tags=["meta"], summary="Overzicht van de API")
@@ -52,7 +54,8 @@ def root():
     return {
         "name": app.title,
         "version": app.version,
-        "endpoints": ["/cells", "/cells/{cell_id}", "/organelles", "/explanations", "/glossary"],
+        "endpoints": ["/cells", "/cells/{cell_id}", "/organelles", "/explanations", "/glossary", "/comparison", "/processes"],
+        "languages": ["nl", "en"],
         "docs": "/docs",
     }
 

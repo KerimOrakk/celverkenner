@@ -124,6 +124,7 @@ export class CellScene {
     this.#addLights();
     this.#addDust();
     this.#createGlowSprites();
+    this.#createRouteGroup();
     if (this.interactive) this.#createTooltip();
 
     this.#bindEvents();
@@ -196,6 +197,75 @@ export class CellScene {
   /** Open or close the membrane (viewer mode only). */
   setOpen(open) {
     this.openTarget = open && this.mode !== 'intracellular' ? 1 : 0;
+  }
+
+  /**
+   * Draw the path of a process: a glowing line from organelle to organelle
+   * (ids in order). The last segment is the active one: it gets the moving
+   * packets and the arrowhead; earlier segments stay as faint lines.
+   */
+  setRoute(organelleIds = []) {
+    this.routeGroup.clear();
+    this.routeCurves = [];
+    this.routePackets = [];
+    if (!this.model || organelleIds.length < 2) return;
+
+    const points = [];
+    organelleIds.forEach((id, index) => {
+      const point = this.#routePoint(id, points[index - 1] ?? null, organelleIds[index + 1] ?? null);
+      if (point) points.push(point);
+    });
+    if (points.length < 2) return;
+
+    const centre = new THREE.Vector3();
+    for (let i = 1; i < points.length; i += 1) {
+      const from = points[i - 1];
+      const to = points[i];
+      // Arc away from the centre so the line does not cut through the organelles in between.
+      const mid = from.clone().add(to).multiplyScalar(0.5);
+      const outward = mid.clone().sub(centre);
+      if (outward.lengthSq() < 1e-4) outward.set(0, 1, 0);
+      const bulge = Math.min(0.35, from.distanceTo(to) * 0.45);
+      const control = mid.addScaledVector(outward.normalize(), bulge);
+      const curve = new THREE.QuadraticBezierCurve3(from, control, to);
+      const active = i === points.length - 1;
+      this.routeCurves.push(curve);
+
+      const tube = new THREE.Mesh(
+        new THREE.TubeGeometry(curve, 32, active ? 0.009 : 0.006, 8, false),
+        new THREE.MeshBasicMaterial({
+          color: HIGHLIGHT,
+          transparent: true,
+          opacity: active ? 0.75 : 0.28,
+          depthWrite: false,
+        }),
+      );
+      tube.renderOrder = 20;
+      this.routeGroup.add(tube);
+
+      if (!active) continue;
+
+      // Arrowhead at the end, pointing along the curve.
+      const cone = new THREE.Mesh(
+        new THREE.ConeGeometry(0.03, 0.07, 12),
+        new THREE.MeshBasicMaterial({ color: HIGHLIGHT, transparent: true, opacity: 0.9, depthWrite: false }),
+      );
+      cone.position.copy(curve.getPointAt(0.985));
+      cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), curve.getTangentAt(0.985).normalize());
+      cone.renderOrder = 21;
+      this.routeGroup.add(cone);
+
+      // Packets that travel along the active segment.
+      for (let k = 0; k < 5; k += 1) {
+        const packet = new THREE.Sprite(this.glowMaterial.clone());
+        packet.material.opacity = 0.95;
+        packet.scale.setScalar(0.09);
+        packet.renderOrder = 22;
+        packet.userData.offset = k / 5;
+        this.routeGroup.add(packet);
+        this.routePackets.push(packet);
+      }
+    }
   }
 
   resetCamera() {
@@ -310,6 +380,43 @@ export class CellScene {
     this.scene.add(this.dust);
   }
 
+  #createRouteGroup() {
+    this.routeGroup = new THREE.Group();
+    this.routeCurves = [];
+    this.routePackets = [];
+    this.modelRoot.add(this.routeGroup);
+  }
+
+  /**
+   * Where a route touches an organelle. Solid organelles: the copy the camera
+   * would fly to. Shells (membrane, wall): a point on the surface, in the
+   * direction of the neighbouring step so the line stays short.
+   */
+  #routePoint(organelleId, previous, nextId) {
+    const entry = this.model.entries.get(organelleId);
+    if (!entry) return null;
+    if (entry.kind !== 'shell') {
+      const instance = this.#chooseInstance(entry, null);
+      return (instance.focus ?? instance.position).clone();
+    }
+    const radii = this.model.container.radii;
+    let direction = previous?.clone();
+    if (!direction || direction.lengthSq() < 1e-4) {
+      const next = nextId ? this.model.entries.get(nextId) : null;
+      const anchor = next && next.kind !== 'shell' ? this.#chooseInstance(next, null).position.clone() : null;
+      direction = anchor && anchor.lengthSq() > 1e-4 ? anchor : WEDGE_VIEW.clone();
+    }
+    direction.normalize();
+    // Scale the direction until it hits the (inscribed) ellipsoid of the cell.
+    const k = 1 / Math.sqrt((direction.x / radii.x) ** 2 + (direction.y / radii.y) ** 2 + (direction.z / radii.z) ** 2);
+    const point = direction.multiplyScalar(k * 0.97);
+    // Stay under a flattened top (the gut cell): the membrane is not there.
+    if (this.model.container.top != null && Number.isFinite(this.model.container.top)) {
+      point.y = Math.min(point.y, this.model.container.top - 0.02);
+    }
+    return point;
+  }
+
   #createGlowSprites() {
     const texture = softDotTexture(0.6, 0.24);
     this.glowMaterial = new THREE.SpriteMaterial({
@@ -378,6 +485,7 @@ export class CellScene {
   #unloadModel() {
     if (!this.model) return;
     this.#hideGlow();
+    this.setRoute([]);
     this.modelRoot.remove(this.model.root);
     this.model.dispose();
     this.model = null;
@@ -619,7 +727,9 @@ export class CellScene {
   }
 
   #tick() {
-    const delta = Math.min(this.clock.getDelta(), 0.1); // slow computers skip frames instead of going slow-motion
+    // Real elapsed time, so flights take 1.25 s on a slow computer too (it just shows fewer frames).
+    // Capped at half a second: after a hidden tab we jump ahead instead of catching up for minutes.
+    const delta = Math.min(this.clock.getDelta(), 0.5);
     this.elapsed += delta;
 
     if (this.model) {
@@ -664,6 +774,15 @@ export class CellScene {
       this.camera.position.lerp(safe, 0.35);
     }
     if (this.dust) this.dust.rotation.y += delta * 0.01;
+
+    if (this.routePackets.length > 0) {
+      const curve = this.routeCurves[this.routeCurves.length - 1];
+      this.routePackets.forEach((packet) => {
+        const t = (this.elapsed * 0.28 + packet.userData.offset) % 1;
+        packet.position.copy(curve.getPointAt(t));
+        packet.material.opacity = 0.35 + 0.6 * Math.sin(Math.PI * t); // fade in and out at the ends
+      });
+    }
 
     this.renderer.render(this.scene, this.camera);
   }

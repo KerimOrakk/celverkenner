@@ -6,6 +6,11 @@ from pydantic import BaseModel, Field
 
 Vec3 = Tuple[float, float, float]
 
+# Alle teksten staan in de JSON-bestanden als {"nl": "...", "en": "..."}.
+# De API geeft één taal terug (query-parameter ?lang=nl|en, standaard nl).
+Lang = Literal["nl", "en"]
+LANGUAGES = ("nl", "en")
+
 
 class RandomSpec(BaseModel):
     """Extra exemplaren die de frontend willekeurig (maar reproduceerbaar) plaatst."""
@@ -69,3 +74,29 @@ class GlossaryTerm(BaseModel):
     id: str
     term: str
     definition: str
+
+
+class ComparisonRow(BaseModel):
+    """Eén rij in de vergelijking dierlijke cel <-> plantencel."""
+
+    id: str
+    organelle_id: Optional[str] = None
+    label: str
+    animal: Optional[bool] = Field(None, description="Aanwezig in dierlijke cel (None = n.v.t.)")
+    plant: Optional[bool] = Field(None, description="Aanwezig in plantencel (None = n.v.t.)")
+    animal_text: str
+    plant_text: str
+
+
+class ProcessStep(BaseModel):
+    organelle_id: str
+    title: str
+    text: str  # mag [[begrippen]] bevatten, zie Explanation.details
+
+
+class Process(BaseModel):
+    id: str
+    name: str
+    summary: str
+    cells: List[str]
+    steps: List[ProcessStep]

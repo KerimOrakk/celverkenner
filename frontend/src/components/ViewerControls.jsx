@@ -1,4 +1,5 @@
 import Button from '../ui/Button.jsx';
+import { useLang } from '../i18n/index.jsx';
 
 function Switch({ checked, onChange, children }) {
   return (
@@ -22,26 +23,27 @@ export default function ViewerControls({
   onTour,
   tourActive,
 }) {
+  const { t } = useLang();
   return (
-    <div className="viewer-controls" role="toolbar" aria-label="Bediening van de 3D-weergave">
+    <div className="viewer-controls" role="toolbar" aria-label={t('controls.aria')}>
       <Switch checked={autoRotate} onChange={onAutoRotate}>
-        Auto-rotatie
+        {t('controls.autorotate')}
       </Switch>
 
       {mode === 'viewer' && (
         <Button variant="outline" size="sm" onClick={onToggleOpen} aria-pressed={isOpen}>
-          {isOpen ? 'Cel sluiten' : 'Cel openen'}
+          {isOpen ? t('controls.close') : t('controls.open')}
         </Button>
       )}
 
       {mode === 'intracellular' && (
         <Button variant="outline" size="sm" onClick={onTour}>
-          {tourActive ? 'Volgend organel' : 'Rondleiding starten'}
+          {tourActive ? t('controls.tour.next') : t('controls.tour.start')}
         </Button>
       )}
 
       <Button variant="quiet" size="sm" onClick={onReset}>
-        Beginstand
+        {t('controls.reset')}
       </Button>
     </div>
   );

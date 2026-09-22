@@ -2,6 +2,14 @@
 
 Een webapp waarmee leerlingen drie cellen in 3D verkennen: een **hartcel**, een **darmcel** (beide dierlijk) en een **plantencel**. Draai de cel rond, open het membraan, klik op een organel voor uitleg, of stap met de intracellulaire modus midden in het cytoplasma.
 
+Verder in de app:
+
+- **Processen** – de route van een eiwit, celademhaling, fotosynthese, opname in de darm, celdeling en afval opruimen, stap voor stap: de camera vliegt van organel naar organel en tekent de route in 3D.
+- **Vergelijken** – dierlijke cel en plantencel naast elkaar met een verschillentabel; tik op een rij en het organel licht in beide cellen op.
+- **Begrippenlijst** – alle begrippen uit de uitleg op alfabet, met zoekvak en links naar het organel in 3D.
+- **Nederlands en Engels** – schakelaar rechtsboven (of `?lang=en` in het adres); de API levert beide talen.
+- **Offline / installeerbaar (PWA)** – na één bezoek werkt de site zonder internet en kan hij als app op telefoon of laptop worden gezet.
+
 Alle 3D-modellen zijn in code opgebouwd uit Three.js-geometrieën (Sphere, Cylinder, Box, Torus, Ring, Circle) met `MeshStandardMaterial`/`MeshPhysicalMaterial`. Er zijn geen externe modelbestanden en er is geen Blender gebruikt.
 
 - **Backend:** FastAPI (Python) – levert cellen, organellen, posities en uitlegteksten als JSON.
@@ -54,7 +62,9 @@ project/
 │   │   ├── cells.py            GET /cells, GET /cells/{id}
 │   │   ├── organelles.py       GET /organelles, GET /organelles/{id}
 │   │   ├── explanations.py     GET /explanations, GET /explanations/{id}
-│   │   └── glossary.py         GET /glossary, GET /glossary/{id}
+│   │   ├── glossary.py         GET /glossary, GET /glossary/{id}
+│   │   ├── comparison.py       GET /comparison
+│   │   └── processes.py        GET /processes, GET /processes/{id}
 │   ├── models/
 │   │   └── schemas.py          Pydantic-modellen (Cell, Organelle, Explanation, …)
 │   └── data/
@@ -62,22 +72,33 @@ project/
 │       ├── organelles.json     naam, kleur en categorie per organel
 │       ├── explanations.json   de uitlegteksten (kort + lang, met [[begrippen]])
 │       ├── glossary.json       definities van de klikbare begrippen
+│       ├── comparison.json     verschillentabel dierlijke cel / plantencel
+│       ├── processes.json      celprocessen als stappenreeks
 │       └── repository.py       laadt en valideert de JSON-bestanden
 ├── frontend/
 │   ├── index.html
 │   ├── package.json
 │   ├── vite.config.js
-│   ├── public/favicon.svg
+│   ├── public/
+│   │   ├── favicon.svg, icon-*.png
+│   │   ├── manifest.webmanifest   app-manifest (installeerbaar)
+│   │   └── sw.js                  service worker (offline)
 │   └── src/
-│       ├── main.jsx, App.jsx   router: /, /viewer/:cellId, /intracellulair/:cellId
+│       ├── main.jsx, App.jsx   router: /, /viewer/:cellId, /intracellulair/:cellId, /proces/:cellId, /vergelijk, /begrippen
+│       ├── i18n/               strings.js (NL/EN interface-teksten), index.jsx (LanguageProvider, useLang)
 │       ├── api.js              client voor de API (met offline-terugval)
 │       ├── styles.css          thema en lay-out
 │       ├── pages/
 │       │   ├── HomePage.jsx            celkeuze met live 3D-voorbeeld
 │       │   ├── ViewerPage.jsx          3D-viewer (van buiten)
-│       │   └── IntracellularPage.jsx   intracellulaire modus (van binnen)
+│       │   ├── IntracellularPage.jsx   intracellulaire modus (van binnen)
+│       │   ├── ProcessPage.jsx         processen, stap voor stap
+│       │   ├── ComparePage.jsx         dierlijke cel en plantencel naast elkaar
+│       │   └── GlossaryPage.jsx        begrippenlijst met zoekvak
 │       ├── components/
-│       │   ├── CellExperience.jsx      gedeelde lay-out en toestand van beide 3D-pagina's
+│       │   ├── CellExperience.jsx      gedeelde lay-out en toestand van viewer en intracellulair
+│       │   ├── ProcessExperience.jsx   lay-out en toestand van de processenpagina
+│       │   ├── SiteHeader.jsx          kop van de pagina's zonder 3D-podium
 │       │   ├── CellViewer.jsx          React-wrapper om de Three.js-scène
 │       │   ├── OrganelleButtons.jsx    de groene organelknoppen
 │       │   ├── ExplanationPanel.jsx    het inschuivende uitlegpaneel (met "Meer uitleg")
@@ -86,7 +107,8 @@ project/
 │       │   ├── ViewerControls.jsx      auto-rotatie, cel openen/sluiten, beginstand, rondleiding
 │       │   └── ApiStatus.jsx
 │       ├── ui/                 Button, Dropdown, Spinner
-│       ├── hooks/              useCells, useCellData, useGlossary
+│       ├── hooks/              useCells, useCellData, useGlossary, useFetch
+│       ├── ui/LanguageSwitch.jsx  NL | EN
 │       ├── data/fallback.js    offline kopie (leest backend/data/*.json)
 │       └── three/
 │           ├── CellScene.js        renderer, camera, OrbitControls, picking, glow, animaties
@@ -113,7 +135,13 @@ project/
 | `GET /explanations/{organelle_id}` | Eén uitlegtekst |
 | `GET /glossary` | Alle begrippen (term + definitie) die in de langere uitleg klikbaar zijn |
 | `GET /glossary/{term_id}` | Eén begrip |
+| `GET /comparison` | Verschillentabel dierlijke cel / plantencel |
+| `GET /processes` | Alle processen als stappenreeks |
+| `GET /processes?cell_id=darmcel` | Alleen de processen die in die cel te zien zijn |
+| `GET /processes/{process_id}` | Eén proces |
 | `GET /health` | Draait de API? |
+
+Elk endpoint accepteert `?lang=nl` (standaard) of `?lang=en`. Alleen de teksten veranderen; id's, kleuren en posities zijn taalonafhankelijk.
 
 Cel-id's: `hartcel`, `darmcel`, `plantencel`.
 Organel-id's: `celmembraan`, `celwand`, `celnucleus`, `nucleolus`, `mitochondrien`, `ribosomen`, `golgi`, `ruw_er`, `glad_er`, `lysosomen`, `centriolen`, `microvilli`, `chloroplasten`, `vacuole`.
@@ -129,6 +157,16 @@ Voorbeeld van een organelplaatsing uit `GET /cells/hartcel`:
 ```
 
 `positions` zijn de vaste posities uit de les, `random` vult aan met willekeurig geplaatste exemplaren binnen ±`range`. Organellen met een vaste grootte (membraan, celkern, nucleolus, celwand) hebben daarnaast een `scale`.
+
+### Twee talen
+
+Elke tekst in de JSON-bestanden is een object met beide talen:
+
+```json
+"name": { "nl": "Celwand", "en": "Cell wall" }
+```
+
+De backend kiest één taal per aanvraag (`?lang=`), met Nederlands als terugval wanneer een Engelse tekst ontbreekt. De teksten van de interface zelf (knoppen, koppen, meldingen) staan in `frontend/src/i18n/strings.js`; een derde taal toevoegen is daar een extra blok plus een extra sleutel in de JSON-bestanden.
 
 ### Langere uitleg en klikbare begrippen
 
@@ -147,6 +185,28 @@ Elke uitleg in `explanations.json` heeft naast de korte `text` ook een langere `
 
 Een nieuw begrip toevoegen: zet het in `glossary.json` (`id`, `term`, `definition`) en gebruik het `id` tussen haken. De backend weigert bij het opstarten uitleg die naar een onbekend `id` verwijst.
 
+### Processen
+
+`processes.json` bevat per proces een naam, een samenvatting, de cellen waarin het te zien is en een lijst stappen. Elke stap hoort bij één organel; de tekst mag dezelfde `[[begrippen]]` gebruiken als de uitleg. De frontend laat de camera van stap naar stap vliegen en tekent de route als lichtgevende lijn met bewegende deeltjes. Een stap bij het celmembraan of de celwand begint op het oppervlak van de cel, aan de kant van de volgende stap.
+
+```json
+{
+  "id": "fotosynthese",
+  "name": { "nl": "Fotosynthese", "en": "Photosynthesis" },
+  "summary": { "nl": "…", "en": "…" },
+  "cells": ["plantencel"],
+  "steps": [
+    { "organelle_id": "celwand", "title": { "nl": "…", "en": "…" }, "text": { "nl": "… [[porien|poriën]] …", "en": "…" } }
+  ]
+}
+```
+
+De backend controleert bij het opstarten dat elke stap een organel noemt dat ook echt in die cellen zit.
+
+### Vergelijking
+
+`comparison.json` is de verschillentabel: per rij een label, de tekst voor beide celtypes en optioneel `animal`/`plant` (true, false of null voor "niet van toepassing") en een `organelle_id` om de rij aan een organel te koppelen.
+
 ### Gegevens aanpassen
 
 Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan in alle drie de bestanden (`organelles.json`, `explanations.json` en de betreffende cel in `cells.json`). De backend controleert bij het opstarten of alles op elkaar aansluit en meldt anders precies wat er ontbreekt. De frontend heeft voor elk organel een 3D-fabriek in `src/three/organelles.js`; een onbekend organel wordt als eenvoudige bol getekend.
@@ -163,6 +223,10 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 | Cel openen / sluiten | knop onderaan (alleen in de 3D-viewer) |
 | Andere cel of weergave | dropdown en weergavekeuze in de bovenbalk |
 | Rondleiding (intracellulair) | knop "Rondleiding starten" vliegt van organel naar organel |
+| Processen | derde weergave in de bovenbalk; kies een proces, loop met "Volgende stap" of "Afspelen" door de stappen (ook met ← →) |
+| Taal | NL / EN rechtsboven, wordt onthouden; `?lang=en` in een link forceert Engels |
+| Rechtstreeks naar een organel | `/viewer/plantencel?organel=golgi` opent de plantencel met het Golgi-apparaat geselecteerd |
+| Installeren als app | Chrome/Edge: adresbalk → installeren; iPhone: Deel → Zet op beginscherm |
 
 ## Ontwerpkeuzes
 
@@ -175,6 +239,8 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 **Intracellulaire modus.** Dezelfde cel, maar de camera staat binnen het membraan (brede lens, lichte mist, zwevende stofdeeltjes). De camera kan niet door organellen of door het membraan heen; het membraan en de wand zijn van binnen iets minder doorzichtig zodat je de rand van de cel blijft zien.
 
 **Offline-terugval.** Draait de backend niet, dan laadt de frontend dezelfde JSON-bestanden rechtstreeks uit `backend/data/` en toont "Offline gegevens" met een knop om opnieuw te verbinden. Zo werkt de viewer in de klas ook zonder Python.
+
+**PWA.** `public/sw.js` bewaart de app-schil en de gebouwde bestanden in de browsercache en beantwoordt API-aanvragen uit de cache terwijl hij op de achtergrond ververst. Na één online bezoek opent de site dus ook zonder internet; de ingebouwde JSON-kopie zorgt dat de 3D-weergave dan nog werkt. De service worker wordt alleen in de productie-build geregistreerd (`npm run build`), niet tijdens `npm run dev`. Verhoog `VERSION` in `sw.js` als je de cache wilt leegmaken bij bezoekers.
 
 **Vormgeving.** Achtergrond `#0F0F1A`, panelen `#1A1A2D`, knoppen `#4CAF50` (hover `#81C784`), highlight `#00E5FF`, tekst wit. Het uitlegpaneel schuift van rechts in (op smalle schermen van onderen). Toetsenbord­focus is zichtbaar en animaties respecteren `prefers-reduced-motion`.
 

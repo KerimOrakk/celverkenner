@@ -6,6 +6,7 @@
 // was used.
 
 import { fallback } from './data/fallback.js';
+import { getLanguage } from './i18n/index.jsx';
 
 export const API_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:8000').replace(/\/$/, '');
 
@@ -55,12 +56,23 @@ export function retryApi() {
   apiReachable = null;
 }
 
+/** Query string with the current language and, optionally, a cell filter. */
+function query(cellId) {
+  const params = new URLSearchParams({ lang: getLanguage() });
+  if (cellId) params.set('cell_id', cellId);
+  return `?${params}`;
+}
+
 export const api = {
-  getCells: () => withFallback('/cells', fallback.getCells),
-  getCell: (cellId) => withFallback(`/cells/${encodeURIComponent(cellId)}`, () => fallback.getCell(cellId)),
+  getCells: () => withFallback(`/cells${query()}`, () => fallback.getCells(getLanguage())),
+  getCell: (cellId) =>
+    withFallback(`/cells/${encodeURIComponent(cellId)}${query()}`, () => fallback.getCell(cellId, getLanguage())),
   getOrganelles: (cellId) =>
-    withFallback(`/organelles?cell_id=${encodeURIComponent(cellId)}`, () => fallback.getOrganelles(cellId)),
+    withFallback(`/organelles${query(cellId)}`, () => fallback.getOrganelles(cellId, getLanguage())),
   getExplanations: (cellId) =>
-    withFallback(`/explanations?cell_id=${encodeURIComponent(cellId)}`, () => fallback.getExplanations(cellId)),
-  getGlossary: () => withFallback('/glossary', fallback.getGlossary),
+    withFallback(`/explanations${query(cellId)}`, () => fallback.getExplanations(cellId, getLanguage())),
+  getGlossary: () => withFallback(`/glossary${query()}`, () => fallback.getGlossary(getLanguage())),
+  getComparison: () => withFallback(`/comparison${query()}`, () => fallback.getComparison(getLanguage())),
+  getProcesses: (cellId) =>
+    withFallback(`/processes${query(cellId)}`, () => fallback.getProcesses(cellId, getLanguage())),
 };

@@ -1,8 +1,11 @@
+import { useLang } from '../i18n/index.jsx';
+
 /** The list of organelles. Pressing one highlights it in 3D and opens the explanation. */
 export default function OrganelleButtons({ organelles, counts = {}, selectedId, onSelect }) {
+  const { t } = useLang();
   return (
-    <nav className="organelle-nav" aria-label="Organellen">
-      <h2 className="organelle-nav__title">Organellen</h2>
+    <nav className="organelle-nav" aria-label={t('organelles.title')}>
+      <h2 className="organelle-nav__title">{t('organelles.title')}</h2>
       <ul className="organelle-nav__list">
         {organelles.map((organelle) => {
           const count = counts[organelle.id];

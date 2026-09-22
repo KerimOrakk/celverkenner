@@ -1,16 +1,178 @@
 [
-  { "id": "celmembraan",   "name": "Celmembraan",    "color": "#F28B82", "category": "omhulsel",  "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "celwand",       "name": "Celwand",        "color": "#7CB342", "category": "omhulsel",  "cell_types": ["plantaardig"] },
-  { "id": "celnucleus",    "name": "Celnucleus",     "color": "#8E5BD9", "category": "kern",      "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "nucleolus",     "name": "Nucleolus",      "color": "#E040FB", "category": "kern",      "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "mitochondrien", "name": "Mitochondriën",  "color": "#FF8800", "category": "energie",   "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "ribosomen",     "name": "Ribosomen",      "color": "#FFF176", "category": "eiwitten",  "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "golgi",         "name": "Golgi-apparaat", "color": "#FFD54F", "category": "eiwitten",  "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "ruw_er",        "name": "Ruw ER",         "color": "#5C6BC0", "category": "eiwitten",  "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "glad_er",       "name": "Glad ER",        "color": "#26A69A", "category": "vetten",    "cell_types": ["dierlijk", "plantaardig"] },
-  { "id": "lysosomen",     "name": "Lysosomen",      "color": "#F06292", "category": "afbraak",   "cell_types": ["dierlijk"] },
-  { "id": "centriolen",    "name": "Centriolen",     "color": "#AED581", "category": "celdeling", "cell_types": ["dierlijk"] },
-  { "id": "microvilli",    "name": "Microvilli",     "color": "#F8BBD0", "category": "opname",    "cell_types": ["dierlijk"] },
-  { "id": "chloroplasten", "name": "Chloroplasten",  "color": "#2E9E44", "category": "energie",   "cell_types": ["plantaardig"] },
-  { "id": "vacuole",       "name": "Vacuole",        "color": "#64B5F6", "category": "opslag",    "cell_types": ["plantaardig"] }
+  {
+    "id": "celmembraan",
+    "name": {
+      "nl": "Celmembraan",
+      "en": "Cell membrane"
+    },
+    "color": "#F28B82",
+    "category": "omhulsel",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "celwand",
+    "name": {
+      "nl": "Celwand",
+      "en": "Cell wall"
+    },
+    "color": "#7CB342",
+    "category": "omhulsel",
+    "cell_types": [
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "celnucleus",
+    "name": {
+      "nl": "Celnucleus",
+      "en": "Nucleus"
+    },
+    "color": "#8E5BD9",
+    "category": "kern",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "nucleolus",
+    "name": {
+      "nl": "Nucleolus",
+      "en": "Nucleolus"
+    },
+    "color": "#E040FB",
+    "category": "kern",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "mitochondrien",
+    "name": {
+      "nl": "Mitochondriën",
+      "en": "Mitochondria"
+    },
+    "color": "#FF8800",
+    "category": "energie",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "ribosomen",
+    "name": {
+      "nl": "Ribosomen",
+      "en": "Ribosomes"
+    },
+    "color": "#FFF176",
+    "category": "eiwitten",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "golgi",
+    "name": {
+      "nl": "Golgi-apparaat",
+      "en": "Golgi apparatus"
+    },
+    "color": "#FFD54F",
+    "category": "eiwitten",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "ruw_er",
+    "name": {
+      "nl": "Ruw ER",
+      "en": "Rough ER"
+    },
+    "color": "#5C6BC0",
+    "category": "eiwitten",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "glad_er",
+    "name": {
+      "nl": "Glad ER",
+      "en": "Smooth ER"
+    },
+    "color": "#26A69A",
+    "category": "vetten",
+    "cell_types": [
+      "dierlijk",
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "lysosomen",
+    "name": {
+      "nl": "Lysosomen",
+      "en": "Lysosomes"
+    },
+    "color": "#F06292",
+    "category": "afbraak",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "centriolen",
+    "name": {
+      "nl": "Centriolen",
+      "en": "Centrioles"
+    },
+    "color": "#AED581",
+    "category": "celdeling",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "microvilli",
+    "name": {
+      "nl": "Microvilli",
+      "en": "Microvilli"
+    },
+    "color": "#F8BBD0",
+    "category": "opname",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "chloroplasten",
+    "name": {
+      "nl": "Chloroplasten",
+      "en": "Chloroplasts"
+    },
+    "color": "#2E9E44",
+    "category": "energie",
+    "cell_types": [
+      "plantaardig"
+    ]
+  },
+  {
+    "id": "vacuole",
+    "name": {
+      "nl": "Vacuole",
+      "en": "Vacuole"
+    },
+    "color": "#64B5F6",
+    "category": "opslag",
+    "cell_types": [
+      "plantaardig"
+    ]
+  }
 ]

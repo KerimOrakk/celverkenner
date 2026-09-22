@@ -1,10 +1,12 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { useLang } from '../i18n/index.jsx';
 
 /**
  * Accessible single-select dropdown.
  * options: [{ value, label, hint? }]
  */
 export default function Dropdown({ label, options, value, onChange }) {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const rootRef = useRef(null);
@@ -63,11 +65,11 @@ export default function Dropdown({ label, options, value, onChange }) {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
-        aria-label={`${label}: ${selected?.label ?? 'maak een keuze'}`}
+        aria-label={`${label}: ${selected?.label ?? t('dropdown.none')}`}
         onClick={() => (open ? setOpen(false) : openList())}
       >
         <span className="dropdown__label">{label}</span>
-        <span className="dropdown__value">{selected?.label ?? 'Kies…'}</span>
+        <span className="dropdown__value">{selected?.label ?? t('dropdown.choose')}</span>
         <svg className="dropdown__chevron" viewBox="0 0 12 8" width="12" height="8" aria-hidden="true">
           <path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         </svg>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import { useLang } from '../i18n/index.jsx';
 
 const cache = new Map();
 
@@ -39,21 +40,23 @@ async function load(cellId) {
 
 /** Everything the viewer needs for one cell: /cells/{id}, /organelles and /explanations. */
 export function useCellData(cellId) {
+  const { lang } = useLang();
+  const key = `${lang}:${cellId}`;
   const [state, setState] = useState(() =>
-    cache.has(cellId) ? { status: 'ready', ...cache.get(cellId) } : { status: 'loading' },
+    cache.has(key) ? { status: 'ready', ...cache.get(key) } : { status: 'loading' },
   );
 
   useEffect(() => {
     if (!cellId) return undefined;
     let cancelled = false;
-    if (cache.has(cellId)) {
-      setState({ status: 'ready', ...cache.get(cellId) });
+    if (cache.has(key)) {
+      setState({ status: 'ready', ...cache.get(key) });
       return undefined;
     }
     setState({ status: 'loading' });
     load(cellId)
       .then((data) => {
-        if (data.source === 'api') cache.set(cellId, data);
+        if (data.source === 'api') cache.set(key, data);
         if (!cancelled) setState({ status: 'ready', ...data });
       })
       .catch((error) => {
@@ -62,7 +65,7 @@ export function useCellData(cellId) {
     return () => {
       cancelled = true;
     };
-  }, [cellId]);
+  }, [cellId, key]);
 
   return state;
 }

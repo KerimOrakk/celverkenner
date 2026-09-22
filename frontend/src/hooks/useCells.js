@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import { useLang } from '../i18n/index.jsx';
 
-/** The list of cells for the home page and the cell dropdown. */
+/** The list of cells for the home page and the cell dropdown. Reloads when the language changes. */
 export function useCells() {
+  const { lang } = useLang();
   const [state, setState] = useState({ status: 'loading', cells: [], source: null });
 
   useEffect(() => {
@@ -14,7 +16,7 @@ export function useCells() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [lang]);
 
   return state;
 }

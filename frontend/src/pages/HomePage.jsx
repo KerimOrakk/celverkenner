@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ApiStatus from '../components/ApiStatus.jsx';
 import CellViewer from '../components/CellViewer.jsx';
 import { useCellData } from '../hooks/useCellData.js';
 import { useCells } from '../hooks/useCells.js';
+import { useLang } from '../i18n/index.jsx';
 import Button from '../ui/Button.jsx';
+import LanguageSwitch from '../ui/LanguageSwitch.jsx';
 import Spinner from '../ui/Spinner.jsx';
 
 const REMEMBER_KEY = 'celverkenner:laatste-cel';
@@ -18,6 +21,7 @@ function rememberedCell() {
 
 /** Home page: choose a cell. The chosen cell is already turning on the right. */
 export default function HomePage() {
+  const { t } = useLang();
   const { status, cells, source } = useCells();
   const [chosenId, setChosenId] = useState(rememberedCell);
 
@@ -25,8 +29,8 @@ export default function HomePage() {
   const preview = useCellData(chosen?.id);
 
   useEffect(() => {
-    document.title = 'CelVerkenner 3D | Kies een cel';
-  }, []);
+    document.title = t('home.docTitle');
+  }, [t]);
 
   const choose = (cellId) => {
     setChosenId(cellId);
@@ -40,27 +44,27 @@ export default function HomePage() {
   return (
     <div className="home">
       <div className="home__content">
-        <p className="brand">
-          <img src="/favicon.svg" alt="" width="28" height="28" />
-          CelVerkenner 3D
-        </p>
+        <div className="home__top">
+          <p className="brand">
+            <img src="/favicon.svg" alt="" width="28" height="28" />
+            {t('app.name')}
+          </p>
+          <LanguageSwitch />
+        </div>
 
-        <h1 className="home__title">Kies een cel en kijk erin.</h1>
-        <p className="home__lead">
-          Draai de cel rond, open het membraan en klik op een organel om te lezen wat het doet. Of stap zelf het
-          cytoplasma in.
-        </p>
+        <h1 className="home__title">{t('home.title')}</h1>
+        <p className="home__lead">{t('home.lead')}</p>
 
-        {status === 'loading' && <Spinner label="Cellen laden…" />}
+        {status === 'loading' && <Spinner label={t('home.loading')} />}
         {status === 'error' && (
           <p className="home__error" role="alert">
-            De lijst met cellen kon niet worden geladen. Herlaad de pagina om het opnieuw te proberen.
+            {t('home.error')}
           </p>
         )}
 
         {cells.length > 0 && (
           <fieldset className="cell-choice">
-            <legend className="visually-hidden">Welke cel wil je bekijken?</legend>
+            <legend className="visually-hidden">{t('home.legend')}</legend>
             {cells.map((cell) => {
               const checked = cell.id === chosen?.id;
               return (
@@ -91,11 +95,16 @@ export default function HomePage() {
               {chosen.description}
             </p>
             <div className="home__actions">
-              <Button to={`/viewer/${chosen.id}`}>Bekijk de {chosen.name.toLowerCase()} in 3D</Button>
+              <Button to={`/viewer/${chosen.id}`}>{t('home.view3d', { name: chosen.name.toLowerCase() })}</Button>
               <Button to={`/intracellulair/${chosen.id}`} variant="outline">
-                Ga de cel in
+                {t('home.enter')}
               </Button>
             </div>
+            <nav className="home__links" aria-label={t('home.more')}>
+              <Link to={`/proces/${chosen.id}`}>{t('home.processes')}</Link>
+              <Link to="/vergelijk">{t('home.compare')}</Link>
+              <Link to="/begrippen">{t('home.glossary')}</Link>
+            </nav>
           </>
         )}
 

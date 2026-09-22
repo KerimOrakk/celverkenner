@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useLang } from '../i18n/index.jsx';
 import { useCells } from '../hooks/useCells.js';
 import { useCellData } from '../hooks/useCellData.js';
 import { useGlossary } from '../hooks/useGlossary.js';
@@ -31,8 +33,10 @@ function useMediaQuery(query) {
  * (from inside the cytoplasm).
  */
 export default function CellExperience({ cellId, mode }) {
+  const { t } = useLang();
   const { cells } = useCells();
   const glossary = useGlossary();
+  const [searchParams, setSearchParams] = useSearchParams();
   const fresh = useCellData(cellId);
   // While the next cell is loading, keep the current one on stage instead of tearing down WebGL.
   const lastReady = useRef(null);
@@ -64,9 +68,19 @@ export default function CellExperience({ cellId, mode }) {
   }, [cellId, mode]);
 
   useEffect(() => {
-    const cellName = data.status === 'ready' ? data.cell.name : 'Cel';
-    document.title = `${cellName} ${mode === 'intracellular' ? 'van binnenuit' : 'in 3D'} | CelVerkenner 3D`;
-  }, [data, mode]);
+    if (data.status !== 'ready') return;
+    document.title = t(mode === 'intracellular' ? 'title.intracellular' : 'title.viewer', { cell: data.cell.name });
+  }, [data, mode, t]);
+
+  // A link such as /viewer/plantencel?organel=golgi opens that organelle straight away.
+  useEffect(() => {
+    const wanted = searchParams.get('organel');
+    if (!wanted || organelles.length === 0) return;
+    if (organelles.some((organelle) => organelle.id === wanted)) setSelectedId(wanted);
+    const next = new URLSearchParams(searchParams);
+    next.delete('organel');
+    setSearchParams(next, { replace: true });
+  }, [organelles, searchParams, setSearchParams]);
 
   const step = useCallback(
     (direction) => {
@@ -126,13 +140,9 @@ export default function CellExperience({ cellId, mode }) {
       <div className="experience">
         <TopBar cells={cells} cellId={cellId} mode={mode} source={null} />
         <main className="experience__message">
-          <h1>{notFound ? 'Deze cel bestaat niet' : 'De celgegevens konden niet worden geladen'}</h1>
-          <p>
-            {notFound
-              ? `Er is geen cel met de naam "${cellId}". Kies een cel uit de lijst.`
-              : 'Controleer of de backend draait (uvicorn main:app --reload) en probeer het opnieuw.'}
-          </p>
-          <Button to="/">Terug naar de celkeuze</Button>
+          <h1>{notFound ? t('error.notFound.title') : t('error.load.title')}</h1>
+          <p>{notFound ? t('error.notFound.text', { id: cellId }) : t('error.load.text')}</p>
+          <Button to="/">{t('error.back')}</Button>
         </main>
       </div>
     );
@@ -147,10 +157,10 @@ export default function CellExperience({ cellId, mode }) {
       <div className="experience__body">
         <aside className="experience__sidebar">
           <div className="cell-heading">
-            <h1 className="cell-heading__name">{ready ? data.cell.name : 'Cel laden'}</h1>
+            <h1 className="cell-heading__name">{ready ? data.cell.name : t('cell.loading')}</h1>
             {ready && (
               <p className="cell-heading__tagline">
-                {mode === 'intracellular' ? 'Je staat nu midden in het cytoplasma.' : data.cell.tagline}
+                {mode === 'intracellular' ? t('cell.inside') : data.cell.tagline}
               </p>
             )}
           </div>
@@ -175,15 +185,13 @@ export default function CellExperience({ cellId, mode }) {
               onCounts={(values) => setCountState({ cellId: data.cell.id, values })}
             />
           ) : (
-            <Spinner label="Cel wordt opgebouwd…" />
+            <Spinner label={t('stage.building')} />
           )}
-          {ready && loading && <Spinner label="Volgende cel laden…" />}
+          {ready && loading && <Spinner label={t('stage.next')} />}
 
           {ready && !selected && (
             <p className="stage__hint">
-              {mode === 'intracellular'
-                ? 'Sleep om rond te kijken, zoom om dichterbij te komen, klik op een organel voor uitleg.'
-                : 'Sleep om te draaien, scrol of knijp om te zoomen, klik op een organel voor uitleg.'}
+              {t(mode === 'intracellular' ? 'stage.hint.intracellular' : 'stage.hint.viewer')}
             </p>
           )}
 

@@ -1,72 +1,156 @@
 [
   {
     "organelle_id": "celnucleus",
-    "text": "controlecentrum van de cel, bevat DNA",
-    "details": "De celkern wordt omgeven door de [[kernmembraan]] met [[kernporien|kernporiën]]. Binnenin ligt het [[dna|DNA]], opgerold rond eiwitten tot [[chromatine]]. Bij de celdeling wordt dat zichtbaar als [[chromosomen]]. Het DNA wordt hier afgelezen tot [[mrna|mRNA]], dat via de kernporiën naar de ribosomen gaat."
+    "text": {
+      "nl": "controlecentrum van de cel, bevat DNA",
+      "en": "control centre of the cell, contains DNA"
+    },
+    "details": {
+      "nl": "De celkern wordt omgeven door de [[kernmembraan]] met [[kernporien|kernporiën]]. Binnenin ligt het [[dna|DNA]], opgerold rond eiwitten tot [[chromatine]]. Bij de celdeling wordt dat zichtbaar als [[chromosomen]]. Het DNA wordt hier afgelezen tot [[mrna|mRNA]], dat via de kernporiën naar de ribosomen gaat.",
+      "en": "The nucleus is surrounded by the [[kernmembraan|nuclear envelope]] with [[kernporien|nuclear pores]]. Inside lies the [[dna|DNA]], wound around proteins into [[chromatine|chromatin]]. During cell division it becomes visible as [[chromosomen|chromosomes]]. Here the DNA is read into [[mrna|mRNA]], which travels through the nuclear pores to the ribosomes."
+    }
   },
   {
     "organelle_id": "nucleolus",
-    "text": "maakt ribosomen",
-    "details": "De nucleolus is geen apart blaasje, maar een dicht gebied in de kern. Hier wordt [[rrna|rRNA]] gemaakt en samengevoegd met eiwitten tot de twee helften van een ribosoom. Cellen die veel eiwit maken, hebben een grote nucleolus."
+    "text": {
+      "nl": "maakt ribosomen",
+      "en": "makes ribosomes"
+    },
+    "details": {
+      "nl": "De nucleolus is geen apart blaasje, maar een dicht gebied in de kern. Hier wordt [[rrna|rRNA]] gemaakt en samengevoegd met eiwitten tot de twee helften van een ribosoom. Cellen die veel eiwit maken, hebben een grote nucleolus.",
+      "en": "The nucleolus is not a separate vesicle but a dense region inside the nucleus. Here [[rrna|rRNA]] is made and combined with proteins into the two halves of a ribosome. Cells that make a lot of protein have a large nucleolus."
+    }
   },
   {
     "organelle_id": "mitochondrien",
-    "text": "energiecentrales van de cel",
-    "details": "Een mitochondrion heeft twee membranen. Het binnenste is sterk geplooid tot [[cristae]]; daar vindt de [[celademhaling]] plaats, waarbij [[glucose]] en zuurstof worden omgezet in [[atp|ATP]]. Mitochondriën hebben een eigen stukje DNA en delen zichzelf. Een hartcel bevat er duizenden, omdat het hart nooit stilstaat."
+    "text": {
+      "nl": "energiecentrales van de cel",
+      "en": "power plants of the cell"
+    },
+    "details": {
+      "nl": "Een mitochondrion heeft twee membranen. Het binnenste is sterk geplooid tot [[cristae]]; daar vindt de [[celademhaling]] plaats, waarbij [[glucose]] en zuurstof worden omgezet in [[atp|ATP]]. Mitochondriën hebben een eigen stukje DNA en delen zichzelf. Een hartcel bevat er duizenden, omdat het hart nooit stilstaat.",
+      "en": "A mitochondrion has two membranes. The inner one is folded into [[cristae]]; that is where [[celademhaling|cellular respiration]] takes place, turning [[glucose]] and oxygen into [[atp|ATP]]. Mitochondria have their own piece of DNA and divide by themselves. A heart cell contains thousands, because the heart never stops."
+    }
   },
   {
     "organelle_id": "ribosomen",
-    "text": "maken eiwitten",
-    "details": "Ribosomen zijn de kleinste organellen en hebben geen membraan. Ze bestaan uit twee delen van [[rrna|rRNA]] en eiwit. Ze lezen [[mrna|mRNA]] af en rijgen [[aminozuren]] aan elkaar tot een eiwit ([[translatie]]). Vrije ribosomen maken eiwitten voor de cel zelf; ribosomen op het ruw ER maken eiwitten voor membranen of voor buiten de cel."
+    "text": {
+      "nl": "maken eiwitten",
+      "en": "make proteins"
+    },
+    "details": {
+      "nl": "Ribosomen zijn de kleinste organellen en hebben geen membraan. Ze bestaan uit twee delen van [[rrna|rRNA]] en eiwit. Ze lezen [[mrna|mRNA]] af en rijgen [[aminozuren]] aan elkaar tot een eiwit ([[translatie]]). Vrije ribosomen maken eiwitten voor de cel zelf; ribosomen op het ruw ER maken eiwitten voor membranen of voor buiten de cel.",
+      "en": "Ribosomes are the smallest organelles and have no membrane. They consist of two parts made of [[rrna|rRNA]] and protein. They read [[mrna|mRNA]] and string [[aminozuren|amino acids]] together into a protein ([[translatie|translation]]). Free ribosomes make proteins for the cell itself; ribosomes on the rough ER make proteins for membranes or for export."
+    }
   },
   {
     "organelle_id": "golgi",
-    "text": "verpakt en sorteert eiwitten",
-    "details": "Het Golgi-apparaat is een stapel platte zakjes ([[cisternen]]). Eiwitten uit het ruw ER komen aan de ene kant binnen, worden bewerkt (er worden bijvoorbeeld suikers aan gehangen) en verlaten de stapel aan de andere kant in [[blaasjes]] die naar het celmembraan of naar de lysosomen gaan. Afgifte naar buiten heet [[exocytose]]."
+    "text": {
+      "nl": "verpakt en sorteert eiwitten",
+      "en": "packages and sorts proteins"
+    },
+    "details": {
+      "nl": "Het Golgi-apparaat is een stapel platte zakjes ([[cisternen]]). Eiwitten uit het ruw ER komen aan de ene kant binnen, worden bewerkt (er worden bijvoorbeeld suikers aan gehangen) en verlaten de stapel aan de andere kant in [[blaasjes]] die naar het celmembraan of naar de lysosomen gaan. Afgifte naar buiten heet [[exocytose]].",
+      "en": "The Golgi apparatus is a stack of flat sacs ([[cisternen|cisternae]]). Proteins from the rough ER enter on one side, are modified (sugars are attached, for example) and leave the stack on the other side in [[blaasjes|vesicles]] heading for the cell membrane or the lysosomes. Release to the outside is called [[exocytose|exocytosis]]."
+    }
   },
   {
     "organelle_id": "ruw_er",
-    "text": "maakt eiwitten",
-    "details": "Het ruw endoplasmatisch reticulum is een netwerk van membraanzakjes dat aansluit op de [[kernmembraan]]. 'Ruw' komt door de ribosomen op de buitenkant. De eiwitten die daar gemaakt worden, komen in het ER terecht, krijgen hun vorm en reizen in [[blaasjes]] naar het Golgi-apparaat."
+    "text": {
+      "nl": "maakt eiwitten",
+      "en": "makes proteins"
+    },
+    "details": {
+      "nl": "Het ruw endoplasmatisch reticulum is een netwerk van membraanzakjes dat aansluit op de [[kernmembraan]]. 'Ruw' komt door de ribosomen op de buitenkant. De eiwitten die daar gemaakt worden, komen in het ER terecht, krijgen hun vorm en reizen in [[blaasjes]] naar het Golgi-apparaat.",
+      "en": "The rough endoplasmic reticulum is a network of membrane sacs connected to the [[kernmembraan|nuclear envelope]]. 'Rough' refers to the ribosomes on its surface. The proteins they make end up inside the ER, take their shape and travel in [[blaasjes|vesicles]] to the Golgi apparatus."
+    }
   },
   {
     "organelle_id": "glad_er",
-    "text": "maakt vetten en hormonen",
-    "details": "Het glad endoplasmatisch reticulum heeft geen ribosomen. Het maakt [[lipiden]] (vetten) en [[steroidhormonen|steroïdhormonen]], breekt gifstoffen af (vooral in levercellen) en slaat [[calcium]] op. In spiercellen, zoals de hartcel, geeft het bij elke slag calcium vrij om de cel te laten samentrekken."
+    "text": {
+      "nl": "maakt vetten en hormonen",
+      "en": "makes fats and hormones"
+    },
+    "details": {
+      "nl": "Het glad endoplasmatisch reticulum heeft geen ribosomen. Het maakt [[lipiden]] (vetten) en [[steroidhormonen|steroïdhormonen]], breekt gifstoffen af (vooral in levercellen) en slaat [[calcium]] op. In spiercellen, zoals de hartcel, geeft het bij elke slag calcium vrij om de cel te laten samentrekken.",
+      "en": "The smooth endoplasmic reticulum has no ribosomes. It makes [[lipiden|lipids]] (fats) and [[steroidhormonen|steroid hormones]], breaks down toxins (especially in liver cells) and stores [[calcium]]. In muscle cells such as the heart cell it releases calcium with every beat to make the cell contract."
+    }
   },
   {
     "organelle_id": "lysosomen",
-    "text": "breken afval af",
-    "details": "Lysosomen zijn blaasjes gevuld met [[enzymen]] die werken in een zuur milieu. Ze verteren versleten organellen ([[autofagie]]) en opgenomen deeltjes zoals bacteriën. Het membraan van het lysosoom beschermt de rest van de cel tegen die enzymen."
+    "text": {
+      "nl": "breken afval af",
+      "en": "break down waste"
+    },
+    "details": {
+      "nl": "Lysosomen zijn blaasjes gevuld met [[enzymen]] die werken in een zuur milieu. Ze verteren versleten organellen ([[autofagie]]) en opgenomen deeltjes zoals bacteriën. Het membraan van het lysosoom beschermt de rest van de cel tegen die enzymen.",
+      "en": "Lysosomes are vesicles filled with [[enzymen|enzymes]] that work in an acidic environment. They digest worn-out organelles ([[autofagie|autophagy]]) and particles taken up from outside, such as bacteria. The lysosome's membrane protects the rest of the cell from those enzymes."
+    }
   },
   {
     "organelle_id": "centriolen",
-    "text": "helpen bij celdeling",
-    "details": "Centriolen zijn twee holle cilinders van [[microtubuli]] die loodrecht op elkaar staan. Samen vormen ze het [[centrosoom]]. Bij de celdeling bouwen ze de [[spoelfiguur]] waarmee de [[chromosomen]] uit elkaar worden getrokken. Plantencellen hebben geen centriolen."
+    "text": {
+      "nl": "helpen bij celdeling",
+      "en": "help with cell division"
+    },
+    "details": {
+      "nl": "Centriolen zijn twee holle cilinders van [[microtubuli]] die loodrecht op elkaar staan. Samen vormen ze het [[centrosoom]]. Bij de celdeling bouwen ze de [[spoelfiguur]] waarmee de [[chromosomen]] uit elkaar worden getrokken. Plantencellen hebben geen centriolen.",
+      "en": "Centrioles are two hollow cylinders of [[microtubuli|microtubules]] at right angles to each other. Together they form the [[centrosoom|centrosome]]. During cell division they build the [[spoelfiguur|spindle]] that pulls the [[chromosomen|chromosomes]] apart. Plant cells have no centrioles."
+    }
   },
   {
     "organelle_id": "chloroplasten",
-    "text": "fotosynthese",
-    "details": "Chloroplasten hebben twee membranen. Binnenin liggen stapels [[thylakoiden|thylakoïden]] ([[grana]]) met het groene [[chlorofyl]] dat licht opvangt. In de vloeistof eromheen, het [[stroma]], wordt CO₂ omgezet in [[glucose]]. Net als mitochondriën hebben chloroplasten een eigen stukje DNA."
+    "text": {
+      "nl": "fotosynthese",
+      "en": "photosynthesis"
+    },
+    "details": {
+      "nl": "Chloroplasten hebben twee membranen. Binnenin liggen stapels [[thylakoiden|thylakoïden]] ([[grana]]) met het groene [[chlorofyl]] dat licht opvangt. In de vloeistof eromheen, het [[stroma]], wordt CO₂ omgezet in [[glucose]]. Net als mitochondriën hebben chloroplasten een eigen stukje DNA.",
+      "en": "Chloroplasts have two membranes. Inside are stacks of [[thylakoiden|thylakoids]] ([[grana]]) containing the green [[chlorofyl|chlorophyll]] that captures light. In the fluid around them, the [[stroma]], CO₂ is turned into [[glucose]]. Like mitochondria, chloroplasts have their own piece of DNA."
+    }
   },
   {
     "organelle_id": "vacuole",
-    "text": "opslag + stevigheid",
-    "details": "De centrale vacuole is een groot blaasje vol [[celsap]]: water met suikers, zouten en afvalstoffen. Door water op te nemen drukt hij tegen de celwand ([[turgor]]), wat de plant stevig houdt. Krijgt de plant te weinig water, dan zakt de turgor en verwelkt hij."
+    "text": {
+      "nl": "opslag + stevigheid",
+      "en": "storage + firmness"
+    },
+    "details": {
+      "nl": "De centrale vacuole is een groot blaasje vol [[celsap]]: water met suikers, zouten en afvalstoffen. Door water op te nemen drukt hij tegen de celwand ([[turgor]]), wat de plant stevig houdt. Krijgt de plant te weinig water, dan zakt de turgor en verwelkt hij.",
+      "en": "The central vacuole is a large vesicle full of [[celsap|cell sap]]: water with sugars, salts and waste products. By taking up water it presses against the cell wall ([[turgor]]), which keeps the plant firm. When the plant gets too little water, the turgor drops and it wilts."
+    }
   },
   {
     "organelle_id": "celwand",
-    "text": "bescherming + structuur",
-    "details": "De celwand ligt buiten het celmembraan en is opgebouwd uit [[cellulose]], een stevige vezel. Kleine [[porien|poriën]] maken de wand doorlaatbaar voor water en opgeloste stoffen. Via [[plasmodesmata]] staat het [[cytoplasma]] van buurcellen met elkaar in verbinding. Dierlijke cellen hebben geen celwand."
+    "text": {
+      "nl": "bescherming + structuur",
+      "en": "protection + structure"
+    },
+    "details": {
+      "nl": "De celwand ligt buiten het celmembraan en is opgebouwd uit [[cellulose]], een stevige vezel. Kleine [[porien|poriën]] maken de wand doorlaatbaar voor water en opgeloste stoffen. Via [[plasmodesmata]] staat het [[cytoplasma]] van buurcellen met elkaar in verbinding. Dierlijke cellen hebben geen celwand.",
+      "en": "The cell wall lies outside the cell membrane and is built from [[cellulose]], a tough fibre. Tiny [[porien|pores]] make the wall permeable to water and dissolved substances. Through [[plasmodesmata]] the [[cytoplasma|cytoplasm]] of neighbouring cells stays connected. Animal cells have no cell wall."
+    }
   },
   {
     "organelle_id": "celmembraan",
-    "text": "regelt transport",
-    "details": "Het celmembraan is een dubbele laag van [[fosfolipiden]] met daarin [[membraaneiwitten]]. Kleine moleculen zoals water en zuurstof gaan er via [[diffusie]] doorheen; grotere stoffen worden door [[transporteiwitten]] naar binnen of buiten gebracht. Het membraan is [[selectief_permeabel|selectief permeabel]]: het bepaalt wat de cel in en uit mag."
+    "text": {
+      "nl": "regelt transport",
+      "en": "regulates transport"
+    },
+    "details": {
+      "nl": "Het celmembraan is een dubbele laag van [[fosfolipiden]] met daarin [[membraaneiwitten]]. Kleine moleculen zoals water en zuurstof gaan er via [[diffusie]] doorheen; grotere stoffen worden door [[transporteiwitten]] naar binnen of buiten gebracht. Het membraan is [[selectief_permeabel|selectief permeabel]]: het bepaalt wat de cel in en uit mag.",
+      "en": "The cell membrane is a double layer of [[fosfolipiden|phospholipids]] with [[membraaneiwitten|membrane proteins]] embedded in it. Small molecules such as water and oxygen pass through by [[diffusie|diffusion]]; larger substances are carried in or out by [[transporteiwitten|transport proteins]]. The membrane is [[selectief_permeabel|selectively permeable]]: it decides what may enter and leave the cell."
+    }
   },
   {
     "organelle_id": "microvilli",
-    "text": "vergroten oppervlak voor opname",
-    "details": "Microvilli zijn vingervormige uitstulpingen van het celmembraan, verstevigd met [[actine]]. Ze vergroten het oppervlak van een darmcel tot wel twintig keer, zodat er veel meer [[transporteiwitten]] in passen om voedingsstoffen op te nemen. Samen vormen ze de [[borstelzoom]]."
+    "text": {
+      "nl": "vergroten oppervlak voor opname",
+      "en": "enlarge the surface for absorption"
+    },
+    "details": {
+      "nl": "Microvilli zijn vingervormige uitstulpingen van het celmembraan, verstevigd met [[actine]]. Ze vergroten het oppervlak van een darmcel tot wel twintig keer, zodat er veel meer [[transporteiwitten]] in passen om voedingsstoffen op te nemen. Samen vormen ze de [[borstelzoom]].",
+      "en": "Microvilli are finger-shaped extensions of the cell membrane, reinforced with [[actine|actin]]. They enlarge the surface of an intestinal cell up to twenty times, so many more [[transporteiwitten|transport proteins]] fit in to absorb nutrients. Together they form the [[borstelzoom|brush border]]."
+    }
   }
 ]

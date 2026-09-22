@@ -1,0 +1,218 @@
+[
+  {
+    "id": "celwand",
+    "organelle_id": "celwand",
+    "label": {
+      "nl": "Celwand",
+      "en": "Cell wall"
+    },
+    "animal": false,
+    "plant": true,
+    "animal_text": {
+      "nl": "Geen. Alleen een celmembraan.",
+      "en": "None. Only a cell membrane."
+    },
+    "plant_text": {
+      "nl": "Ja, van cellulose. Geeft vorm en stevigheid.",
+      "en": "Yes, made of cellulose. Gives shape and strength."
+    }
+  },
+  {
+    "id": "vorm",
+    "organelle_id": null,
+    "label": {
+      "nl": "Vorm",
+      "en": "Shape"
+    },
+    "animal": null,
+    "plant": null,
+    "animal_text": {
+      "nl": "Rond of langwerpig; kan van vorm veranderen.",
+      "en": "Round or elongated; can change shape."
+    },
+    "plant_text": {
+      "nl": "Rechthoekig; vaste vorm door de celwand.",
+      "en": "Rectangular; fixed shape because of the cell wall."
+    }
+  },
+  {
+    "id": "celmembraan",
+    "organelle_id": "celmembraan",
+    "label": {
+      "nl": "Celmembraan",
+      "en": "Cell membrane"
+    },
+    "animal": true,
+    "plant": true,
+    "animal_text": {
+      "nl": "Ja, de buitenste grens van de cel.",
+      "en": "Yes, the outer boundary of the cell."
+    },
+    "plant_text": {
+      "nl": "Ja, net binnen de celwand.",
+      "en": "Yes, just inside the cell wall."
+    }
+  },
+  {
+    "id": "vacuole",
+    "organelle_id": "vacuole",
+    "label": {
+      "nl": "Vacuole",
+      "en": "Vacuole"
+    },
+    "animal": false,
+    "plant": true,
+    "animal_text": {
+      "nl": "Geen, of enkele kleine.",
+      "en": "None, or a few small ones."
+    },
+    "plant_text": {
+      "nl": "Eén grote centrale vacuole, tot 90% van de cel. Zorgt voor turgor.",
+      "en": "One large central vacuole, up to 90% of the cell. Provides turgor."
+    }
+  },
+  {
+    "id": "chloroplasten",
+    "organelle_id": "chloroplasten",
+    "label": {
+      "nl": "Chloroplasten",
+      "en": "Chloroplasts"
+    },
+    "animal": false,
+    "plant": true,
+    "animal_text": {
+      "nl": "Geen.",
+      "en": "None."
+    },
+    "plant_text": {
+      "nl": "Ja: fotosynthese, maakt glucose uit zonlicht.",
+      "en": "Yes: photosynthesis, makes glucose from sunlight."
+    }
+  },
+  {
+    "id": "mitochondrien",
+    "organelle_id": "mitochondrien",
+    "label": {
+      "nl": "Mitochondriën",
+      "en": "Mitochondria"
+    },
+    "animal": true,
+    "plant": true,
+    "animal_text": {
+      "nl": "Ja, veel; vooral in spiercellen.",
+      "en": "Yes, many; especially in muscle cells."
+    },
+    "plant_text": {
+      "nl": "Ja. Ook een plant ademt, dag en nacht.",
+      "en": "Yes. A plant respires too, day and night."
+    }
+  },
+  {
+    "id": "celnucleus",
+    "organelle_id": "celnucleus",
+    "label": {
+      "nl": "Celkern",
+      "en": "Nucleus"
+    },
+    "animal": true,
+    "plant": true,
+    "animal_text": {
+      "nl": "Ja, meestal in het midden.",
+      "en": "Yes, usually in the middle."
+    },
+    "plant_text": {
+      "nl": "Ja, vaak tegen de rand geduwd door de vacuole.",
+      "en": "Yes, often pushed to the edge by the vacuole."
+    }
+  },
+  {
+    "id": "centriolen",
+    "organelle_id": "centriolen",
+    "label": {
+      "nl": "Centriolen",
+      "en": "Centrioles"
+    },
+    "animal": true,
+    "plant": false,
+    "animal_text": {
+      "nl": "Ja: bouwen de spoelfiguur bij celdeling.",
+      "en": "Yes: build the spindle during cell division."
+    },
+    "plant_text": {
+      "nl": "Geen. De spoelfiguur ontstaat zonder centriolen.",
+      "en": "None. The spindle forms without centrioles."
+    }
+  },
+  {
+    "id": "lysosomen",
+    "organelle_id": "lysosomen",
+    "label": {
+      "nl": "Lysosomen",
+      "en": "Lysosomes"
+    },
+    "animal": true,
+    "plant": false,
+    "animal_text": {
+      "nl": "Ja: breken afval en indringers af.",
+      "en": "Yes: break down waste and intruders."
+    },
+    "plant_text": {
+      "nl": "Zelden. De vacuole neemt de afbraak over.",
+      "en": "Rarely. The vacuole takes over the breakdown."
+    }
+  },
+  {
+    "id": "microvilli",
+    "organelle_id": "microvilli",
+    "label": {
+      "nl": "Microvilli",
+      "en": "Microvilli"
+    },
+    "animal": true,
+    "plant": false,
+    "animal_text": {
+      "nl": "Bij sommige cellen, zoals de darmcel.",
+      "en": "In some cells, such as the intestinal cell."
+    },
+    "plant_text": {
+      "nl": "Geen.",
+      "en": "None."
+    }
+  },
+  {
+    "id": "voeding",
+    "organelle_id": null,
+    "label": {
+      "nl": "Voeding",
+      "en": "Nutrition"
+    },
+    "animal": null,
+    "plant": null,
+    "animal_text": {
+      "nl": "Haalt glucose uit voedsel.",
+      "en": "Gets glucose from food."
+    },
+    "plant_text": {
+      "nl": "Maakt zelf glucose uit CO₂, water en licht.",
+      "en": "Makes its own glucose from CO₂, water and light."
+    }
+  },
+  {
+    "id": "reserve",
+    "organelle_id": null,
+    "label": {
+      "nl": "Reservestof",
+      "en": "Storage substance"
+    },
+    "animal": null,
+    "plant": null,
+    "animal_text": {
+      "nl": "Glycogeen, in lever en spieren.",
+      "en": "Glycogen, in liver and muscles."
+    },
+    "plant_text": {
+      "nl": "Zetmeel, in zetmeelkorrels.",
+      "en": "Starch, in starch grains."
+    }
+  }
+]

@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { CellScene } from '../three/CellScene.js';
+import { useLang } from '../i18n/index.jsx';
 
 /**
  * React wrapper around the Three.js stage. React owns *what* is shown
@@ -15,11 +16,14 @@ const CellViewer = forwardRef(function CellViewer(
     open = true,
     insetRight = 0,
     insetBottom = 0,
+    flyOnSelect = true,
+    route = null,
     onSelect,
     onCounts,
   },
   ref,
 ) {
+  const { t } = useLang();
   const containerRef = useRef(null);
   const stageRef = useRef(null);
   const callbacks = useRef({ onSelect, onCounts });
@@ -47,6 +51,7 @@ const CellViewer = forwardRef(function CellViewer(
       return undefined;
     }
     stageRef.current = stage;
+    if (import.meta.env.DEV) window.__cellStage = stage; // handy in the browser console
     return () => {
       stage.dispose();
       stageRef.current = null;
@@ -75,20 +80,23 @@ const CellViewer = forwardRef(function CellViewer(
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage || stage.selectedId === selectedId) return;
-    if (selectedId) stage.select(selectedId);
-    else stage.clearSelection();
-  }, [selectedId, cell]);
+    if (selectedId) stage.select(selectedId, { fly: flyOnSelect });
+    else stage.clearSelection({ fly: flyOnSelect });
+  }, [selectedId, cell, flyOnSelect]);
+
+  // The path of a process (list of organelle ids), or nothing.
+  const routeKey = route ? route.join('>') : '';
+  useEffect(() => {
+    stageRef.current?.setRoute(route ?? []);
+  }, [routeKey, cell]);
 
   useImperativeHandle(ref, () => ({ resetCamera: () => stageRef.current?.resetCamera() }), []);
 
   if (failed) {
     return (
       <div className="viewer-error" role="alert">
-        <h2>3D kan hier niet starten</h2>
-        <p>
-          Deze browser of computer ondersteunt geen WebGL. Probeer een recente versie van Chrome, Edge of Firefox en
-          zet hardwareversnelling aan.
-        </p>
+        <h2>{t('webgl.title')}</h2>
+        <p>{t('webgl.text')}</p>
       </div>
     );
   }
