@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useCells } from '../hooks/useCells.js';
 import { useCellData } from '../hooks/useCellData.js';
+import { useGlossary } from '../hooks/useGlossary.js';
 import Button from '../ui/Button.jsx';
 import Spinner from '../ui/Spinner.jsx';
 import CellViewer from './CellViewer.jsx';
@@ -31,6 +32,7 @@ function useMediaQuery(query) {
  */
 export default function CellExperience({ cellId, mode }) {
   const { cells } = useCells();
+  const glossary = useGlossary();
   const fresh = useCellData(cellId);
   // While the next cell is loading, keep the current one on stage instead of tearing down WebGL.
   const lastReady = useRef(null);
@@ -101,14 +103,21 @@ export default function CellExperience({ cellId, mode }) {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [selectedId, step]);
 
-  // The panel covers part of the stage; tell the 3D camera how much.
+  // The panel covers part of the stage; tell the 3D camera how much. The
+  // panel grows when "Meer uitleg" opens, so watch its size instead of
+  // measuring once.
   useLayoutEffect(() => {
     const panel = panelRef.current;
     if (!selected || !panel) {
       setInsets({ right: 0, bottom: 0 });
-      return;
+      return undefined;
     }
-    setInsets(narrow ? { right: 0, bottom: panel.offsetHeight } : { right: panel.offsetWidth + 16, bottom: 0 });
+    const measure = () =>
+      setInsets(narrow ? { right: 0, bottom: panel.offsetHeight } : { right: panel.offsetWidth + 16, bottom: 0 });
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(panel);
+    return () => observer.disconnect();
   }, [selected, narrow]);
 
   if (data.status === 'not-found' || data.status === 'error') {
@@ -198,6 +207,7 @@ export default function CellExperience({ cellId, mode }) {
             ref={panelRef}
             organelle={selected}
             count={selected ? counts[selected.id] ?? 1 : undefined}
+            glossary={glossary}
             onClose={() => setSelectedId(null)}
             onPrevious={() => step(-1)}
             onNext={() => step(1)}

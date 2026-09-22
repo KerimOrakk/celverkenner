@@ -1,5 +1,6 @@
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 import Button from '../ui/Button.jsx';
+import RichText from './RichText.jsx';
 
 function whereFound(cellTypes = []) {
   const animal = cellTypes.includes('dierlijk');
@@ -14,10 +15,12 @@ const formatNumber = (value) => String(Number(value.toFixed(2))).replace('.', ',
 
 /** Slides in when an organelle is selected. Stays mounted so it can slide out again. */
 const ExplanationPanel = forwardRef(function ExplanationPanel(
-  { organelle, count, onClose, onPrevious, onNext },
+  { organelle, count, glossary, onClose, onPrevious, onNext },
   ref,
 ) {
   const open = Boolean(organelle);
+  // "Meer uitleg" stays open while you walk through the organelles.
+  const [expanded, setExpanded] = useState(false);
   // Keep showing the last organelle while the panel slides out.
   const lastShown = useRef(null);
   if (organelle) lastShown.current = { organelle, count };
@@ -25,7 +28,12 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
   const shownCount = organelle ? count : lastShown.current?.count;
 
   return (
-    <aside ref={ref} className={`panel${open ? ' is-open' : ''}`} aria-hidden={!open} aria-live="polite">
+    <aside
+      ref={ref}
+      className={`panel${open ? ' is-open' : ''}${expanded ? ' is-expanded' : ''}`}
+      aria-hidden={!open}
+      aria-live="polite"
+    >
       {shown && (
         <div className="panel__inner" key={shown.id}>
           <header className="panel__header">
@@ -39,6 +47,29 @@ const ExplanationPanel = forwardRef(function ExplanationPanel(
           </header>
 
           <p className="panel__explanation">{shown.explanation}</p>
+
+          {shown.details && (
+            <div className="panel__more">
+              <button
+                type="button"
+                className="panel__more-toggle"
+                aria-expanded={expanded}
+                aria-controls="panel-details"
+                onClick={() => setExpanded((value) => !value)}
+              >
+                <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+                  <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+                {expanded ? 'Minder uitleg' : 'Meer uitleg'}
+              </button>
+              {expanded && (
+                <div id="panel-details" className="panel__details">
+                  <RichText text={shown.details} glossary={glossary} />
+                  <p className="panel__details-hint">Tik op een gekleurd woord voor de betekenis.</p>
+                </div>
+              )}
+            </div>
+          )}
 
           <dl className="panel__facts">
             <div>

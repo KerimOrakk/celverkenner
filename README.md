@@ -53,13 +53,15 @@ project/
 │   ├── routers/
 │   │   ├── cells.py            GET /cells, GET /cells/{id}
 │   │   ├── organelles.py       GET /organelles, GET /organelles/{id}
-│   │   └── explanations.py     GET /explanations, GET /explanations/{id}
+│   │   ├── explanations.py     GET /explanations, GET /explanations/{id}
+│   │   └── glossary.py         GET /glossary, GET /glossary/{id}
 │   ├── models/
 │   │   └── schemas.py          Pydantic-modellen (Cell, Organelle, Explanation, …)
 │   └── data/
 │       ├── cells.json          drie cellen: vorm, kleur, organelposities en schalen
 │       ├── organelles.json     naam, kleur en categorie per organel
-│       ├── explanations.json   de uitlegteksten
+│       ├── explanations.json   de uitlegteksten (kort + lang, met [[begrippen]])
+│       ├── glossary.json       definities van de klikbare begrippen
 │       └── repository.py       laadt en valideert de JSON-bestanden
 ├── frontend/
 │   ├── index.html
@@ -78,12 +80,13 @@ project/
 │       │   ├── CellExperience.jsx      gedeelde lay-out en toestand van beide 3D-pagina's
 │       │   ├── CellViewer.jsx          React-wrapper om de Three.js-scène
 │       │   ├── OrganelleButtons.jsx    de groene organelknoppen
-│       │   ├── ExplanationPanel.jsx    het inschuivende uitlegpaneel
+│       │   ├── ExplanationPanel.jsx    het inschuivende uitlegpaneel (met "Meer uitleg")
+│       │   ├── RichText.jsx            tekst met klikbare begrippen en definitiekaartje
 │       │   ├── TopBar.jsx              terugknop, cel-dropdown, weergavekeuze, API-status
 │       │   ├── ViewerControls.jsx      auto-rotatie, cel openen/sluiten, beginstand, rondleiding
 │       │   └── ApiStatus.jsx
 │       ├── ui/                 Button, Dropdown, Spinner
-│       ├── hooks/              useCells, useCellData
+│       ├── hooks/              useCells, useCellData, useGlossary
 │       ├── data/fallback.js    offline kopie (leest backend/data/*.json)
 │       └── three/
 │           ├── CellScene.js        renderer, camera, OrbitControls, picking, glow, animaties
@@ -108,6 +111,8 @@ project/
 | `GET /explanations` | Alle uitlegteksten |
 | `GET /explanations?cell_id=plantencel` | Uitlegteksten voor één cel |
 | `GET /explanations/{organelle_id}` | Eén uitlegtekst |
+| `GET /glossary` | Alle begrippen (term + definitie) die in de langere uitleg klikbaar zijn |
+| `GET /glossary/{term_id}` | Eén begrip |
 | `GET /health` | Draait de API? |
 
 Cel-id's: `hartcel`, `darmcel`, `plantencel`.
@@ -125,6 +130,23 @@ Voorbeeld van een organelplaatsing uit `GET /cells/hartcel`:
 
 `positions` zijn de vaste posities uit de les, `random` vult aan met willekeurig geplaatste exemplaren binnen ±`range`. Organellen met een vaste grootte (membraan, celkern, nucleolus, celwand) hebben daarnaast een `scale`.
 
+### Langere uitleg en klikbare begrippen
+
+Elke uitleg in `explanations.json` heeft naast de korte `text` ook een langere `details`. Die verschijnt in het paneel achter de knop **Meer uitleg**. Woorden tussen dubbele haken verwijzen naar `glossary.json` en worden klikbaar; wie erop tikt, ziet de definitie in een kaartje onder de tekst.
+
+```json
+{
+  "organelle_id": "celwand",
+  "text": "bescherming + structuur",
+  "details": "De celwand is opgebouwd uit [[cellulose]]. Kleine [[porien|poriën]] maken de wand doorlaatbaar …"
+}
+```
+
+- `[[cellulose]]` toont de term uit `glossary.json` (met kleine letter midden in een zin).
+- `[[porien|poriën]]` toont het label na de `|`, handig voor tekens of meervouden.
+
+Een nieuw begrip toevoegen: zet het in `glossary.json` (`id`, `term`, `definition`) en gebruik het `id` tussen haken. De backend weigert bij het opstarten uitleg die naar een onbekend `id` verwijst.
+
 ### Gegevens aanpassen
 
 Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan in alle drie de bestanden (`organelles.json`, `explanations.json` en de betreffende cel in `cells.json`). De backend controleert bij het opstarten of alles op elkaar aansluit en meldt anders precies wat er ontbreekt. De frontend heeft voor elk organel een 3D-fabriek in `src/three/organelles.js`; een onbekend organel wordt als eenvoudige bol getekend.
@@ -136,6 +158,7 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 | Cel draaien / zoomen | slepen, scrollen of knijpen (OrbitControls) |
 | Organel bekijken | klik erop in 3D of druk op de groene knop; de camera zoomt ernaartoe en het organel licht op |
 | Volgend / vorig organel | knoppen in het paneel of de pijltjestoetsen ← → |
+| Meer lezen | knop "Meer uitleg" in het paneel; tik op een gekleurd woord voor de definitie |
 | Paneel sluiten | ✕ of `Esc` |
 | Cel openen / sluiten | knop onderaan (alleen in de 3D-viewer) |
 | Andere cel of weergave | dropdown en weergavekeuze in de bovenbalk |

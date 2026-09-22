@@ -4,6 +4,7 @@
 import cells from '../../../backend/data/cells.json';
 import organelles from '../../../backend/data/organelles.json';
 import explanations from '../../../backend/data/explanations.json';
+import glossary from '../../../backend/data/glossary.json';
 
 const organelleById = new Map(organelles.map((organelle) => [organelle.id, organelle]));
 
@@ -33,4 +34,6 @@ export const fallback = {
         name: organelleById.get(explanation.organelle_id)?.name ?? explanation.organelle_id,
       }));
   },
+
+  getGlossary: () => glossary,
 };

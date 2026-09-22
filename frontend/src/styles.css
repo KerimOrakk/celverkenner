@@ -955,6 +955,133 @@ a {
   border-top: 1px solid var(--line);
 }
 
+/* ----------------------------------------------------- more explanation */
+
+.panel.is-expanded {
+  width: min(420px, calc(100% - 32px));
+}
+
+.panel__more {
+  display: grid;
+  gap: 12px;
+}
+
+.panel__more-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  min-height: 36px;
+  padding: 0 14px 0 12px;
+  border: 1.5px solid rgba(0, 229, 255, 0.55);
+  border-radius: var(--radius);
+  background: rgba(0, 229, 255, 0.04);
+  color: var(--highlight);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.panel__more-toggle:hover {
+  border-color: var(--highlight);
+  background: rgba(0, 229, 255, 0.12);
+}
+
+.panel__more-toggle svg {
+  transition: transform 0.2s var(--ease);
+}
+
+.panel__more-toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.panel__details {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  animation: fade-in 0.25s ease both;
+}
+
+.panel__details-hint {
+  color: var(--text-faint);
+  font-size: 0.8rem;
+}
+
+.richtext p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* A clickable term looks like a word, not like a button. */
+.term {
+  display: inline;
+  margin: 0;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 4px;
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--highlight);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.term:hover,
+.term.is-open {
+  background: rgba(0, 229, 255, 0.25);
+  color: var(--text);
+  text-decoration-style: solid;
+}
+
+.term-popover {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--highlight);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.term-popover__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.term-popover__close {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.term-popover__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.term-popover__text {
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 /* --------------------------------------------------------------- animations */
 
 @keyframes rise-in {
@@ -1161,6 +1288,11 @@ a {
     width: auto;
     max-height: 48%;
     transform: translateY(calc(100% + 16px));
+  }
+
+  .panel.is-expanded {
+    width: auto;
+    max-height: 72%;
   }
 
   .panel__inner {

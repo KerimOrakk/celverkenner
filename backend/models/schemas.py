@@ -60,3 +60,12 @@ class Explanation(BaseModel):
     organelle_id: str
     name: str
     text: str
+    # Langere uitleg. Termen tussen [[ ]] verwijzen naar glossary.json en zijn
+    # in de frontend klikbaar: [[plasmodesmata]] of [[porien|poriën]] (id|label).
+    details: Optional[str] = None
+
+
+class GlossaryTerm(BaseModel):
+    id: str
+    term: str
+    definition: str

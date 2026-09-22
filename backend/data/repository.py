@@ -10,7 +10,9 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from models.schemas import Cell, Explanation, Organelle
+import re
+
+from models.schemas import Cell, Explanation, GlossaryTerm, Organelle
 
 DATA_DIR = Path(__file__).resolve().parent
 
@@ -51,16 +53,38 @@ def get_cell(cell_id: str) -> Optional[Cell]:
     return next((cell for cell in get_cells() if cell.id == cell_id), None)
 
 
+TERM_PATTERN = re.compile(r"\[\[([^\]|]+)(?:\|[^\]]*)?\]\]")
+
+
+@lru_cache(maxsize=1)
+def get_glossary() -> List[GlossaryTerm]:
+    return [GlossaryTerm(**row) for row in _read("glossary.json")]
+
+
+@lru_cache(maxsize=1)
+def _glossary_index() -> Dict[str, GlossaryTerm]:
+    return {term.id: term for term in get_glossary()}
+
+
+def get_glossary_term(term_id: str) -> Optional[GlossaryTerm]:
+    return _glossary_index().get(term_id)
+
+
 @lru_cache(maxsize=1)
 def get_explanations() -> List[Explanation]:
     index = _organelle_index()
+    glossary = _glossary_index()
     explanations = []
     for row in _read("explanations.json"):
         organelle = index.get(row["organelle_id"])
         if organelle is None:
             raise ValueError(f"explanations.json: onbekend organel '{row['organelle_id']}'")
+        details = row.get("details")
+        unknown = [t for t in TERM_PATTERN.findall(details or "") if t not in glossary]
+        if unknown:
+            raise ValueError(f"explanations.json: '{organelle.id}' verwijst naar onbekende termen {unknown}")
         explanations.append(
-            Explanation(organelle_id=organelle.id, name=organelle.name, text=row["text"])
+            Explanation(organelle_id=organelle.id, name=organelle.name, text=row["text"], details=details)
         )
     return explanations
 
@@ -80,4 +104,5 @@ def validate_all() -> None:
     """Laadt alles één keer, zodat fouten in de data meteen bij het opstarten opvallen."""
     get_organelles()
     get_cells()
+    get_glossary()
     get_explanations()

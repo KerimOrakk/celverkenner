@@ -62,4 +62,5 @@ export const api = {
     withFallback(`/organelles?cell_id=${encodeURIComponent(cellId)}`, () => fallback.getOrganelles(cellId)),
   getExplanations: (cellId) =>
     withFallback(`/explanations?cell_id=${encodeURIComponent(cellId)}`, () => fallback.getExplanations(cellId)),
+  getGlossary: () => withFallback('/glossary', fallback.getGlossary),
 };

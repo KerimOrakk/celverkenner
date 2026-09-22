@@ -1,0 +1,207 @@
+[
+  {
+    "id": "cellulose",
+    "term": "Cellulose",
+    "definition": "Lange, onvertakte suikerketen die stevige vezels vormt. Het belangrijkste bouwmateriaal van de plantaardige celwand."
+  },
+  {
+    "id": "porien",
+    "term": "Poriën",
+    "definition": "Zeer kleine openingen in de celwand waardoor water en opgeloste stoffen kunnen passeren. Daardoor is de wand doorlaatbaar."
+  },
+  {
+    "id": "plasmodesmata",
+    "term": "Plasmodesmata",
+    "definition": "Kanaalachtige verbindingen door de celwand heen, waardoor het cytoplasma van twee naast elkaar liggende cellen rechtstreeks met elkaar in contact staat."
+  },
+  {
+    "id": "fosfolipiden",
+    "term": "Fosfolipiden",
+    "definition": "Vetmoleculen met een waterminnende kop en twee watervrezende staarten. In een dubbele laag vormen ze de basis van elk membraan."
+  },
+  {
+    "id": "membraaneiwitten",
+    "term": "Membraaneiwitten",
+    "definition": "Eiwitten die in of op het celmembraan zitten. Ze werken als poort, pomp, ontvanger van signalen of herkenningsteken."
+  },
+  {
+    "id": "diffusie",
+    "term": "Diffusie",
+    "definition": "Verplaatsing van stoffen van een plek met hoge concentratie naar een plek met lage concentratie, zonder dat de cel er energie voor gebruikt."
+  },
+  {
+    "id": "transporteiwitten",
+    "term": "Transporteiwitten",
+    "definition": "Membraaneiwitten die bepaalde stoffen door het membraan laten of ze met energie naar binnen of buiten pompen."
+  },
+  {
+    "id": "selectief_permeabel",
+    "term": "Selectief permeabel",
+    "definition": "Laat alleen bepaalde stoffen door. Het membraan bepaalt zo wat de cel in en uit mag."
+  },
+  {
+    "id": "kernmembraan",
+    "term": "Kernmembraan",
+    "definition": "Dubbel membraan rond de celkern dat het DNA scheidt van het cytoplasma."
+  },
+  {
+    "id": "kernporien",
+    "term": "Kernporiën",
+    "definition": "Openingen in de kernmembraan waardoor mRNA en eiwitten de kern in en uit kunnen."
+  },
+  {
+    "id": "dna",
+    "term": "DNA",
+    "definition": "Desoxyribonucleïnezuur: het lange molecuul met de erfelijke informatie. De handleiding voor alle eiwitten van de cel."
+  },
+  {
+    "id": "chromatine",
+    "term": "Chromatine",
+    "definition": "DNA dat om eiwitten (histonen) is gewikkeld. De gewone, losse vorm van het DNA tussen twee celdelingen in."
+  },
+  {
+    "id": "chromosomen",
+    "term": "Chromosomen",
+    "definition": "Sterk opgerold chromatine dat tijdens de celdeling als losse staafjes zichtbaar wordt. Een mens heeft er 46."
+  },
+  {
+    "id": "mrna",
+    "term": "mRNA",
+    "definition": "Boodschapper-RNA: een kopie van een stukje DNA die de kern verlaat en door ribosomen wordt afgelezen."
+  },
+  {
+    "id": "rrna",
+    "term": "rRNA",
+    "definition": "Ribosomaal RNA: het RNA waaruit ribosomen voor het grootste deel bestaan."
+  },
+  {
+    "id": "cristae",
+    "term": "Cristae",
+    "definition": "De plooien van het binnenste membraan van een mitochondrion. Hoe meer plooien, hoe meer ATP er gemaakt kan worden."
+  },
+  {
+    "id": "celademhaling",
+    "term": "Celademhaling",
+    "definition": "Het afbreken van glucose met zuurstof tot CO₂ en water. De energie die daarbij vrijkomt wordt opgeslagen in ATP."
+  },
+  {
+    "id": "atp",
+    "term": "ATP",
+    "definition": "Adenosinetrifosfaat: het molecuul waarin de cel energie bewaart en meteen kan gebruiken, bijvoorbeeld om een spier te laten samentrekken."
+  },
+  {
+    "id": "aminozuren",
+    "term": "Aminozuren",
+    "definition": "De twintig bouwstenen waaruit alle eiwitten zijn opgebouwd."
+  },
+  {
+    "id": "translatie",
+    "term": "Translatie",
+    "definition": "Het maken van een eiwit door een ribosoom, aan de hand van de code op het mRNA."
+  },
+  {
+    "id": "cisternen",
+    "term": "Cisternen",
+    "definition": "De platte, gestapelde membraanzakjes waaruit het Golgi-apparaat bestaat."
+  },
+  {
+    "id": "blaasjes",
+    "term": "Blaasjes",
+    "definition": "Kleine bolletjes van membraan (vesikels) waarin stoffen door de cel worden vervoerd."
+  },
+  {
+    "id": "exocytose",
+    "term": "Exocytose",
+    "definition": "Het naar buiten brengen van stoffen doordat een blaasje versmelt met het celmembraan en zijn inhoud loslaat."
+  },
+  {
+    "id": "lipiden",
+    "term": "Lipiden",
+    "definition": "Vetten en vetachtige stoffen. Bouwmateriaal voor membranen en een manier om energie op te slaan."
+  },
+  {
+    "id": "steroidhormonen",
+    "term": "Steroïdhormonen",
+    "definition": "Hormonen die uit cholesterol worden gemaakt, zoals oestrogeen, testosteron en cortisol."
+  },
+  {
+    "id": "calcium",
+    "term": "Calcium",
+    "definition": "Calciumionen (Ca²⁺) werken in de cel als signaal. In spiercellen geven ze het sein om samen te trekken."
+  },
+  {
+    "id": "enzymen",
+    "term": "Enzymen",
+    "definition": "Eiwitten die chemische reacties versnellen zonder zelf verbruikt te worden."
+  },
+  {
+    "id": "autofagie",
+    "term": "Autofagie",
+    "definition": "Letterlijk 'zichzelf eten': het opruimen en hergebruiken van versleten onderdelen van de cel via lysosomen."
+  },
+  {
+    "id": "microtubuli",
+    "term": "Microtubuli",
+    "definition": "Holle eiwitbuisjes die de cel vorm geven en dienen als rails voor transport en voor de celdeling."
+  },
+  {
+    "id": "centrosoom",
+    "term": "Centrosoom",
+    "definition": "Het gebied vlak bij de kern met de twee centriolen, van waaruit de microtubuli worden opgebouwd."
+  },
+  {
+    "id": "spoelfiguur",
+    "term": "Spoelfiguur",
+    "definition": "Het netwerk van microtubuli dat tijdens de celdeling de chromosomen naar de twee kanten van de cel trekt."
+  },
+  {
+    "id": "actine",
+    "term": "Actine",
+    "definition": "Eiwit dat dunne vezels vormt. Geeft stevigheid aan microvilli en laat spiercellen samentrekken."
+  },
+  {
+    "id": "borstelzoom",
+    "term": "Borstelzoom",
+    "definition": "De 'borstel' van dicht opeenstaande microvilli aan de bovenkant van darmcellen."
+  },
+  {
+    "id": "thylakoiden",
+    "term": "Thylakoïden",
+    "definition": "Platte membraanzakjes in de chloroplast waarin het chlorofyl zit en het licht wordt opgevangen."
+  },
+  {
+    "id": "grana",
+    "term": "Grana",
+    "definition": "Stapels thylakoïden, als muntstukken op elkaar."
+  },
+  {
+    "id": "chlorofyl",
+    "term": "Chlorofyl",
+    "definition": "Het groene pigment dat lichtenergie opvangt voor de fotosynthese."
+  },
+  {
+    "id": "stroma",
+    "term": "Stroma",
+    "definition": "De vloeistof in de chloroplast rond de thylakoïden. Hier wordt CO₂ vastgelegd in suikers."
+  },
+  {
+    "id": "celsap",
+    "term": "Celsap",
+    "definition": "De vloeistof in de vacuole: water met opgeloste suikers, zouten, kleurstoffen en afvalstoffen."
+  },
+  {
+    "id": "turgor",
+    "term": "Turgor",
+    "definition": "De druk van de met water gevulde vacuole tegen de celwand. Houdt de plant stevig en rechtop."
+  },
+  {
+    "id": "cytoplasma",
+    "term": "Cytoplasma",
+    "definition": "Alles binnen het celmembraan behalve de kern: een waterige vloeistof met daarin de organellen."
+  },
+  {
+    "id": "glucose",
+    "term": "Glucose",
+    "definition": "Druivensuiker: de brandstof die de cel in de mitochondriën afbreekt om energie te winnen."
+  }
+]

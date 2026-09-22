@@ -11,7 +11,7 @@ async function load(cellId) {
   ]);
 
   const definitionById = new Map(definitions.data.map((d) => [d.id, d]));
-  const textById = new Map(explanations.data.map((e) => [e.organelle_id, e.text]));
+  const explanationById = new Map(explanations.data.map((e) => [e.organelle_id, e]));
 
   // One tidy list for the UI: definition + placement + explanation per organelle.
   const organelles = cell.data.organelles.map((placement) => ({
@@ -24,7 +24,8 @@ async function load(cellId) {
     positions: placement.positions,
     scale: placement.scale,
     random: placement.random,
-    explanation: textById.get(placement.organelle_id) ?? '',
+    explanation: explanationById.get(placement.organelle_id)?.text ?? '',
+    details: explanationById.get(placement.organelle_id)?.details ?? null,
   }));
 
   const sources = [cell.source, definitions.source, explanations.source];
