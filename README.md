@@ -7,6 +7,7 @@ Verder in de app:
 - **Processen** – de route van een eiwit, celademhaling, fotosynthese, opname in de darm, celdeling en afval opruimen, stap voor stap: de camera vliegt van organel naar organel en tekent de route in 3D.
 - **Vergelijken** – dierlijke cel en plantencel naast elkaar met een verschillentabel; tik op een rij en het organel licht in beide cellen op.
 - **Begrippenlijst** – alle begrippen uit de uitleg op alfabet, met zoekvak en links naar het organel in 3D.
+- **Quiz** – kies één of meer cellen en klik tien keer zo snel mogelijk op het gevraagde organel (op naam of op functie). Timer, straftijd bij fouten, beste tijd wordt onthouden.
 - **Nederlands en Engels** – schakelaar rechtsboven (of `?lang=en` in het adres); de API levert beide talen.
 - **Offline / installeerbaar (PWA)** – na één bezoek werkt de site zonder internet en kan hij als app op telefoon of laptop worden gezet.
 
@@ -94,7 +95,8 @@ project/
 │       │   ├── IntracellularPage.jsx   intracellulaire modus (van binnen)
 │       │   ├── ProcessPage.jsx         processen, stap voor stap
 │       │   ├── ComparePage.jsx         dierlijke cel en plantencel naast elkaar
-│       │   └── GlossaryPage.jsx        begrippenlijst met zoekvak
+│       │   ├── GlossaryPage.jsx        begrippenlijst met zoekvak
+│       │   └── QuizPage.jsx            organellenquiz (celkeuze, spel, uitslag)
 │       ├── components/
 │       │   ├── CellExperience.jsx      gedeelde lay-out en toestand van viewer en intracellulair
 │       │   ├── ProcessExperience.jsx   lay-out en toestand van de processenpagina
@@ -227,6 +229,7 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 | Taal | NL / EN rechtsboven, wordt onthouden; `?lang=en` in een link forceert Engels |
 | Rechtstreeks naar een organel | `/viewer/plantencel?organel=golgi` opent de plantencel met het Golgi-apparaat geselecteerd |
 | Installeren als app | Chrome/Edge: adresbalk → installeren; iPhone: Deel → Zet op beginscherm |
+| Quiz | `/quiz`: kies cellen, start; klik in 3D op het gevraagde organel. Fout = +3 s, overslaan = +5 s. De naam verschijnt tijdens de quiz niet bij de muis. Ribosomen worden niet gevraagd (te klein om eerlijk aan te klikken). Beste tijd per celkeuze staat in de browser (localStorage). |
 
 ## Ontwerpkeuzes
 

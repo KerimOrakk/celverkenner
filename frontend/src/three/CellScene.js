@@ -75,6 +75,7 @@ export class CellScene {
     this.elapsed = 0;
     this.pointer = { x: 0, y: 0, downX: 0, downY: 0, downAt: 0, dirty: false, inside: false };
     this.size = { width: 1, height: 1 };
+    this.showNames = true; // the quiz hides the hover tooltip: the name is the answer
     this.inset = { right: 0, bottom: 0 }; // canvas area covered by UI, in CSS pixels
     this.insetTarget = { right: 0, bottom: 0 };
     this.reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -192,6 +193,12 @@ export class CellScene {
 
   setAutoRotate(enabled) {
     this.autoRotate = enabled;
+  }
+
+  /** Show or hide the organelle name that follows the pointer. */
+  setShowNames(enabled) {
+    this.showNames = enabled;
+    if (!enabled) this.tooltip?.classList.remove('is-visible');
   }
 
   /** Open or close the membrane (viewer mode only). */
@@ -537,8 +544,8 @@ export class CellScene {
       this.hoveredId = id;
       if (id && id !== this.selectedId) this.#setHighlight(id, 1);
       this.renderer.domElement.style.cursor = id ? 'pointer' : 'grab';
-      this.tooltip.textContent = id ? this.model.entries.get(id).name : '';
-      this.tooltip.classList.toggle('is-visible', Boolean(id));
+      this.tooltip.textContent = id && this.showNames ? this.model.entries.get(id).name : '';
+      this.tooltip.classList.toggle('is-visible', Boolean(id) && this.showNames);
     }
     if (id) {
       const rect = this.container.getBoundingClientRect();

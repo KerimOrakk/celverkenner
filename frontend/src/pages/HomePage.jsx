@@ -104,6 +104,7 @@ export default function HomePage() {
               <Link to={`/proces/${chosen.id}`}>{t('home.processes')}</Link>
               <Link to="/vergelijk">{t('home.compare')}</Link>
               <Link to="/begrippen">{t('home.glossary')}</Link>
+              <Link to="/quiz" className="home__links-quiz">{t('home.quiz')}</Link>
             </nav>
           </>
         )}

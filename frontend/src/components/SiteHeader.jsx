@@ -4,8 +4,9 @@ import ApiStatus from './ApiStatus.jsx';
 import { useLang } from '../i18n/index.jsx';
 
 /** Header of the pages without a 3D stage of their own (comparison, glossary). */
-export default function SiteHeader({ source }) {
+export default function SiteHeader({ source, title = null }) {
   const { t } = useLang();
+  const item = ({ isActive }) => `mode-switch__item${isActive ? ' is-active' : ''}`;
   return (
     <header className="topbar">
       <Link to="/" className="topbar__back">
@@ -14,14 +15,21 @@ export default function SiteHeader({ source }) {
         </svg>
         {t('nav.home')}
       </Link>
-      <nav className="mode-switch" aria-label={t('home.more')}>
-        <NavLink to="/vergelijk" className={({ isActive }) => `mode-switch__item${isActive ? ' is-active' : ''}`}>
-          {t('nav.compare')}
-        </NavLink>
-        <NavLink to="/begrippen" className={({ isActive }) => `mode-switch__item${isActive ? ' is-active' : ''}`}>
-          {t('nav.glossary')}
-        </NavLink>
-      </nav>
+      {title ? (
+        <span className="topbar__title">{title}</span>
+      ) : (
+        <nav className="mode-switch" aria-label={t('home.more')}>
+          <NavLink to="/vergelijk" className={item}>
+            {t('nav.compare')}
+          </NavLink>
+          <NavLink to="/begrippen" className={item}>
+            {t('nav.glossary')}
+          </NavLink>
+          <NavLink to="/quiz" className={item}>
+            {t('nav.quiz')}
+          </NavLink>
+        </nav>
+      )}
       <div className="topbar__status">
         <LanguageSwitch />
         <ApiStatus source={source} />

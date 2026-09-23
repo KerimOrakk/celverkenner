@@ -18,6 +18,7 @@ const CellViewer = forwardRef(function CellViewer(
     insetBottom = 0,
     flyOnSelect = true,
     route = null,
+    showNames = true,
     onSelect,
     onCounts,
   },
@@ -70,6 +71,7 @@ const CellViewer = forwardRef(function CellViewer(
 
   useEffect(() => stageRef.current?.setAutoRotate(autoRotate), [autoRotate]);
   useEffect(() => stageRef.current?.setOpen(open), [open]);
+  useEffect(() => stageRef.current?.setShowNames(showNames), [showNames]);
   // Part of the canvas is covered by the explanation panel: keep the organelle in the free part.
   useEffect(
     () => stageRef.current?.setViewInsets({ right: insetRight, bottom: insetBottom }),
