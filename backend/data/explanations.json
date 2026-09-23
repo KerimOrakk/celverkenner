@@ -152,5 +152,71 @@
       "nl": "Microvilli zijn vingervormige uitstulpingen van het celmembraan, verstevigd met [[actine]]. Ze vergroten het oppervlak van een darmcel tot wel twintig keer, zodat er veel meer [[transporteiwitten]] in passen om voedingsstoffen op te nemen. Samen vormen ze de [[borstelzoom]].",
       "en": "Microvilli are finger-shaped extensions of the cell membrane, reinforced with [[actine|actin]]. They enlarge the surface of an intestinal cell up to twenty times, so many more [[transporteiwitten|transport proteins]] fit in to absorb nutrients. Together they form the [[borstelzoom|brush border]]."
     }
+  },
+  {
+    "organelle_id": "kapsel",
+    "text": {
+      "nl": "slijmlaag, bescherming en hechting",
+      "en": "slime layer, protection and attachment"
+    },
+    "details": {
+      "nl": "Het kapsel is een kleverige laag van suikers buiten de celwand. Het beschermt de bacterie tegen uitdroging en tegen witte bloedcellen, en helpt haar vastplakken aan oppervlakken, bijvoorbeeld op je tanden ([[biofilm]]). Niet elke bacterie heeft een kapsel.",
+      "en": "The capsule is a sticky layer of sugars outside the cell wall. It protects the bacterium against drying out and against white blood cells, and helps it stick to surfaces, for example on your teeth ([[biofilm]]). Not every bacterium has a capsule."
+    }
+  },
+  {
+    "organelle_id": "bacteriewand",
+    "text": {
+      "nl": "stevigheid, gemaakt van peptidoglycaan",
+      "en": "strength, made of peptidoglycan"
+    },
+    "details": {
+      "nl": "De bacteriële celwand bestaat niet uit cellulose maar uit [[peptidoglycaan]], een netwerk van suikers en aminozuren. Hij houdt de cel in vorm en beschermt tegen barsten. Veel [[antibiotica]], zoals penicilline, werken doordat ze de opbouw van deze wand blokkeren; onze eigen cellen hebben zo'n wand niet en blijven ongedeerd.",
+      "en": "The bacterial cell wall is made not of cellulose but of [[peptidoglycaan|peptidoglycan]], a mesh of sugars and amino acids. It keeps the cell in shape and protects it from bursting. Many [[antibiotica|antibiotics]], such as penicillin, work by blocking the construction of this wall; our own cells have no such wall and are left unharmed."
+    }
+  },
+  {
+    "organelle_id": "nucleoide",
+    "text": {
+      "nl": "bevat het DNA, zonder kernmembraan",
+      "en": "holds the DNA, without a nuclear envelope"
+    },
+    "details": {
+      "nl": "Een bacterie heeft geen celkern. Haar [[dna|DNA]] is één ringvormig [[circulair_chromosoom|chromosoom]] dat opgevouwen in het cytoplasma ligt: de nucleoïde. Omdat er geen [[kernmembraan]] omheen zit, kunnen ribosomen het [[mrna|mRNA]] al aflezen terwijl het nog wordt gemaakt. Dat is één reden waarom bacteriën zo snel groeien.",
+      "en": "A bacterium has no nucleus. Its [[dna|DNA]] is one ring-shaped [[circulair_chromosoom|chromosome]] folded up in the cytoplasm: the nucleoid. Because there is no [[kernmembraan|nuclear envelope]] around it, ribosomes can read the [[mrna|mRNA]] while it is still being made. That is one reason bacteria grow so fast."
+    }
+  },
+  {
+    "organelle_id": "plasmiden",
+    "text": {
+      "nl": "kleine extra ringen DNA",
+      "en": "small extra rings of DNA"
+    },
+    "details": {
+      "nl": "Plasmiden zijn kleine ringetjes DNA naast het grote chromosoom. Ze dragen vaak extra eigenschappen, zoals resistentie tegen [[antibiotica]]. Bacteriën kunnen plasmiden aan elkaar doorgeven ([[conjugatie]]), waardoor resistentie zich snel verspreidt. In het lab worden plasmiden gebruikt om bacteriën bijvoorbeeld insuline te laten maken.",
+      "en": "Plasmids are small rings of DNA in addition to the large chromosome. They often carry extra traits, such as resistance to [[antibiotica|antibiotics]]. Bacteria can pass plasmids to each other ([[conjugatie|conjugation]]), which is how resistance spreads quickly. In the lab, plasmids are used to make bacteria produce insulin, for example."
+    }
+  },
+  {
+    "organelle_id": "flagel",
+    "text": {
+      "nl": "zweepstaart om te zwemmen",
+      "en": "whip-like tail for swimming"
+    },
+    "details": {
+      "nl": "De flagel is een lange, stijve spiraal van eiwit die als een propeller ronddraait. Een motortje in het celmembraan drijft hem aan op de energie van een [[protonengradient|protonengradiënt]], niet op ATP. Door de draairichting om te keren kan de bacterie tuimelen en een nieuwe richting kiezen, bijvoorbeeld richting voedsel ([[chemotaxis]]).",
+      "en": "The flagellum is a long, stiff spiral of protein that spins like a propeller. A motor in the cell membrane drives it using the energy of a [[protonengradient|proton gradient]], not ATP. By reversing the direction of rotation the bacterium can tumble and pick a new direction, for example towards food ([[chemotaxis]])."
+    }
+  },
+  {
+    "organelle_id": "pili",
+    "text": {
+      "nl": "haartjes om vast te hechten",
+      "en": "hairs for attaching"
+    },
+    "details": {
+      "nl": "Pili zijn korte, dunne eiwitdraden over het hele oppervlak. Ermee plakt de bacterie zich vast aan cellen of oppervlakken, wat een infectie vaak begint. Een speciale, langere pilus (de sekspilus) trekt twee bacteriën naar elkaar toe om [[plasmiden]] uit te wisselen ([[conjugatie]]).",
+      "en": "Pili are short, thin protein threads all over the surface. With them the bacterium attaches itself to cells or surfaces, which is often how an infection begins. A special, longer pilus (the sex pilus) pulls two bacteria together to exchange [[plasmiden|plasmids]] ([[conjugatie|conjugation]])."
+    }
   }
 ]

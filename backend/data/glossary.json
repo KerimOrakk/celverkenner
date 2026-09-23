@@ -449,5 +449,126 @@
       "nl": "Druivensuiker: de brandstof die de cel in de mitochondriën afbreekt om energie te winnen.",
       "en": "Grape sugar: the fuel the cell breaks down in the mitochondria to gain energy."
     }
+  },
+  {
+    "id": "peptidoglycaan",
+    "term": {
+      "nl": "Peptidoglycaan",
+      "en": "Peptidoglycan"
+    },
+    "definition": {
+      "nl": "Netwerk van suikerketens die met korte eiwitstukjes aan elkaar zitten; het bouwmateriaal van de bacteriële celwand.",
+      "en": "A mesh of sugar chains linked by short peptide pieces; the building material of the bacterial cell wall."
+    }
+  },
+  {
+    "id": "antibiotica",
+    "term": {
+      "nl": "Antibiotica",
+      "en": "Antibiotics"
+    },
+    "definition": {
+      "nl": "Stoffen die bacteriën doden of hun groei remmen, bijvoorbeeld door de celwand of de ribosomen aan te vallen. Werken niet tegen virussen.",
+      "en": "Substances that kill bacteria or stop them growing, for example by attacking the cell wall or the ribosomes. They do not work against viruses."
+    }
+  },
+  {
+    "id": "circulair_chromosoom",
+    "term": {
+      "nl": "Circulair chromosoom",
+      "en": "Circular chromosome"
+    },
+    "definition": {
+      "nl": "Het DNA van een bacterie: één gesloten ring, in plaats van de losse staafjes van een eukaryote cel.",
+      "en": "The DNA of a bacterium: one closed ring, instead of the separate rods of a eukaryotic cell."
+    }
+  },
+  {
+    "id": "conjugatie",
+    "term": {
+      "nl": "Conjugatie",
+      "en": "Conjugation"
+    },
+    "definition": {
+      "nl": "Twee bacteriën maken contact via een pilus en de ene geeft een kopie van een plasmide aan de andere.",
+      "en": "Two bacteria make contact through a pilus and one hands a copy of a plasmid to the other."
+    }
+  },
+  {
+    "id": "protonengradient",
+    "term": {
+      "nl": "Protonengradiënt",
+      "en": "Proton gradient"
+    },
+    "definition": {
+      "nl": "Verschil in H⁺-concentratie aan beide kanten van een membraan; de instroom van protonen levert energie, onder andere voor de flagelmotor.",
+      "en": "Difference in H⁺ concentration on the two sides of a membrane; protons flowing back in deliver energy, for the flagellar motor among other things."
+    }
+  },
+  {
+    "id": "chemotaxis",
+    "term": {
+      "nl": "Chemotaxis",
+      "en": "Chemotaxis"
+    },
+    "definition": {
+      "nl": "Bewegen naar een stof toe (voedsel) of ervan weg (gif) door de concentratie te voelen.",
+      "en": "Moving towards a substance (food) or away from it (poison) by sensing its concentration."
+    }
+  },
+  {
+    "id": "biofilm",
+    "term": {
+      "nl": "Biofilm",
+      "en": "Biofilm"
+    },
+    "definition": {
+      "nl": "Laag bacteriën die samen in een slijmlaag aan een oppervlak vastzitten, zoals tandplak.",
+      "en": "A layer of bacteria stuck together on a surface in a slime layer, such as dental plaque."
+    }
+  },
+  {
+    "id": "plasmiden",
+    "term": {
+      "nl": "Plasmiden",
+      "en": "Plasmids"
+    },
+    "definition": {
+      "nl": "Kleine ringetjes DNA naast het chromosoom van een bacterie, vaak met extra eigenschappen zoals resistentie.",
+      "en": "Small rings of DNA besides the chromosome of a bacterium, often carrying extra traits such as resistance."
+    }
+  },
+  {
+    "id": "binaire_deling",
+    "term": {
+      "nl": "Binaire deling",
+      "en": "Binary fission"
+    },
+    "definition": {
+      "nl": "De manier waarop bacteriën zich vermenigvuldigen: het DNA wordt gekopieerd en de cel splitst in twee gelijke helften. Kan elke twintig minuten.",
+      "en": "How bacteria multiply: the DNA is copied and the cell splits into two equal halves. Can happen every twenty minutes."
+    }
+  },
+  {
+    "id": "prokaryoot",
+    "term": {
+      "nl": "Prokaryoot",
+      "en": "Prokaryote"
+    },
+    "definition": {
+      "nl": "Cel zonder celkern en zonder membraanorganellen: bacteriën en archaea.",
+      "en": "A cell without a nucleus and without membrane-bound organelles: bacteria and archaea."
+    }
+  },
+  {
+    "id": "eukaryoot",
+    "term": {
+      "nl": "Eukaryoot",
+      "en": "Eukaryote"
+    },
+    "definition": {
+      "nl": "Cel met een celkern en membraanorganellen zoals mitochondriën: dieren, planten, schimmels.",
+      "en": "A cell with a nucleus and membrane-bound organelles such as mitochondria: animals, plants, fungi."
+    }
   }
 ]

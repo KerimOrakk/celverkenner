@@ -27,11 +27,13 @@ export default function ComparePage() {
 
   const animalCells = cells.filter((cell) => cell.type === 'dierlijk');
   const plantCell = cells.find((cell) => cell.type === 'plantaardig') ?? null;
+  const bacteriaCell = cells.find((cell) => cell.type === 'prokaryoot') ?? null;
   const [animalId, setAnimalId] = useState(null);
   const animalCell = animalCells.find((cell) => cell.id === animalId) ?? animalCells[0] ?? null;
 
   const animal = useCellData(animalCell?.id);
   const plant = useCellData(plantCell?.id);
+  const bacteria = useCellData(bacteriaCell?.id);
   const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
@@ -51,6 +53,9 @@ export default function ComparePage() {
     if (cell.type === 'dierlijk' && animal.status === 'ready' && !animal.organelles.some((o) => o.id === row.organelle_id)) {
       target = animalCells.find((candidate) => candidate.id !== cell.id) ?? cell;
     }
+    if (cell.type === 'prokaryoot' && bacteria.status === 'ready' && !bacteria.organelles.some((o) => o.id === row.organelle_id)) {
+      return null;
+    }
     return `/viewer/${target.id}?organel=${row.organelle_id}`;
   };
 
@@ -64,55 +69,42 @@ export default function ComparePage() {
         </div>
 
         <div className="compare__stages">
-          <section className="compare__stage" aria-label={t('compare.animal')}>
-            <header className="compare__stage-head">
-              <h2>{t('compare.animal')}</h2>
-              {animalCells.length > 1 && (
-                <Dropdown
-                  label={t('compare.pick')}
-                  options={animalCells.map((cell) => ({ value: cell.id, label: cell.name }))}
-                  value={animalCell?.id}
-                  onChange={setAnimalId}
-                />
-              )}
-            </header>
-            <div className="compare__canvas">
-              {animal.status === 'ready' ? (
-                <CellViewer
-                  cell={animal.cell}
-                  definitions={animal.definitions}
-                  mode="preview"
-                  autoRotate
-                  open
-                  flyOnSelect={false}
-                  selectedId={highlight(animal, selected?.organelle_id)}
-                />
-              ) : (
-                <Spinner label={t('stage.building')} />
-              )}
-            </div>
-          </section>
-
-          <section className="compare__stage" aria-label={t('compare.plant')}>
-            <header className="compare__stage-head">
-              <h2>{t('compare.plant')}</h2>
-            </header>
-            <div className="compare__canvas">
-              {plant.status === 'ready' ? (
-                <CellViewer
-                  cell={plant.cell}
-                  definitions={plant.definitions}
-                  mode="preview"
-                  autoRotate
-                  open
-                  flyOnSelect={false}
-                  selectedId={highlight(plant, selected?.organelle_id)}
-                />
-              ) : (
-                <Spinner label={t('stage.building')} />
-              )}
-            </div>
-          </section>
+          {[
+            { key: 'animal', title: t('compare.animal'), data: animal, pick: animalCells.length > 1 },
+            { key: 'plant', title: t('compare.plant'), data: plant },
+            { key: 'bacteria', title: t('compare.bacteria'), data: bacteria },
+          ]
+            .filter((stage) => stage.data.status !== 'loading' || stage.key !== 'bacteria' || bacteriaCell)
+            .map((stage) => (
+              <section key={stage.key} className="compare__stage" aria-label={stage.title}>
+                <header className="compare__stage-head">
+                  <h2>{stage.title}</h2>
+                  {stage.pick && (
+                    <Dropdown
+                      label={t('compare.pick')}
+                      options={animalCells.map((cell) => ({ value: cell.id, label: cell.name }))}
+                      value={animalCell?.id}
+                      onChange={setAnimalId}
+                    />
+                  )}
+                </header>
+                <div className="compare__canvas">
+                  {stage.data.status === 'ready' ? (
+                    <CellViewer
+                      cell={stage.data.cell}
+                      definitions={stage.data.definitions}
+                      mode="preview"
+                      autoRotate
+                      open
+                      flyOnSelect={false}
+                      selectedId={highlight(stage.data, selected?.organelle_id)}
+                    />
+                  ) : (
+                    <Spinner label={t('stage.building')} />
+                  )}
+                </div>
+              </section>
+            ))}
         </div>
 
         {comparison.status === 'loading' && <Spinner label={t('compare.loading')} />}
@@ -124,6 +116,7 @@ export default function ComparePage() {
                   <th scope="col">{t('compare.feature')}</th>
                   <th scope="col">{t('compare.animal')}</th>
                   <th scope="col">{t('compare.plant')}</th>
+                  {bacteriaCell && <th scope="col">{t('compare.bacteria')}</th>}
                 </tr>
               </thead>
               <tbody>
@@ -167,6 +160,17 @@ export default function ComparePage() {
                           </Link>
                         )}
                       </td>
+                      {bacteriaCell && (
+                        <td>
+                          <Presence value={row.bacteria} t={t} />
+                          <span>{row.bacteria_text ?? '—'}</span>
+                          {linkFor(row, bacteriaCell) && row.bacteria === true && (
+                            <Link className="compare__link" to={linkFor(row, bacteriaCell)} onClick={(e) => e.stopPropagation()}>
+                              {t('compare.view')}
+                            </Link>
+                          )}
+                        </td>
+                      )}
                     </tr>
                   );
                 })}

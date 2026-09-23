@@ -22,6 +22,8 @@ export default function ViewerControls({
   onReset,
   onTour,
   tourActive,
+  labels,
+  onLabels,
 }) {
   const { t } = useLang();
   return (
@@ -29,6 +31,12 @@ export default function ViewerControls({
       <Switch checked={autoRotate} onChange={onAutoRotate}>
         {t('controls.autorotate')}
       </Switch>
+
+      {onLabels && (
+        <Switch checked={labels} onChange={onLabels}>
+          {t('controls.labels')}
+        </Switch>
+      )}
 
       {mode === 'viewer' && (
         <Button variant="outline" size="sm" onClick={onToggleOpen} aria-pressed={isOpen}>

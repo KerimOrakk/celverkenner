@@ -10,16 +10,18 @@
 import * as THREE from 'three';
 import { createRng } from './random.js';
 import { createContainer, relaxLayout, sampleFreePosition } from './layout.js';
-import { CUT, cellShellGeometry, orientObject } from './geometryUtils.js';
+import { CUT, cellShellGeometry, fibonacciSphere, orientObject } from './geometryUtils.js';
 import {
   ORGANELLE_FACTORIES,
   VACUOLE_RADII,
   createMicrovillusGeometry,
+  createPilusGeometry,
   createRibosomeGeometry,
 } from './organelles.js';
 
-const SHELL_IDS = new Set(['celmembraan', 'celwand']);
-const FIXED_IDS = new Set(['celnucleus', 'nucleolus', 'vacuole']);
+const SHELL_IDS = new Set(['celmembraan', 'celwand', 'bacteriewand', 'kapsel']);
+const INSTANCED_IDS = new Set(['microvilli', 'ribosomen', 'pili']);
+const FIXED_IDS = new Set(['celnucleus', 'nucleolus', 'vacuole', 'nucleoide', 'flagel']);
 const UP = new THREE.Vector3(0, 1, 0);
 
 export function isShell(organelleId) {
@@ -89,18 +91,21 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
     });
 
   let hullRadius = container.boundingRadius;
-  for (const id of ['celwand', 'celmembraan']) {
+  const hasWall = placements.has('celwand') || placements.has('bacteriewand');
+  for (const id of ['kapsel', 'bacteriewand', 'celwand', 'celmembraan']) {
     const placement = placements.get(id);
     if (!placement) continue;
     const scale = placement.scale ?? 1;
-    const isWall = id === 'celwand';
-    const color = isWall ? definitionOf(id).color : cell.shape.membrane_color ?? definitionOf(id).color;
+    const isWall = id === 'celwand' || id === 'bacteriewand';
+    const isCapsule = id === 'kapsel';
+    const color = id === 'celmembraan' ? cell.shape.membrane_color ?? definitionOf(id).color : definitionOf(id).color;
     // Under a cell wall the membrane can be fainter: the wall already tints everything.
-    const hasWall = placements.has('celwand');
-    const opacity = isWall ? (inside ? 0.6 : 0.3) : inside ? 0.5 : hasWall ? 0.16 : 0.24;
+    let opacity = inside ? 0.5 : hasWall ? 0.16 : 0.24;
+    if (isWall) opacity = inside ? 0.6 : 0.3;
+    if (isCapsule) opacity = inside ? 0.25 : 0.12;
 
     const mesh = new THREE.Mesh(cellShellGeometry(cell.shape, scale), shellMaterial(color, opacity));
-    mesh.renderOrder = isWall ? 11 : 10;
+    mesh.renderOrder = isCapsule ? 12 : isWall ? 11 : 10;
     root.add(mesh);
 
     const entry = register(id, 'shell');
@@ -160,6 +165,47 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
     track(entry, mesh, 0);
   }
 
+  // -- 2b. Pili all over the surface of a bacterium -----------------------------
+  const piliPlacement = placements.get('pili');
+  if (piliPlacement) {
+    const count = 110;
+    const height = 0.2;
+    const wall = placements.get('bacteriewand')?.scale ?? 1.02;
+    const radii = container.radii;
+    const entry = register('pili', 'instanced');
+    const material = new THREE.MeshStandardMaterial({ color: entry.color, roughness: 0.6 });
+    const mesh = new THREE.InstancedMesh(createPilusGeometry(height), material, count);
+    const dummy = new THREE.Object3D();
+    const normal = new THREE.Vector3();
+    let placedPili = 0;
+    fibonacciSphere(count + 30).forEach((direction) => {
+      if (placedPili >= count) return;
+      if (direction.x < -0.82) return; // leave the flagellum's pole free
+      // Point on the ellipsoid, pushed out to sit on the wall.
+      const point = direction.clone().multiply(radii).multiplyScalar(wall);
+      normal.set(point.x / radii.x ** 2, point.y / radii.y ** 2, point.z / radii.z ** 2).normalize();
+      dummy.position.copy(point);
+      dummy.quaternion.setFromUnitVectors(UP, normal);
+      dummy.rotateX(rng.spread(0.35));
+      dummy.rotateZ(rng.spread(0.35));
+      dummy.scale.set(1, rng.range(0.7, 1.3), 1);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(placedPili, dummy.matrix);
+      placedPili += 1;
+    });
+    mesh.count = placedPili;
+    mesh.instanceMatrix.needsUpdate = true;
+    root.add(mesh);
+    entry.count = placedPili;
+    entry.instances.push({
+      position: new THREE.Vector3(0.3, radii.y * wall + height / 2, 0.15),
+      radius: 0.35,
+      object: mesh,
+      preferredDirection: new THREE.Vector3(0.4, 0.85, 0.4).normalize(),
+    });
+    track(entry, mesh, 0);
+  }
+
   // -- 3. Things that never move: nucleus, nucleolus, vacuole ------------------
   const obstacles = [];
   const nucleusPlacement = placements.get('celnucleus');
@@ -179,15 +225,22 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
       radii: VACUOLE_RADII.clone().multiplyScalar(vacuolePlacement.scale ?? 1),
     });
   }
+  const nucleoidPlacement = placements.get('nucleoide');
+  if (nucleoidPlacement?.positions[0]) {
+    const r = nucleoidPlacement.scale ?? 0.3;
+    obstacles.push({
+      id: 'nucleoide',
+      center: new THREE.Vector3(...nucleoidPlacement.positions[0]),
+      radii: new THREE.Vector3(r, r * 0.8, r * 0.8),
+    });
+  }
   const nucleusCenter = obstacles.find((o) => o.id === 'celnucleus')?.center ?? new THREE.Vector3();
 
   // -- 4. Solid organelles: start on the lesson positions, then de-overlap ------
   const factories = new Map();
   const movable = [];
   const fixedItems = [];
-  const solidPlacements = cell.organelles.filter(
-    (p) => !SHELL_IDS.has(p.organelle_id) && p.organelle_id !== 'microvilli' && p.organelle_id !== 'ribosomen',
-  );
+  const solidPlacements = cell.organelles.filter((p) => !SHELL_IDS.has(p.organelle_id) && !INSTANCED_IDS.has(p.organelle_id));
 
   for (const placement of solidPlacements) {
     const id = placement.organelle_id;
@@ -278,6 +331,13 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
       case 'centriolen':
         // A centrosome is two centrioles at right angles to each other.
         orientObject(object, item.index % 2 ? new THREE.Vector3(1, 0, 0) : UP, CUT.bisector);
+        break;
+      case 'flagel':
+        // The tail points straight out of the cell, motor on the membrane.
+        orientObject(object, radial, rng.unitVector(opening));
+        break;
+      case 'nucleoide':
+        orientObject(object, new THREE.Vector3(1, 0, 0), UP); // stretched along the rod
         break;
       default:
         orientObject(object, rng.unitVector(axis), rng.unitVector(opening));

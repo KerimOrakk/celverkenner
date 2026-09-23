@@ -3,13 +3,16 @@ import Button from '../ui/Button.jsx';
 import RichText from './RichText.jsx';
 import { useLang } from '../i18n/index.jsx';
 
+const CELL_TYPES = ['dierlijk', 'plantaardig', 'prokaryoot'];
+
 function whereFound(cellTypes = [], t) {
-  const animal = cellTypes.includes('dierlijk');
-  const plant = cellTypes.includes('plantaardig');
-  if (animal && plant) return t('found.both');
-  if (animal) return t('found.animal');
-  if (plant) return t('found.plant');
-  return t('found.unknown');
+  const present = CELL_TYPES.filter((type) => cellTypes.includes(type));
+  if (present.length === 0) return t('found.unknown');
+  if (present.length === CELL_TYPES.length) return t('found.all');
+  const names = present.map((type) => t(`type.${type}`));
+  return names.length === 1
+    ? t('found.only', { list: names[0] })
+    : t('found.list', { list: `${names.slice(0, -1).join(', ')} ${t('found.and')} ${names[names.length - 1]}` });
 }
 
 const formatNumber = (value) => String(Number(value.toFixed(2))).replace('.', ',');

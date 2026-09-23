@@ -13,6 +13,15 @@ import TopBar from './TopBar.jsx';
 import ViewerControls from './ViewerControls.jsx';
 
 const NARROW_QUERY = '(max-width: 820px)';
+const LABELS_KEY = 'celverkenner:namen';
+
+function readLabels() {
+  try {
+    return window.localStorage.getItem(LABELS_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
 const SHELLS = ['celmembraan', 'celwand'];
 
 function useMediaQuery(query) {
@@ -50,6 +59,15 @@ export default function CellExperience({ cellId, mode }) {
   const [selectedId, setSelectedId] = useState(null);
   const [autoRotate, setAutoRotate] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
+  const [labels, setLabels] = useState(readLabels);
+  const toggleLabels = (value) => {
+    setLabels(value);
+    try {
+      window.localStorage.setItem(LABELS_KEY, value ? '1' : '0');
+    } catch {
+      // ignore
+    }
+  };
   // Counts come from the 3D model once it is built; they are tagged with the
   // cell they belong to so a stale set is never shown for another cell.
   const [countState, setCountState] = useState({ cellId: null, values: {} });
@@ -181,6 +199,7 @@ export default function CellExperience({ cellId, mode }) {
               open={isOpen}
               insetRight={insets.right}
               insetBottom={insets.bottom}
+              labels={labels}
               onSelect={setSelectedId}
               onCounts={(values) => setCountState({ cellId: data.cell.id, values })}
             />
@@ -208,6 +227,8 @@ export default function CellExperience({ cellId, mode }) {
               }}
               onTour={tourStep}
               tourActive={Boolean(selected)}
+              labels={labels}
+              onLabels={toggleLabels}
             />
           )}
 

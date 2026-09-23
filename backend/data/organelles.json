@@ -9,7 +9,8 @@
     "category": "omhulsel",
     "cell_types": [
       "dierlijk",
-      "plantaardig"
+      "plantaardig",
+      "prokaryoot"
     ]
   },
   {
@@ -73,7 +74,8 @@
     "category": "eiwitten",
     "cell_types": [
       "dierlijk",
-      "plantaardig"
+      "plantaardig",
+      "prokaryoot"
     ]
   },
   {
@@ -173,6 +175,78 @@
     "category": "opslag",
     "cell_types": [
       "plantaardig"
+    ]
+  },
+  {
+    "id": "kapsel",
+    "name": {
+      "nl": "Kapsel",
+      "en": "Capsule"
+    },
+    "color": "#B2DFDB",
+    "category": "omhulsel",
+    "cell_types": [
+      "prokaryoot"
+    ]
+  },
+  {
+    "id": "bacteriewand",
+    "name": {
+      "nl": "Celwand (peptidoglycaan)",
+      "en": "Cell wall (peptidoglycan)"
+    },
+    "color": "#A5D6A7",
+    "category": "omhulsel",
+    "cell_types": [
+      "prokaryoot"
+    ]
+  },
+  {
+    "id": "nucleoide",
+    "name": {
+      "nl": "Nucleoïde",
+      "en": "Nucleoid"
+    },
+    "color": "#9575CD",
+    "category": "kern",
+    "cell_types": [
+      "prokaryoot"
+    ]
+  },
+  {
+    "id": "plasmiden",
+    "name": {
+      "nl": "Plasmiden",
+      "en": "Plasmids"
+    },
+    "color": "#CE93D8",
+    "category": "kern",
+    "cell_types": [
+      "prokaryoot"
+    ]
+  },
+  {
+    "id": "flagel",
+    "name": {
+      "nl": "Flagel",
+      "en": "Flagellum"
+    },
+    "color": "#FFCC80",
+    "category": "beweging",
+    "cell_types": [
+      "prokaryoot"
+    ]
+  },
+  {
+    "id": "pili",
+    "name": {
+      "nl": "Pili",
+      "en": "Pili"
+    },
+    "color": "#FFE0B2",
+    "category": "opname",
+    "cell_types": [
+      "prokaryoot"
     ]
   }
 ]

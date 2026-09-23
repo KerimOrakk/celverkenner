@@ -1,5 +1,51 @@
 [
   {
+    "id": "grootte",
+    "organelle_id": null,
+    "label": {
+      "nl": "Grootte",
+      "en": "Size"
+    },
+    "animal": null,
+    "plant": null,
+    "bacteria": null,
+    "animal_text": {
+      "nl": "10–30 µm",
+      "en": "10–30 µm"
+    },
+    "plant_text": {
+      "nl": "10–100 µm",
+      "en": "10–100 µm"
+    },
+    "bacteria_text": {
+      "nl": "1–5 µm: honderd keer kleiner.",
+      "en": "1–5 µm: a hundred times smaller."
+    }
+  },
+  {
+    "id": "type",
+    "organelle_id": null,
+    "label": {
+      "nl": "Celtype",
+      "en": "Cell type"
+    },
+    "animal": null,
+    "plant": null,
+    "bacteria": null,
+    "animal_text": {
+      "nl": "Eukaryoot",
+      "en": "Eukaryote"
+    },
+    "plant_text": {
+      "nl": "Eukaryoot",
+      "en": "Eukaryote"
+    },
+    "bacteria_text": {
+      "nl": "Prokaryoot",
+      "en": "Prokaryote"
+    }
+  },
+  {
     "id": "celwand",
     "organelle_id": "celwand",
     "label": {
@@ -15,6 +61,11 @@
     "plant_text": {
       "nl": "Ja, van cellulose. Geeft vorm en stevigheid.",
       "en": "Yes, made of cellulose. Gives shape and strength."
+    },
+    "bacteria": true,
+    "bacteria_text": {
+      "nl": "Ja, van peptidoglycaan.",
+      "en": "Yes, made of peptidoglycan."
     }
   },
   {
@@ -33,6 +84,11 @@
     "plant_text": {
       "nl": "Rechthoekig; vaste vorm door de celwand.",
       "en": "Rectangular; fixed shape because of the cell wall."
+    },
+    "bacteria": null,
+    "bacteria_text": {
+      "nl": "Staaf, bol of spiraal; vaste vorm door de wand.",
+      "en": "Rod, sphere or spiral; fixed shape because of the wall."
     }
   },
   {
@@ -51,6 +107,11 @@
     "plant_text": {
       "nl": "Ja, net binnen de celwand.",
       "en": "Yes, just inside the cell wall."
+    },
+    "bacteria": true,
+    "bacteria_text": {
+      "nl": "Ja; hier zit ook de flagelmotor in.",
+      "en": "Yes; the flagellar motor sits in it too."
     }
   },
   {
@@ -69,6 +130,11 @@
     "plant_text": {
       "nl": "Eén grote centrale vacuole, tot 90% van de cel. Zorgt voor turgor.",
       "en": "One large central vacuole, up to 90% of the cell. Provides turgor."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen.",
+      "en": "None."
     }
   },
   {
@@ -87,6 +153,11 @@
     "plant_text": {
       "nl": "Ja: fotosynthese, maakt glucose uit zonlicht.",
       "en": "Yes: photosynthesis, makes glucose from sunlight."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen. Sommige bacteriën doen fotosynthese in het membraan.",
+      "en": "None. Some bacteria photosynthesise in the membrane."
     }
   },
   {
@@ -105,6 +176,11 @@
     "plant_text": {
       "nl": "Ja. Ook een plant ademt, dag en nacht.",
       "en": "Yes. A plant respires too, day and night."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen. De celademhaling gebeurt in het celmembraan.",
+      "en": "None. Cellular respiration happens in the cell membrane."
     }
   },
   {
@@ -123,6 +199,11 @@
     "plant_text": {
       "nl": "Ja, vaak tegen de rand geduwd door de vacuole.",
       "en": "Yes, often pushed to the edge by the vacuole."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen kern: het DNA ligt los in het cytoplasma (nucleoïde).",
+      "en": "No nucleus: the DNA lies loose in the cytoplasm (nucleoid)."
     }
   },
   {
@@ -141,6 +222,11 @@
     "plant_text": {
       "nl": "Geen. De spoelfiguur ontstaat zonder centriolen.",
       "en": "None. The spindle forms without centrioles."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen.",
+      "en": "None."
     }
   },
   {
@@ -159,6 +245,11 @@
     "plant_text": {
       "nl": "Zelden. De vacuole neemt de afbraak over.",
       "en": "Rarely. The vacuole takes over the breakdown."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen.",
+      "en": "None."
     }
   },
   {
@@ -177,6 +268,11 @@
     "plant_text": {
       "nl": "Geen.",
       "en": "None."
+    },
+    "bacteria": false,
+    "bacteria_text": {
+      "nl": "Geen, wel pili om zich vast te hechten.",
+      "en": "None, but pili to attach itself."
     }
   },
   {
@@ -195,6 +291,11 @@
     "plant_text": {
       "nl": "Maakt zelf glucose uit CO₂, water en licht.",
       "en": "Makes its own glucose from CO₂, water and light."
+    },
+    "bacteria": null,
+    "bacteria_text": {
+      "nl": "Heel verschillend: van suikers tot ijzer of zonlicht.",
+      "en": "Very varied: from sugars to iron or sunlight."
     }
   },
   {
@@ -213,6 +314,103 @@
     "plant_text": {
       "nl": "Zetmeel, in zetmeelkorrels.",
       "en": "Starch, in starch grains."
+    },
+    "bacteria": null,
+    "bacteria_text": {
+      "nl": "Glycogeen of vetkorrels.",
+      "en": "Glycogen or fat droplets."
+    }
+  },
+  {
+    "id": "dna",
+    "organelle_id": null,
+    "label": {
+      "nl": "DNA",
+      "en": "DNA"
+    },
+    "animal": null,
+    "plant": null,
+    "bacteria": null,
+    "animal_text": {
+      "nl": "Meerdere chromosomen in de kern.",
+      "en": "Several chromosomes inside the nucleus."
+    },
+    "plant_text": {
+      "nl": "Meerdere chromosomen in de kern.",
+      "en": "Several chromosomes inside the nucleus."
+    },
+    "bacteria_text": {
+      "nl": "Eén ringvormig chromosoom plus plasmiden.",
+      "en": "One ring-shaped chromosome plus plasmids."
+    }
+  },
+  {
+    "id": "ribosomen",
+    "organelle_id": "ribosomen",
+    "label": {
+      "nl": "Ribosomen",
+      "en": "Ribosomes"
+    },
+    "animal": true,
+    "plant": true,
+    "bacteria": true,
+    "animal_text": {
+      "nl": "Ja (80S).",
+      "en": "Yes (80S)."
+    },
+    "plant_text": {
+      "nl": "Ja (80S).",
+      "en": "Yes (80S)."
+    },
+    "bacteria_text": {
+      "nl": "Ja, maar kleiner (70S). Doelwit van veel antibiotica.",
+      "en": "Yes, but smaller (70S). Target of many antibiotics."
+    }
+  },
+  {
+    "id": "beweging",
+    "organelle_id": "flagel",
+    "label": {
+      "nl": "Beweging",
+      "en": "Movement"
+    },
+    "animal": null,
+    "plant": null,
+    "bacteria": true,
+    "animal_text": {
+      "nl": "Sommige cellen: trilharen of een zweepstaart.",
+      "en": "Some cells: cilia or a tail."
+    },
+    "plant_text": {
+      "nl": "Geen.",
+      "en": "None."
+    },
+    "bacteria_text": {
+      "nl": "Vaak een of meer flagellen.",
+      "en": "Often one or more flagella."
+    }
+  },
+  {
+    "id": "deling",
+    "organelle_id": null,
+    "label": {
+      "nl": "Deling",
+      "en": "Division"
+    },
+    "animal": null,
+    "plant": null,
+    "bacteria": null,
+    "animal_text": {
+      "nl": "Mitose, met spoelfiguur.",
+      "en": "Mitosis, with a spindle."
+    },
+    "plant_text": {
+      "nl": "Mitose, met spoelfiguur.",
+      "en": "Mitosis, with a spindle."
+    },
+    "bacteria_text": {
+      "nl": "Binaire deling, elke 20 minuten mogelijk.",
+      "en": "Binary fission, possible every 20 minutes."
     }
   }
 ]

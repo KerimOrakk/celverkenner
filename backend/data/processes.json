@@ -353,5 +353,65 @@
         }
       }
     ]
+  },
+  {
+    "id": "binaire_deling",
+    "cells": [
+      "bacterie"
+    ],
+    "name": {
+      "nl": "Binaire deling",
+      "en": "Binary fission"
+    },
+    "summary": {
+      "nl": "Zo wordt één bacterie er twee, soms al binnen twintig minuten.",
+      "en": "How one bacterium becomes two, sometimes within twenty minutes."
+    },
+    "steps": [
+      {
+        "organelle_id": "nucleoide",
+        "title": {
+          "nl": "Het chromosoom wordt gekopieerd",
+          "en": "The chromosome is copied"
+        },
+        "text": {
+          "nl": "Het ringvormige [[dna|DNA]] wordt van één punt uit in twee richtingen gekopieerd. De twee kopieën hechten aan verschillende plekken van het celmembraan.",
+          "en": "The ring-shaped [[dna|DNA]] is copied in two directions from one starting point. The two copies attach to different spots on the cell membrane."
+        }
+      },
+      {
+        "organelle_id": "plasmiden",
+        "title": {
+          "nl": "Plasmiden delen mee",
+          "en": "Plasmids divide too"
+        },
+        "text": {
+          "nl": "De [[plasmiden]] worden apart gekopieerd en verdeeld over beide helften.",
+          "en": "The [[plasmiden|plasmids]] are copied separately and shared between both halves."
+        }
+      },
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "De cel groeit en snoert in",
+          "en": "The cell grows and pinches in"
+        },
+        "text": {
+          "nl": "De cel wordt langer; de twee kopieën van het DNA komen ver uit elkaar te liggen. In het midden groeit het membraan naar binnen.",
+          "en": "The cell gets longer; the two copies of the DNA end up far apart. In the middle the membrane grows inwards."
+        }
+      },
+      {
+        "organelle_id": "bacteriewand",
+        "title": {
+          "nl": "Een nieuwe wand sluit af",
+          "en": "A new wall closes it off"
+        },
+        "text": {
+          "nl": "Er wordt [[peptidoglycaan]] aangelegd in de insnoering tot er een volledige wand tussen de twee helften zit. Twee identieke bacteriën. Zonder [[antibiotica]] of afweer verdubbelt de kolonie zich zo elke twintig minuten.",
+          "en": "[[peptidoglycaan|Peptidoglycan]] is laid down in the constriction until a complete wall separates the two halves. Two identical bacteria. Without [[antibiotica|antibiotics]] or an immune response the colony doubles like this every twenty minutes."
+        }
+      }
+    ]
   }
 ]

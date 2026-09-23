@@ -404,6 +404,11 @@ export function createRibosomeGeometry() {
 }
 
 /** One microvillus = a finger of membrane, base at y = 0. */
+/** One pilus: a thin rod along +Y with its base at the origin. */
+export function createPilusGeometry(height = 0.2) {
+  return new THREE.CylinderGeometry(0.0035, 0.006, height, 6).translate(0, height / 2, 0);
+}
+
 export function createMicrovillusGeometry(height = 0.2) {
   const radius = 0.0145;
   return merge([
@@ -412,7 +417,62 @@ export function createMicrovillusGeometry(height = 0.2) {
   ]);
 }
 
+// ---------------------------------------------------------------------------
+// Bacterie: nucleoïde (a tangle of DNA), plasmiden (small rings), flagel (a
+// stiff helix driven by a motor in the membrane).
+// ---------------------------------------------------------------------------
+function createNucleoidFactory({ color, scale }) {
+  const R = scale ?? 0.3;
+  return factory({
+    radius: R,
+    parts: [
+      {
+        geometry: new THREE.TorusKnotGeometry(R * 0.58, R * 0.075, 220, 12, 3, 5),
+        material: glossy(color, { roughness: 0.4 }),
+      },
+    ],
+  });
+}
+
+function createPlasmidFactory({ color }) {
+  const R = 0.055;
+  return factory({
+    radius: R * 1.25,
+    parts: [{ geometry: new THREE.TorusGeometry(R, R * 0.22, 10, 48), material: glossy(color, { roughness: 0.35 }) }],
+  });
+}
+
+function createFlagellumFactory({ color }) {
+  // A helix along local +Y: the object is then oriented outward from the cell.
+  const length = 1.25;
+  const turns = 4;
+  const points = [];
+  for (let i = 0; i <= 120; i += 1) {
+    const t = i / 120;
+    const r = 0.075 * Math.min(1, t * 6); // starts straight at the motor, then coils
+    const a = t * turns * Math.PI * 2;
+    points.push(new THREE.Vector3(Math.cos(a) * r, t * length, Math.sin(a) * r));
+  }
+  const curve = new THREE.CatmullRomCurve3(points);
+  const hook = new THREE.CylinderGeometry(0.02, 0.02, 0.06, 10).translate(0, -0.03, 0);
+  const motor = merge([
+    new THREE.CylinderGeometry(0.05, 0.05, 0.03, 20).translate(0, -0.075, 0),
+    new THREE.CylinderGeometry(0.035, 0.035, 0.03, 20).translate(0, -0.045, 0),
+  ]);
+  return factory({
+    radius: 0.45,
+    parts: [
+      { geometry: new THREE.TubeGeometry(curve, 240, 0.02, 10, false), material: glossy(color, { roughness: 0.4 }) },
+      { geometry: hook, material: standard(shade(color, -0.3)) },
+      { geometry: motor, material: standard(shade(color, -0.45), { roughness: 0.6 }) },
+    ],
+  });
+}
+
 export const ORGANELLE_FACTORIES = {
+  nucleoide: createNucleoidFactory,
+  plasmiden: createPlasmidFactory,
+  flagel: createFlagellumFactory,
   celnucleus: createNucleusFactory,
   nucleolus: createNucleolusFactory,
   mitochondrien: createMitochondrionFactory,

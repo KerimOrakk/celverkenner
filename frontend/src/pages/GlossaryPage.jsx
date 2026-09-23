@@ -46,8 +46,8 @@ export default function GlossaryPage() {
   const cellFor = (organelleId) => {
     const definition = organelleById.get(organelleId);
     if (!definition) return null;
-    const type = definition.cell_types.includes('dierlijk') ? 'dierlijk' : 'plantaardig';
     if (organelleId === 'microvilli') return cells.find((cell) => cell.id === 'darmcel') ?? null;
+    const type = ['dierlijk', 'plantaardig', 'prokaryoot'].find((candidate) => definition.cell_types.includes(candidate));
     return cells.find((cell) => cell.type === type) ?? null;
   };
 

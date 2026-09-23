@@ -1,13 +1,14 @@
 # CelVerkenner 3D
 
-Een webapp waarmee leerlingen drie cellen in 3D verkennen: een **hartcel**, een **darmcel** (beide dierlijk) en een **plantencel**. Draai de cel rond, open het membraan, klik op een organel voor uitleg, of stap met de intracellulaire modus midden in het cytoplasma.
+Een webapp waarmee leerlingen vier cellen in 3D verkennen: een **hartcel**, een **darmcel** (beide dierlijk), een **plantencel** en een **bacterie** (prokaryoot). Draai de cel rond, open het membraan, klik op een organel voor uitleg, of stap met de intracellulaire modus midden in het cytoplasma.
 
 Verder in de app:
 
 - **Processen** – de route van een eiwit, celademhaling, fotosynthese, opname in de darm, celdeling en afval opruimen, stap voor stap: de camera vliegt van organel naar organel en tekent de route in 3D.
-- **Vergelijken** – dierlijke cel en plantencel naast elkaar met een verschillentabel; tik op een rij en het organel licht in beide cellen op.
+- **Vergelijken** – dierlijke cel, plantencel en bacterie naast elkaar met een verschillentabel (eukaryoot vs. prokaryoot); tik op een rij en het organel licht in de cellen op.
 - **Begrippenlijst** – alle begrippen uit de uitleg op alfabet, met zoekvak en links naar het organel in 3D.
-- **Quiz** – kies één of meer cellen en klik tien keer zo snel mogelijk op het gevraagde organel (op naam of op functie). Timer, straftijd bij fouten, beste tijd wordt onthouden.
+- **Quiz** – drie spelvormen: *Vind het organel* (klik in 3D op wat gevraagd wordt), *Hoe heet dit?* (een organel licht op, kies de naam uit vier) en *Welke cel is dit?* (een cel van buiten of van binnen, zonder naam). Timer, straftijd bij fouten, beste tijd per spelvorm en celkeuze wordt onthouden.
+- **Namen tonen** – schakelaar in de 3D-weergave: zwevende naamlabels bij elk organel, klikbaar.
 - **Nederlands en Engels** – schakelaar rechtsboven (of `?lang=en` in het adres); de API levert beide talen.
 - **Offline / installeerbaar (PWA)** – na één bezoek werkt de site zonder internet en kan hij als app op telefoon of laptop worden gezet.
 
@@ -145,8 +146,9 @@ project/
 
 Elk endpoint accepteert `?lang=nl` (standaard) of `?lang=en`. Alleen de teksten veranderen; id's, kleuren en posities zijn taalonafhankelijk.
 
-Cel-id's: `hartcel`, `darmcel`, `plantencel`.
-Organel-id's: `celmembraan`, `celwand`, `celnucleus`, `nucleolus`, `mitochondrien`, `ribosomen`, `golgi`, `ruw_er`, `glad_er`, `lysosomen`, `centriolen`, `microvilli`, `chloroplasten`, `vacuole`.
+Cel-id's: `hartcel`, `darmcel`, `plantencel`, `bacterie`.
+Organel-id's: `celmembraan`, `celwand`, `celnucleus`, `nucleolus`, `mitochondrien`, `ribosomen`, `golgi`, `ruw_er`, `glad_er`, `lysosomen`, `centriolen`, `microvilli`, `chloroplasten`, `vacuole`, en voor de bacterie `kapsel`, `bacteriewand`, `nucleoide`, `plasmiden`, `flagel`, `pili`.
+Celtypes (`type` en `cell_types`): `dierlijk`, `plantaardig`, `prokaryoot`.
 
 Voorbeeld van een organelplaatsing uit `GET /cells/hartcel`:
 
@@ -207,7 +209,11 @@ De backend controleert bij het opstarten dat elke stap een organel noemt dat ook
 
 ### Vergelijking
 
-`comparison.json` is de verschillentabel: per rij een label, de tekst voor beide celtypes en optioneel `animal`/`plant` (true, false of null voor "niet van toepassing") en een `organelle_id` om de rij aan een organel te koppelen.
+`comparison.json` is de verschillentabel: per rij een label, de tekst voor de drie celtypes (`animal_text`, `plant_text`, `bacteria_text`) en optioneel `animal`/`plant`/`bacteria` (true, false of null voor "niet van toepassing") en een `organelle_id` om de rij aan een organel te koppelen.
+
+### De bacterie
+
+De bacterie is een gewone cel in `cells.json` met `type: "prokaryoot"` en een langwerpige `ellipsoid`. Haar eigen structuren hebben een 3D-fabriek in `organelles.js`: `nucleoide` (torus-knoop), `plasmiden` (ringen), `flagel` (spiraal met motor); `pili` worden als instanced mesh over het oppervlak gestrooid; `kapsel` en `bacteriewand` zijn extra schillen naast het membraan. Ze is op dezelfde grootte getekend als de andere cellen; in werkelijkheid is ze honderd keer kleiner (zie de rij "Grootte" in de vergelijking).
 
 ### Gegevens aanpassen
 
@@ -229,7 +235,8 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 | Taal | NL / EN rechtsboven, wordt onthouden; `?lang=en` in een link forceert Engels |
 | Rechtstreeks naar een organel | `/viewer/plantencel?organel=golgi` opent de plantencel met het Golgi-apparaat geselecteerd |
 | Installeren als app | Chrome/Edge: adresbalk → installeren; iPhone: Deel → Zet op beginscherm |
-| Quiz | `/quiz`: kies cellen, start; klik in 3D op het gevraagde organel. Fout = +3 s, overslaan = +5 s. De naam verschijnt tijdens de quiz niet bij de muis. Ribosomen worden niet gevraagd (te klein om eerlijk aan te klikken). Beste tijd per celkeuze staat in de browser (localStorage). |
+| Quiz | `/quiz`: kies spelvorm en cellen. Fout = +3 s, overslaan = +5 s. Bij *Vind het organel* verschijnt de naam niet bij de muis en worden ribosomen niet gevraagd (te klein om eerlijk aan te klikken). *Welke cel is dit?* vraagt minstens twee cellen. Beste tijd per spelvorm en celkeuze staat in de browser (localStorage). |
+| Namen tonen | schakelaar onderaan de 3D-weergave; labels schuiven uit elkaar als ze overlappen en zijn klikbaar. Keuze wordt onthouden. |
 
 ## Ontwerpkeuzes
 

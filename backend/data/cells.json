@@ -526,5 +526,127 @@
         }
       }
     ]
+  },
+  {
+    "id": "bacterie",
+    "name": {
+      "nl": "Bacterie",
+      "en": "Bacterium"
+    },
+    "type": "prokaryoot",
+    "type_label": {
+      "nl": "Prokaryoot",
+      "en": "Prokaryote"
+    },
+    "tagline": {
+      "nl": "Klein, simpel en overal",
+      "en": "Small, simple and everywhere"
+    },
+    "description": {
+      "nl": "Een bacterie is een prokaryoot: geen celkern, geen mitochondriën, geen ER. Het DNA ligt los in het cytoplasma en de cel is honderd keer kleiner dan een dierlijke cel. Hier is ze op dezelfde grootte getekend.",
+      "en": "A bacterium is a prokaryote: no nucleus, no mitochondria, no ER. The DNA lies loose in the cytoplasm and the cell is a hundred times smaller than an animal cell. Here it is drawn at the same size."
+    },
+    "shape": {
+      "kind": "ellipsoid",
+      "radii": [
+        1.35,
+        0.55,
+        0.55
+      ],
+      "membrane_color": "#F4A261"
+    },
+    "organelles": [
+      {
+        "organelle_id": "kapsel",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.22
+      },
+      {
+        "organelle_id": "bacteriewand",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.1
+      },
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "nucleoide",
+        "positions": [
+          [
+            0.1,
+            0,
+            0
+          ]
+        ],
+        "scale": 0.34
+      },
+      {
+        "organelle_id": "plasmiden",
+        "positions": [
+          [
+            0.75,
+            0.2,
+            0.15
+          ],
+          [
+            -0.6,
+            -0.15,
+            0.2
+          ]
+        ],
+        "random": {
+          "count": 2,
+          "range": 0.9
+        }
+      },
+      {
+        "organelle_id": "ribosomen",
+        "positions": [],
+        "random": {
+          "count": 140,
+          "range": 1.15
+        }
+      },
+      {
+        "organelle_id": "flagel",
+        "positions": [
+          [
+            -1.3,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "organelle_id": "pili",
+        "positions": [
+          [
+            0,
+            0.55,
+            0
+          ]
+        ]
+      }
+    ]
   }
 ]

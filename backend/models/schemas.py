@@ -41,7 +41,7 @@ class CellShape(BaseModel):
 class CellSummary(BaseModel):
     id: str
     name: str
-    type: Literal["dierlijk", "plantaardig"]
+    type: Literal["dierlijk", "plantaardig", "prokaryoot"]
     type_label: str
     tagline: str
     description: str
@@ -84,8 +84,10 @@ class ComparisonRow(BaseModel):
     label: str
     animal: Optional[bool] = Field(None, description="Aanwezig in dierlijke cel (None = n.v.t.)")
     plant: Optional[bool] = Field(None, description="Aanwezig in plantencel (None = n.v.t.)")
+    bacteria: Optional[bool] = Field(None, description="Aanwezig in bacterie (None = n.v.t.)")
     animal_text: str
     plant_text: str
+    bacteria_text: Optional[str] = None
 
 
 class ProcessStep(BaseModel):

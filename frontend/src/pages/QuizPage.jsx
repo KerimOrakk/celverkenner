@@ -7,8 +7,9 @@ import { useLang } from '../i18n/index.jsx';
 import Button from '../ui/Button.jsx';
 import Spinner from '../ui/Spinner.jsx';
 
-const QUESTIONS = 10;
-const PENALTY_S = 3; // per wrong click
+const MODES = ['find', 'name', 'cell'];
+const QUESTIONS = { find: 10, name: 10, cell: 8 };
+const PENALTY_S = 3; // per wrong answer
 const SKIP_S = 5;
 const EXCLUDED = new Set(['ribosomen']); // too small to click fairly
 const BEST_KEY = 'celverkenner:quiz-best';
@@ -48,18 +49,21 @@ const shuffle = (list) => {
 };
 
 /**
- * Build the question list: cells stay grouped (fewer reloads), organelles
+ * Organelle questions: cells stay grouped (fewer 3D rebuilds), organelles
  * within a cell are drawn without direct repeats, half the questions ask by
- * name, half by function.
+ * name and half by function. For "name" mode every question gets four
+ * answer options from the same cell.
  */
-function buildQuestions(cellIds, cellOrganelles) {
+function buildOrganelleQuestions(mode, cellIds, cellOrganelles) {
+  const total = QUESTIONS[mode];
   const order = shuffle(cellIds);
-  const perCell = Math.floor(QUESTIONS / order.length);
-  let remainder = QUESTIONS - perCell * order.length;
+  const perCell = Math.floor(total / order.length);
+  let remainder = total - perCell * order.length;
   const questions = [];
   let previous = null;
   order.forEach((cellId) => {
-    const pool = cellOrganelles.get(cellId).filter((o) => !EXCLUDED.has(o.id));
+    const all = cellOrganelles.get(cellId);
+    const pool = mode === 'find' ? all.filter((o) => !EXCLUDED.has(o.id)) : all;
     const count = perCell + (remainder > 0 ? 1 : 0);
     if (remainder > 0) remainder -= 1;
     let deck = shuffle(pool);
@@ -71,22 +75,50 @@ function buildQuestions(cellIds, cellOrganelles) {
         pick = deck.pop();
       }
       previous = pick.id;
-      questions.push({ cellId, organelle: pick, byName: Math.random() < 0.5 || !pick.explanation });
+      const distractors = shuffle(all.filter((o) => o.id !== pick.id)).slice(0, 3);
+      questions.push({
+        mode,
+        cellId,
+        organelle: pick,
+        byName: mode === 'find' && (Math.random() < 0.5 || !pick.explanation),
+        options: mode === 'name' ? shuffle([pick, ...distractors]).map((o) => ({ id: o.id, label: o.name })) : null,
+        answerId: pick.id,
+      });
     }
   });
   return questions;
 }
 
+/** "Which cell is this?": random cells, half of them seen from the inside. */
+function buildCellQuestions(cellIds, cells) {
+  const questions = [];
+  let previous = null;
+  for (let i = 0; i < QUESTIONS.cell; i += 1) {
+    const candidates = cellIds.filter((id) => id !== previous);
+    const cellId = candidates[Math.floor(Math.random() * candidates.length)];
+    previous = cellId;
+    questions.push({
+      mode: 'cell',
+      cellId,
+      inside: i % 2 === 1,
+      options: cellIds.map((id) => ({ id, label: cells.find((cell) => cell.id === id)?.name ?? id })),
+      answerId: cellId,
+    });
+  }
+  return questions;
+}
+
 /**
  * Loads the organelle lists of the chosen cells (from cache when possible).
- * Hooks cannot run in a loop, so this supports up to three cells: the three
+ * Hooks cannot run in a loop, so this supports up to four cells: the four
  * the app ships with.
  */
 function useCellOrganelles(cellIds) {
   const a = useCellData(cellIds[0]);
   const b = useCellData(cellIds[1]);
   const c = useCellData(cellIds[2]);
-  const results = [a, b, c].slice(0, cellIds.length);
+  const d = useCellData(cellIds[3]);
+  const results = [a, b, c, d].slice(0, cellIds.length);
   const ready = results.every((r) => r.status === 'ready');
   const map = useMemo(
     () => new Map(results.filter((r) => r.status === 'ready').map((r) => [r.cell.id, r.organelles])),
@@ -100,20 +132,22 @@ export default function QuizPage() {
   const { t, lang } = useLang();
   const { cells, source } = useCells();
 
+  const [mode, setMode] = useState('find');
   const [chosen, setChosen] = useState(new Set());
   const [phase, setPhase] = useState('setup'); // setup | play | done
   const [questions, setQuestions] = useState([]);
   const [index, setIndex] = useState(0);
-  const [mistakes, setMistakes] = useState([]); // { prompt, answer }
+  const [mistakes, setMistakes] = useState([]); // { text }
   const [penaltyMs, setPenaltyMs] = useState(0);
-  const [feedback, setFeedback] = useState(null); // { kind: 'ok' | 'wrong', text }
+  const [feedback, setFeedback] = useState(null); // { kind: 'ok' | 'wrong', text, blocking }
   const [flashId, setFlashId] = useState(null);
   const [stageReady, setStageReady] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [result, setResult] = useState(null);
 
   const chosenIds = useMemo(() => cells.map((cell) => cell.id).filter((id) => chosen.has(id)), [cells, chosen]);
-  const selectionKey = `${lang}:${chosenIds.join('+')}`;
+  const minCells = mode === 'cell' ? 2 : 1;
+  const selectionKey = `${lang}:${mode}:${chosenIds.join('+')}`;
   const best = readBest(selectionKey);
   const { ready: dataReady, map: cellOrganelles } = useCellOrganelles(chosenIds);
 
@@ -143,7 +177,7 @@ export default function QuizPage() {
   const totalMs = elapsed + penaltyMs;
 
   const start = () => {
-    setQuestions(buildQuestions(chosenIds, cellOrganelles));
+    setQuestions(mode === 'cell' ? buildCellQuestions(chosenIds, cells) : buildOrganelleQuestions(mode, chosenIds, cellOrganelles));
     setIndex(0);
     setMistakes([]);
     setPenaltyMs(0);
@@ -178,26 +212,52 @@ export default function QuizPage() {
         finish(finalMistakes, finalPenalty);
         return;
       }
-      if (questions[index + 1].cellId !== questions[index].cellId) setStageReady(false);
+      const current = questions[index];
+      const upcoming = questions[index + 1];
+      if (upcoming.cellId !== current.cellId || upcoming.inside !== current.inside) setStageReady(false);
       setIndex(index + 1);
     },
     [index, questions, finish],
   );
 
-  const answer = (organelleId) => {
+  // One line for the review list at the end: what was asked, what was right, what went wrong.
+  const reviewEntry = (q, chosenLabel) => {
+    const what = chosenLabel ? t('quiz.reviewClicked', { name: chosenLabel }) : t('quiz.reviewSkipped');
+    if (q.mode === 'cell') {
+      const name = cells.find((cell) => cell.id === q.cellId)?.name ?? q.cellId;
+      return { text: t('quiz.reviewName', { answer: name, what }) };
+    }
+    if (q.mode === 'name' || q.byName) return { text: t('quiz.reviewName', { answer: q.organelle.name, what }) };
+    return { text: t('quiz.reviewFunction', { fn: q.organelle.explanation, answer: q.organelle.name, what }) };
+  };
+
+  const labelOf = (id) => {
+    if (question.mode === 'cell') return cells.find((cell) => cell.id === id)?.name ?? null;
+    return cellData.status === 'ready' ? (cellData.organelles.find((o) => o.id === id)?.name ?? null) : null;
+  };
+
+  const answer = (id) => {
     if (phase !== 'play' || !question || feedback?.blocking) return;
-    if (organelleId === question.organelle.id) {
+    if (id === question.answerId) {
       setFeedback({ kind: 'ok', text: t('quiz.correct'), blocking: true });
-      setFlashId(organelleId);
+      if (question.mode !== 'cell') setFlashId(id);
       setTimeout(() => next(mistakes, penaltyMs), 700);
       return;
     }
-    const clicked = cellData.status === 'ready' ? cellData.organelles.find((o) => o.id === organelleId) : null;
-    const newMistakes = [...mistakes, reviewEntry(question, clicked?.name ?? null)];
+    const newMistakes = [...mistakes, reviewEntry(question, labelOf(id))];
     const newPenalty = penaltyMs + PENALTY_S * 1000;
     setMistakes(newMistakes);
     setPenaltyMs(newPenalty);
-    setFeedback({ kind: 'wrong', text: clicked ? t('quiz.wrong', { name: clicked.name }) : t('quiz.wrongUnknown') });
+    const wrongName = labelOf(id);
+    if (question.mode === 'find') {
+      // Keep looking: the same task stays on screen.
+      setFeedback({ kind: 'wrong', text: wrongName ? t('quiz.wrong', { name: wrongName }) : t('quiz.wrongUnknown') });
+      return;
+    }
+    // Multiple choice: show the right answer briefly, then move on.
+    const correctName = labelOf(question.answerId);
+    setFeedback({ kind: 'wrong', text: t('quiz.wrongAnswer', { name: correctName }), blocking: true });
+    setTimeout(() => next(newMistakes, newPenalty), 1400);
   };
 
   const skip = () => {
@@ -209,25 +269,35 @@ export default function QuizPage() {
     next(newMistakes, newPenalty);
   };
 
-  // One line for the review list at the end: what was asked, what was right, what went wrong.
-  function reviewEntry(q, clickedName) {
-    const what = clickedName ? t('quiz.reviewClicked', { name: clickedName }) : t('quiz.reviewSkipped');
-    const text = q.byName
-      ? t('quiz.reviewName', { answer: q.organelle.name, what })
-      : t('quiz.reviewFunction', { fn: q.organelle.explanation, answer: q.organelle.name, what });
-    return { text };
-  }
-
   // -------------------------------------------------------------- setup screen
   if (phase === 'setup') {
+    const canStart = chosenIds.length >= minCells && dataReady;
     return (
       <div className="page">
         <SiteHeader source={source} title={t('nav.quiz')} />
         <main className="page__main quiz-setup">
           <div className="page__intro">
             <h1 className="page__title">{t('quiz.title')}</h1>
-            <p className="page__lead">{t('quiz.lead', { n: QUESTIONS, penalty: PENALTY_S })}</p>
+            <p className="page__lead">{t('quiz.lead', { penalty: PENALTY_S })}</p>
           </div>
+
+          <fieldset className="quiz-modes">
+            <legend className="quiz-setup__legend">{t('quiz.pickMode')}</legend>
+            {MODES.map((item) => (
+              <label key={item} className={`quiz-mode${mode === item ? ' is-checked' : ''}`}>
+                <input
+                  type="radio"
+                  name="quiz-mode"
+                  value={item}
+                  className="visually-hidden"
+                  checked={mode === item}
+                  onChange={() => setMode(item)}
+                />
+                <span className="quiz-mode__name">{t(`quiz.mode.${item}`)}</span>
+                <span className="quiz-mode__text">{t(`quiz.mode.${item}.text`, { n: QUESTIONS[item] })}</span>
+              </label>
+            ))}
+          </fieldset>
 
           <fieldset className="cell-choice quiz-setup__cells">
             <legend className="quiz-setup__legend">{t('quiz.pickCells')}</legend>
@@ -259,12 +329,16 @@ export default function QuizPage() {
             })}
           </fieldset>
           <p className="quiz-setup__hint">
-            {chosenIds.length === 0 ? t('quiz.pickHint') : best != null ? t('quiz.best', { time: formatTime(best) }) : ''}
+            {chosenIds.length < minCells
+              ? t(minCells === 2 ? 'quiz.pickHintTwo' : 'quiz.pickHint')
+              : best != null
+                ? t('quiz.best', { time: formatTime(best) })
+                : ''}
           </p>
 
           <div className="home__actions">
-            <Button onClick={start} disabled={chosenIds.length === 0 || !dataReady}>
-              {chosenIds.length > 0 && !dataReady ? t('loading') : t('quiz.start')}
+            <Button onClick={start} disabled={!canStart}>
+              {chosenIds.length >= minCells && !dataReady ? t('loading') : t('quiz.start')}
             </Button>
           </div>
         </main>
@@ -282,7 +356,9 @@ export default function QuizPage() {
         <main className="page__main quiz-result">
           <p className="quiz-result__done">{t('quiz.done')}</p>
           <p className="quiz-result__time">{formatTime(result.total)}</p>
-          <p className="page__lead">{t('quiz.result', { n: QUESTIONS, time: formatTime(result.total) })}</p>
+          <p className="page__lead">
+            {t(mode === 'cell' ? 'quiz.resultCells' : 'quiz.result', { n: questions.length, time: formatTime(result.total) })}
+          </p>
           {m > 0 && (
             <p className="quiz-result__mistakes">
               {t(m === 1 ? 'quiz.resultMistakes' : 'quiz.resultMistakesPlural', { m, p: penaltySeconds })}
@@ -314,6 +390,15 @@ export default function QuizPage() {
 
   // -------------------------------------------------------------- playing
   const ready = cellData.status === 'ready';
+  const isCellQuiz = question.mode === 'cell';
+  const viewerMode = isCellQuiz && question.inside ? 'intracellular' : 'viewer';
+  const promptText =
+    question.mode === 'find'
+      ? question.byName
+        ? t('quiz.clickName', { name: question.organelle.name })
+        : null
+      : t(question.mode === 'name' ? 'quiz.askName' : 'quiz.askCell');
+
   return (
     <div className="experience experience--quiz">
       <SiteHeader source={ready ? cellData.source : null} title={t('nav.quiz')} />
@@ -332,24 +417,47 @@ export default function QuizPage() {
 
           <div className={`quiz-card${feedback ? ` quiz-card--${feedback.kind}` : ''}`} key={index}>
             <p className="quiz-card__count">
-              {t('quiz.question', { i: index + 1, n: questions.length })} · {ready ? cellData.cell.name : ''}
+              {t('quiz.question', { i: index + 1, n: questions.length })}
+              {!isCellQuiz && ready ? ` · ${cellData.cell.name}` : ''}
             </p>
             <p className="quiz-card__prompt">
-              {question.byName ? (
-                t('quiz.clickName', { name: question.organelle.name })
-              ) : (
+              {promptText ?? (
                 <>
                   <span className="quiz-card__lead">{t('quiz.clickFunction')}</span>
                   <span className="quiz-card__function">{question.organelle.explanation}</span>
                 </>
               )}
             </p>
+
+            {question.options && (
+              <div className="quiz-options">
+                {question.options.map((option) => {
+                  const reveal = feedback?.blocking && option.id === question.answerId;
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      className={`quiz-option${reveal ? ' is-correct' : ''}`}
+                      onClick={() => answer(option.id)}
+                      disabled={Boolean(feedback?.blocking)}
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             {feedback && (
               <p className={`quiz-card__feedback quiz-card__feedback--${feedback.kind}`} role="status">
                 {feedback.text}
               </p>
             )}
-            {!feedback && <p className="quiz-card__hint">{t('quiz.hint')}</p>}
+            {!feedback && question.mode === 'find' && <p className="quiz-card__hint">{t('quiz.hint')}</p>}
+            {!feedback && question.mode === 'name' && <p className="quiz-card__hint">{t('quiz.hintName')}</p>}
+            {!feedback && isCellQuiz && (
+              <p className="quiz-card__hint">{t(question.inside ? 'quiz.hintInside' : 'quiz.hintOutside')}</p>
+            )}
           </div>
 
           <div className="quiz-side__actions">
@@ -365,15 +473,16 @@ export default function QuizPage() {
         <main className="stage">
           {ready ? (
             <CellViewer
+              key={viewerMode}
               cell={cellData.cell}
               definitions={cellData.definitions}
-              mode="viewer"
+              mode={viewerMode}
               autoRotate
               open
               showNames={false}
-              flyOnSelect={false}
-              selectedId={flashId}
-              onSelect={(id) => id && answer(id)}
+              flyOnSelect={question.mode === 'name'}
+              selectedId={question.mode === 'name' ? question.answerId : flashId}
+              onSelect={(id) => id && question.mode === 'find' && answer(id)}
               onCounts={() => setStageReady(true)}
             />
           ) : (

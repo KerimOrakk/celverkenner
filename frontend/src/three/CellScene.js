@@ -76,6 +76,8 @@ export class CellScene {
     this.pointer = { x: 0, y: 0, downX: 0, downY: 0, downAt: 0, dirty: false, inside: false };
     this.size = { width: 1, height: 1 };
     this.showNames = true; // the quiz hides the hover tooltip: the name is the answer
+    this.labelsEnabled = false; // floating name tags next to every organelle
+    this.labels = [];
     this.inset = { right: 0, bottom: 0 }; // canvas area covered by UI, in CSS pixels
     this.insetTarget = { right: 0, bottom: 0 };
     this.reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -162,6 +164,7 @@ export class CellScene {
     this.camera.position.copy(home.position);
     this.controls.target.copy(home.target);
     this.controls.update();
+    if (this.labelsEnabled) this.#buildLabels();
     this.onReady(this.model);
   }
 
@@ -193,6 +196,88 @@ export class CellScene {
 
   setAutoRotate(enabled) {
     this.autoRotate = enabled;
+  }
+
+  /** Floating name tags at every organelle (one per type). */
+  setLabels(enabled) {
+    this.labelsEnabled = enabled;
+    if (enabled) this.#buildLabels();
+    else this.#clearLabels();
+  }
+
+  #clearLabels() {
+    this.labels.forEach((label) => label.element.remove());
+    this.labels = [];
+  }
+
+  #buildLabels() {
+    this.#clearLabels();
+    if (!this.model || this.mode === 'preview') return;
+    const surfaceDirections = {
+      celmembraan: new THREE.Vector3(-0.3, 1, -0.25),
+      celwand: new THREE.Vector3(-0.7, 0.8, -0.45),
+      bacteriewand: new THREE.Vector3(-0.7, 0.8, -0.45),
+      kapsel: new THREE.Vector3(-1, 0.45, -0.6),
+    };
+    this.model.entries.forEach((entry) => {
+      let anchor;
+      if (entry.kind === 'shell') {
+        const radii = this.model.container.radii;
+        const direction = (surfaceDirections[entry.id] ?? surfaceDirections.celmembraan).clone().normalize();
+        const k = 1 / Math.sqrt((direction.x / radii.x) ** 2 + (direction.y / radii.y) ** 2 + (direction.z / radii.z) ** 2);
+        const scale = entry.instances[0].radius / Math.max(radii.x, radii.y, radii.z);
+        anchor = direction.multiplyScalar(k * scale);
+        if (Number.isFinite(this.model.container.top)) anchor.y = Math.min(anchor.y, this.model.container.top * scale);
+      } else {
+        const instance = entry.kind === 'instanced' ? entry.instances[0] : this.#chooseInstance(entry, null);
+        anchor = (instance.focus ?? instance.position).clone();
+        anchor.y += instance.radius * 0.6;
+      }
+      const element = document.createElement('button');
+      element.type = 'button';
+      element.className = 'cell-label';
+      element.innerHTML = `<span class="cell-label__dot" style="background:${entry.color}"></span>`;
+      element.appendChild(document.createTextNode(entry.name));
+      element.addEventListener('click', (event) => {
+        event.stopPropagation();
+        this.onSelect(entry.id);
+      });
+      this.container.appendChild(element);
+      this.labels.push({ id: entry.id, anchor, element, width: element.offsetWidth || 80, height: element.offsetHeight || 22 });
+    });
+  }
+
+  #updateLabels() {
+    if (this.labels.length === 0) return;
+    const { width, height } = this.size;
+    const point = new THREE.Vector3();
+    const placed = [];
+    this.labels.forEach((label) => {
+      point.copy(label.anchor).applyMatrix4(this.modelRoot.matrixWorld).project(this.camera);
+      label.visible = point.z < 1 && Math.abs(point.x) < 1.1 && Math.abs(point.y) < 1.1;
+      label.x = ((point.x + 1) / 2) * width;
+      label.y = ((1 - point.y) / 2) * height;
+      label.depth = point.z;
+    });
+    // Nearest first; a label that would cover an earlier one slides down until it is free.
+    [...this.labels]
+      .sort((a, b) => a.depth - b.depth)
+      .forEach((label) => {
+        label.element.classList.toggle('is-hidden', !label.visible);
+        if (!label.visible) return;
+        const left = label.x - label.width / 2;
+        let top = label.y - label.height;
+        for (let guard = 0; guard < 8; guard += 1) {
+          const clash = placed.find(
+            (r) => left < r.left + r.width && left + label.width > r.left && top < r.top + r.height && top + label.height > r.top,
+          );
+          if (!clash) break;
+          top = clash.top + clash.height + 2;
+        }
+        placed.push({ left, top, width: label.width, height: label.height });
+        label.element.style.transform = `translate(${left.toFixed(1)}px, ${top.toFixed(1)}px)`;
+        label.element.classList.toggle('is-active', label.id === this.selectedId);
+      });
   }
 
   /** Show or hide the organelle name that follows the pointer. */
@@ -493,6 +578,7 @@ export class CellScene {
     if (!this.model) return;
     this.#hideGlow();
     this.setRoute([]);
+    this.#clearLabels();
     this.modelRoot.remove(this.model.root);
     this.model.dispose();
     this.model = null;
@@ -781,6 +867,8 @@ export class CellScene {
       this.camera.position.lerp(safe, 0.35);
     }
     if (this.dust) this.dust.rotation.y += delta * 0.01;
+
+    if (this.labelsEnabled) this.#updateLabels();
 
     if (this.routePackets.length > 0) {
       const curve = this.routeCurves[this.routeCurves.length - 1];
