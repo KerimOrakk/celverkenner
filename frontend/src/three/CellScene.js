@@ -698,9 +698,10 @@ export class CellScene {
     }
     const portrait = this.camera.aspect < 1 ? 1 + (1 - this.camera.aspect) * 0.5 : 1;
     const distance = (radius / Math.sin(THREE.MathUtils.degToRad(this.settings.fov / 2))) * 1.02 * portrait;
+    const center = this.model?.center ?? new THREE.Vector3();
     return {
-      position: new THREE.Vector3(0.78, 0.5, 1).normalize().multiplyScalar(distance),
-      target: new THREE.Vector3(0, 0, 0),
+      position: new THREE.Vector3(0.78, 0.5, 1).normalize().multiplyScalar(distance).add(center),
+      target: center.clone(),
     };
   }
 

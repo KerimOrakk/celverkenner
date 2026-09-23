@@ -366,6 +366,295 @@
     ]
   },
   {
+    "id": "zenuwcel",
+    "name": {
+      "nl": "Zenuwcel",
+      "en": "Nerve cell"
+    },
+    "type": "dierlijk",
+    "type_label": {
+      "nl": "Dierlijke cel",
+      "en": "Animal cell"
+    },
+    "tagline": {
+      "nl": "Een kabel die signalen doorgeeft",
+      "en": "A cable that passes on signals"
+    },
+    "description": {
+      "nl": "Een zenuwcel (neuron) vangt signalen op met zijn dendrieten en stuurt ze via het axon door, soms meer dan een meter ver. Het cellichaam zit vol mitochondriën en ruw ER: signalen doorgeven kost veel energie en eiwit.",
+      "en": "A nerve cell (neuron) picks up signals with its dendrites and sends them on through the axon, sometimes more than a metre away. The cell body is full of mitochondria and rough ER: passing on signals costs a lot of energy and protein."
+    },
+    "shape": {
+      "kind": "ellipsoid",
+      "radii": [
+        0.8,
+        0.75,
+        0.75
+      ],
+      "membrane_color": "#F6E7B0"
+    },
+    "organelles": [
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "celnucleus",
+        "positions": [
+          [
+            0.05,
+            0.05,
+            0
+          ]
+        ],
+        "scale": 0.3
+      },
+      {
+        "organelle_id": "nucleolus",
+        "positions": [
+          [
+            0.05,
+            0.05,
+            0
+          ]
+        ],
+        "scale": 0.12
+      },
+      {
+        "organelle_id": "mitochondrien",
+        "positions": [
+          [
+            0.4,
+            -0.2,
+            0.2
+          ],
+          [
+            -0.35,
+            0.3,
+            0.1
+          ]
+        ],
+        "random": {
+          "count": 8,
+          "range": 0.55
+        }
+      },
+      {
+        "organelle_id": "ribosomen",
+        "positions": [],
+        "random": {
+          "count": 150,
+          "range": 0.6
+        }
+      },
+      {
+        "organelle_id": "ruw_er",
+        "positions": [
+          [
+            0.35,
+            0.3,
+            0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "glad_er",
+        "positions": [
+          [
+            -0.3,
+            -0.3,
+            -0.1
+          ]
+        ]
+      },
+      {
+        "organelle_id": "golgi",
+        "positions": [
+          [
+            -0.2,
+            0.35,
+            0.15
+          ]
+        ]
+      },
+      {
+        "organelle_id": "lysosomen",
+        "positions": [
+          [
+            0.2,
+            -0.35,
+            0.25
+          ],
+          [
+            -0.35,
+            -0.15,
+            0.3
+          ]
+        ]
+      },
+      {
+        "organelle_id": "dendrieten",
+        "positions": [
+          [
+            0.52,
+            0.5,
+            -0.28
+          ]
+        ]
+      },
+      {
+        "organelle_id": "axon",
+        "positions": [
+          [
+            -0.8,
+            0,
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rode_bloedcel",
+    "name": {
+      "nl": "Rode bloedcel",
+      "en": "Red blood cell"
+    },
+    "type": "dierlijk",
+    "type_label": {
+      "nl": "Dierlijke cel",
+      "en": "Animal cell"
+    },
+    "tagline": {
+      "nl": "Een zakje hemoglobine zonder kern",
+      "en": "A bag of haemoglobin without a nucleus"
+    },
+    "description": {
+      "nl": "Een rijpe rode bloedcel heeft geen kern en geen mitochondriën: alle ruimte gaat naar hemoglobine, het eiwit dat zuurstof bindt. De holle schijfvorm geeft een groot oppervlak en laat de cel door de smalste haarvaten wringen.",
+      "en": "A mature red blood cell has no nucleus and no mitochondria: all the space goes to haemoglobin, the protein that binds oxygen. The dimpled disc shape gives a large surface and lets the cell squeeze through the narrowest capillaries."
+    },
+    "shape": {
+      "kind": "disc",
+      "radii": [
+        1.15,
+        0.3,
+        1.15
+      ],
+      "membrane_color": "#E57373"
+    },
+    "organelles": [
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "hemoglobine",
+        "positions": [],
+        "random": {
+          "count": 320,
+          "range": 1.05
+        }
+      }
+    ]
+  },
+  {
+    "id": "spermacel",
+    "name": {
+      "nl": "Spermacel",
+      "en": "Sperm cell"
+    },
+    "type": "dierlijk",
+    "type_label": {
+      "nl": "Dierlijke cel",
+      "en": "Animal cell"
+    },
+    "tagline": {
+      "nl": "Gebouwd om te zwemmen en te bevruchten",
+      "en": "Built to swim and to fertilise"
+    },
+    "description": {
+      "nl": "Een spermacel is bijna alleen kern en motor: de kop draagt het DNA met een acrosoom vooraan om de eicel binnen te dringen, het middenstuk zit vol mitochondriën en de staart slaat honderden keren per minuut.",
+      "en": "A sperm cell is almost all nucleus and motor: the head carries the DNA with an acrosome at the front to enter the egg cell, the midpiece is packed with mitochondria and the tail beats hundreds of times a minute."
+    },
+    "shape": {
+      "kind": "ellipsoid",
+      "radii": [
+        0.62,
+        0.42,
+        0.4
+      ],
+      "membrane_color": "#D7CCC8"
+    },
+    "organelles": [
+      {
+        "organelle_id": "celmembraan",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "scale": 1.0
+      },
+      {
+        "organelle_id": "celnucleus",
+        "positions": [
+          [
+            0.02,
+            0,
+            0
+          ]
+        ],
+        "scale": 0.3
+      },
+      {
+        "organelle_id": "acrosoom",
+        "positions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "organelle_id": "middenstuk",
+        "positions": [
+          [
+            -0.62,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "organelle_id": "staart",
+        "positions": [
+          [
+            -1.15,
+            0,
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  {
     "id": "plantencel",
     "name": {
       "nl": "Plantencel",

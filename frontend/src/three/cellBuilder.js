@@ -15,13 +15,29 @@ import {
   ORGANELLE_FACTORIES,
   VACUOLE_RADII,
   createMicrovillusGeometry,
+  createHaemoglobinGeometry,
   createPilusGeometry,
   createRibosomeGeometry,
 } from './organelles.js';
 
 const SHELL_IDS = new Set(['celmembraan', 'celwand', 'bacteriewand', 'kapsel']);
-const INSTANCED_IDS = new Set(['microvilli', 'ribosomen', 'pili']);
-const FIXED_IDS = new Set(['celnucleus', 'nucleolus', 'vacuole', 'nucleoide', 'flagel']);
+const INSTANCED_IDS = new Set(['microvilli', 'ribosomen', 'pili', 'hemoglobine']);
+const FIXED_IDS = new Set([
+  'celnucleus',
+  'nucleolus',
+  'vacuole',
+  'nucleoide',
+  'flagel',
+  'axon',
+  'dendrieten',
+  'acrosoom',
+  'middenstuk',
+  'staart',
+]);
+// Parts that stick out of the cell: they widen the view the camera needs to frame everything.
+const OUTSIDE_IDS = new Set(['flagel', 'axon', 'dendrieten', 'middenstuk', 'staart']);
+// Hundreds of tiny copies drawn as one instanced mesh.
+const DOT_GEOMETRIES = { ribosomen: createRibosomeGeometry, hemoglobine: createHaemoglobinGeometry };
 const UP = new THREE.Vector3(0, 1, 0);
 
 export function isShell(organelleId) {
@@ -291,6 +307,12 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
     }
   }
 
+  // Everything that decides the framing: the shell plus anything sticking out of it.
+  const extent = new THREE.Box3(
+    new THREE.Vector3(-container.radii.x, -container.radii.y, -container.radii.z),
+    new THREE.Vector3(container.radii.x, container.radii.y, container.radii.z),
+  );
+
   // -- 6. Instantiate and orient ---------------------------------------------
   const radial = new THREE.Vector3();
   const axis = new THREE.Vector3();
@@ -333,8 +355,15 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
         orientObject(object, item.index % 2 ? new THREE.Vector3(1, 0, 0) : UP, CUT.bisector);
         break;
       case 'flagel':
-        // The tail points straight out of the cell, motor on the membrane.
+      case 'axon':
+      case 'dendrieten':
+      case 'middenstuk':
+      case 'staart':
+        // These grow straight out of the cell surface.
         orientObject(object, radial, rng.unitVector(opening));
+        break;
+      case 'acrosoom':
+        orientObject(object, new THREE.Vector3(1, 0, 0), UP); // cap over the front of the head
         break;
       case 'nucleoide':
         orientObject(object, new THREE.Vector3(1, 0, 0), UP); // stretched along the rod
@@ -347,7 +376,9 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
     // Some shapes (the curved Golgi stack, the ER sheets) are not centred on
     // their own origin, so the camera aims at the middle of what you actually see.
     object.updateWorldMatrix(true, true);
-    const focus = new THREE.Box3().setFromObject(object).getCenter(new THREE.Vector3());
+    const bounds = new THREE.Box3().setFromObject(object);
+    const focus = bounds.getCenter(new THREE.Vector3());
+    if (OUTSIDE_IDS.has(item.id)) extent.union(bounds);
     const instanceIndex = entry.instances.length;
     entry.instances.push({
       position: item.position.clone(),
@@ -367,10 +398,11 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
 
   [...fixedItems, ...placed].forEach(addInstance);
 
-  // -- 7. Free ribosomes --------------------------------------------------------
-  const ribosomePlacement = placements.get('ribosomen');
-  if (ribosomePlacement) {
-    const entry = register('ribosomen', 'instanced');
+  // -- 7. Free ribosomes (and other dots, like haemoglobin) ----------------------
+  for (const [dotId, createDotGeometry] of Object.entries(DOT_GEOMETRIES)) {
+    const ribosomePlacement = placements.get(dotId);
+    if (!ribosomePlacement) continue;
+    const entry = register(dotId, 'instanced');
     const spots = ribosomePlacement.positions.map((xyz) => new THREE.Vector3(...xyz));
     const spec = ribosomePlacement.random;
     for (let i = 0; spec && i < spec.count; i += 1) {
@@ -379,7 +411,7 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
     }
 
     const material = new THREE.MeshStandardMaterial({ color: entry.color, roughness: 0.5 });
-    const mesh = new THREE.InstancedMesh(createRibosomeGeometry(), material, spots.length);
+    const mesh = new THREE.InstancedMesh(createDotGeometry(), material, spots.length);
     const dummy = new THREE.Object3D();
     spots.forEach((spot, i) => {
       dummy.position.copy(spot);
@@ -398,13 +430,21 @@ export function buildCell(cell, organelleDefinitions, { clipPlanes = [], mode = 
     if (entry.count == null) entry.count = entry.instances.length;
   });
 
+  // Cells with parts sticking out (axon, tail) are framed around the middle of
+  // everything, not around the cell body.
+  const center = extent.getCenter(new THREE.Vector3());
+  const halfSize = extent.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+  const spread = Math.hypot(halfSize.x, halfSize.y, halfSize.z);
+  const boundingRadius = Math.max(hullRadius, spread * 0.72);
+
   return {
     root,
     entries,
     pickables,
     colliders,
     container,
-    boundingRadius: hullRadius,
+    center,
+    boundingRadius,
     dispose() {
       geometries.forEach((geometry) => geometry.dispose());
       materials.forEach((material) => material.dispose());

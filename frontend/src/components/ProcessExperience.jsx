@@ -6,6 +6,7 @@ import { useCellData } from '../hooks/useCellData.js';
 import { useFetch } from '../hooks/useFetch.js';
 import { useGlossary } from '../hooks/useGlossary.js';
 import { useLang } from '../i18n/index.jsx';
+import { track } from '../analytics.js';
 import Button from '../ui/Button.jsx';
 import Spinner from '../ui/Spinner.jsx';
 import CellViewer from './CellViewer.jsx';
@@ -49,6 +50,7 @@ export default function ProcessExperience({ cellId }) {
   useEffect(() => {
     setStepIndex(0);
     setPlaying(false);
+    if (process?.id) track('proces-gestart', { proces: process.id, cel: cellId });
   }, [process?.id, cellId]);
 
   useEffect(() => {

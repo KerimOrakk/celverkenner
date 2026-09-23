@@ -395,6 +395,11 @@ function createGenericFactory({ color, scale }) {
 // Instanced geometry: there are hundreds of these, so they share one draw call.
 // ---------------------------------------------------------------------------
 
+/** A haemoglobin molecule, drawn as a small red blob (there are millions in reality). */
+export function createHaemoglobinGeometry() {
+  return new THREE.SphereGeometry(0.022, 10, 8);
+}
+
 /** One ribosome = a large and a small subunit. */
 export function createRibosomeGeometry() {
   return merge([
@@ -469,7 +474,131 @@ function createFlagellumFactory({ color }) {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Zenuwcel: dendrieten (a branching tuft) and axon (long cable with myelin).
+// ---------------------------------------------------------------------------
+function branchCurve(rng, start, direction, length, wobble) {
+  const points = [start.clone()];
+  const dir = direction.clone().normalize();
+  const steps = 5;
+  for (let i = 1; i <= steps; i += 1) {
+    const t = i / steps;
+    const p = start.clone().addScaledVector(dir, length * t);
+    p.x += rng.spread(wobble) * t;
+    p.z += rng.spread(wobble) * t;
+    points.push(p);
+  }
+  return new THREE.CatmullRomCurve3(points);
+}
+
+function createDendriteFactory({ color, rng }) {
+  const tubes = [];
+  const count = 6;
+  for (let i = 0; i < count; i += 1) {
+    // Fan out around local +Y, each trunk with two thinner side branches.
+    const angle = (i / count) * Math.PI * 2 + rng.spread(0.3);
+    const tilt = 0.55 + rng.spread(0.25);
+    const direction = new THREE.Vector3(Math.sin(tilt) * Math.cos(angle), Math.cos(tilt), Math.sin(tilt) * Math.sin(angle));
+    const trunk = branchCurve(rng, new THREE.Vector3(0, 0, 0), direction, 0.5 + rng.spread(0.15), 0.08);
+    tubes.push(new THREE.TubeGeometry(trunk, 24, 0.028, 8, false));
+    for (let b = 0; b < 2; b += 1) {
+      const from = trunk.getPointAt(0.45 + b * 0.3);
+      const side = direction.clone().add(rng.unitVector(new THREE.Vector3()).multiplyScalar(0.7));
+      const twig = branchCurve(rng, from, side, 0.22 + rng.spread(0.08), 0.06);
+      tubes.push(new THREE.TubeGeometry(twig, 16, 0.016, 6, false));
+    }
+  }
+  return factory({
+    radius: 0.5,
+    parts: [
+      { geometry: merge(tubes), material: standard(color, { roughness: 0.5 }) },
+      { geometry: new THREE.SphereGeometry(0.07, 20, 14), material: standard(color, { roughness: 0.5 }) },
+    ],
+  });
+}
+
+function createAxonFactory({ color }) {
+  const length = 2.0;
+  const parts = [];
+  // The fibre itself, along local +Y from the hillock.
+  parts.push({ geometry: new THREE.CylinderGeometry(0.03, 0.04, length, 12).translate(0, length / 2, 0), material: standard(color, { roughness: 0.5 }) });
+  // Myelin sheaths with gaps (nodes of Ranvier) between them.
+  const sheaths = [];
+  const segment = 0.3;
+  const gap = 0.07;
+  for (let y = 0.15; y + segment < length - 0.3; y += segment + gap) {
+    sheaths.push(new THREE.CylinderGeometry(0.075, 0.075, segment, 16).translate(0, y + segment / 2, 0));
+  }
+  parts.push({ geometry: merge(sheaths), material: glossy(shade(color, 0.35), { roughness: 0.35 }) });
+  // Axon terminals: a few short branches ending in boutons.
+  const terminals = [];
+  const tip = new THREE.Vector3(0, length - 0.05, 0);
+  for (let i = 0; i < 4; i += 1) {
+    const angle = (i / 4) * Math.PI * 2 + 0.4;
+    const end = new THREE.Vector3(Math.cos(angle) * 0.18, length + 0.16, Math.sin(angle) * 0.18);
+    const curve = new THREE.CatmullRomCurve3([tip, tip.clone().lerp(end, 0.5).add(new THREE.Vector3(Math.cos(angle) * 0.04, 0, Math.sin(angle) * 0.04)), end]);
+    terminals.push(new THREE.TubeGeometry(curve, 10, 0.014, 6, false));
+    terminals.push(new THREE.SphereGeometry(0.035, 12, 10).translate(end.x, end.y, end.z));
+  }
+  parts.push({ geometry: merge(terminals), material: standard(shade(color, -0.15), { roughness: 0.5 }) });
+  return factory({ radius: length / 2 + 0.2, parts });
+}
+
+// ---------------------------------------------------------------------------
+// Spermacel: acrosoom (cap on the head), middenstuk (mitochondrial spiral), staart.
+// ---------------------------------------------------------------------------
+function createAcrosomeFactory({ color }) {
+  // A cap over the front of the head: a sphere segment, scaled to sit just outside the nucleus.
+  const geometry = new THREE.SphereGeometry(1, 48, 24, 0, Math.PI * 2, 0, 1.05);
+  geometry.scale(0.38, 0.52, 0.36);
+  return factory({
+    radius: 0.42,
+    parts: [{ geometry, material: glossy(color, { transparent: true, opacity: 0.7, roughness: 0.3, depthWrite: false }), renderOrder: 5 }],
+  });
+}
+
+function createMidpieceFactory({ color }) {
+  const length = 0.55;
+  const core = new THREE.CylinderGeometry(0.05, 0.06, length, 16).translate(0, length / 2, 0);
+  // Mitochondria wound in a spiral around the core.
+  const points = [];
+  for (let i = 0; i <= 80; i += 1) {
+    const t = i / 80;
+    const a = t * Math.PI * 2 * 4.5;
+    points.push(new THREE.Vector3(Math.cos(a) * 0.085, 0.03 + t * (length - 0.06), Math.sin(a) * 0.085));
+  }
+  const spiral = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 220, 0.03, 8, false);
+  return factory({
+    radius: 0.32,
+    parts: [
+      { geometry: core, material: standard(shade(color, -0.5), { roughness: 0.6 }) },
+      { geometry: spiral, material: glossy(color, { roughness: 0.4 }) },
+    ],
+  });
+}
+
+function createTailFactory({ color }) {
+  // A waving flagellum: a sine curve along local +Y, thinning towards the tip.
+  const length = 1.9;
+  const points = [];
+  for (let i = 0; i <= 120; i += 1) {
+    const t = i / 120;
+    const amplitude = 0.09 * Math.sin(Math.PI * Math.min(t * 1.6, 1)) + 0.02 * t;
+    points.push(new THREE.Vector3(Math.sin(t * Math.PI * 2 * 2.2) * amplitude, t * length, Math.cos(t * Math.PI * 2 * 2.2) * amplitude * 0.35));
+  }
+  const curve = new THREE.CatmullRomCurve3(points);
+  return factory({
+    radius: length / 2 + 0.1,
+    parts: [{ geometry: new THREE.TubeGeometry(curve, 240, 0.018, 8, false), material: glossy(color, { roughness: 0.4 }) }],
+  });
+}
+
 export const ORGANELLE_FACTORIES = {
+  dendrieten: createDendriteFactory,
+  axon: createAxonFactory,
+  acrosoom: createAcrosomeFactory,
+  middenstuk: createMidpieceFactory,
+  staart: createTailFactory,
   nucleoide: createNucleoidFactory,
   plasmiden: createPlasmidFactory,
   flagel: createFlagellumFactory,

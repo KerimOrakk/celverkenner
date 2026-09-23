@@ -56,4 +56,5 @@ export function LanguageProvider({ children }) {
 }
 
 export const useLang = () => useContext(LanguageContext);
+export const LanguageContextConsumer = LanguageContext.Consumer;
 export { LANGUAGES };

@@ -31,7 +31,7 @@ class OrganellePlacement(BaseModel):
 class CellShape(BaseModel):
     """Vorm van de cel. De frontend bouwt hiermee het membraan in Three.js."""
 
-    kind: Literal["ellipsoid", "box"]
+    kind: Literal["ellipsoid", "box", "disc"]
     radii: Vec3 = Field(..., description="Halve afmetingen bij schaal 1.0")
     flat_top: Optional[float] = Field(None, description="Y-waarde waarop de bovenkant wordt afgevlakt")
     flat_bottom: Optional[float] = Field(None, description="Y-waarde waarop de onderkant wordt afgevlakt")

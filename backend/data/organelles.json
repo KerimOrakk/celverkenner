@@ -248,5 +248,77 @@
     "cell_types": [
       "prokaryoot"
     ]
+  },
+  {
+    "id": "dendrieten",
+    "name": {
+      "nl": "Dendrieten",
+      "en": "Dendrites"
+    },
+    "color": "#80CBC4",
+    "category": "signaal",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "axon",
+    "name": {
+      "nl": "Axon",
+      "en": "Axon"
+    },
+    "color": "#FFD54F",
+    "category": "signaal",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "hemoglobine",
+    "name": {
+      "nl": "Hemoglobine",
+      "en": "Haemoglobin"
+    },
+    "color": "#E53935",
+    "category": "transport",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "acrosoom",
+    "name": {
+      "nl": "Acrosoom",
+      "en": "Acrosome"
+    },
+    "color": "#B39DDB",
+    "category": "bevruchting",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "middenstuk",
+    "name": {
+      "nl": "Middenstuk (mitochondriën)",
+      "en": "Midpiece (mitochondria)"
+    },
+    "color": "#FFA726",
+    "category": "energie",
+    "cell_types": [
+      "dierlijk"
+    ]
+  },
+  {
+    "id": "staart",
+    "name": {
+      "nl": "Staart",
+      "en": "Tail"
+    },
+    "color": "#FFE082",
+    "category": "beweging",
+    "cell_types": [
+      "dierlijk"
+    ]
   }
 ]

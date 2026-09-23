@@ -6,6 +6,9 @@ export const STRINGS = {
   nl: {
     'app.name': 'CelVerkenner 3D',
     'lang.label': 'Taal',
+    'crash.title': 'Er ging iets mis',
+    'crash.text': 'De pagina kon niet verder. Herlaad de pagina; blijft het gebeuren, meld het dan aan de beheerder.',
+    'crash.reload': 'Pagina herladen',
 
     'home.title': 'Kies een cel en kijk erin.',
     'home.lead':
@@ -68,6 +71,18 @@ export const STRINGS = {
     'quiz.reviewClicked': 'je klikte op {name}',
     'quiz.reviewSkipped': 'overgeslagen',
     'title.quiz': 'Organellenquiz | CelVerkenner 3D',
+    'quiz.challenge': 'Iemand daagt je uit: die deed dit in {time}. Sneller?',
+    'quiz.challengeWon': 'Gewonnen! Je was sneller dan {time}.',
+    'quiz.challengeLost': 'Net niet: de uitdaging stond op {time}.',
+    'quiz.share.button': 'Deel je score',
+    'quiz.share.title': 'Mijn score op CelVerkenner 3D',
+    'quiz.share.text': 'Ik deed “{mode}” in {time}. Kun jij sneller?',
+    'quiz.share.flawless': 'Zonder één fout',
+    'quiz.share.footer': 'Kun jij sneller? Probeer het op CelVerkenner 3D',
+    'quiz.share.shared': 'Gedeeld.',
+    'quiz.share.downloaded-copied': 'Afbeelding gedownload en link gekopieerd. Plak hem in een berichtje.',
+    'quiz.share.downloaded': 'Afbeelding gedownload. Deel hem samen met de link van deze pagina.',
+    'quiz.share.failed': 'Delen lukte niet. Maak een schermafbeelding.',
     'home.docTitle': 'CelVerkenner 3D | Kies een cel',
 
     'nav.home': 'Celkeuze',
@@ -182,6 +197,9 @@ export const STRINGS = {
   en: {
     'app.name': 'CelVerkenner 3D',
     'lang.label': 'Language',
+    'crash.title': 'Something went wrong',
+    'crash.text': 'The page could not continue. Reload the page; if it keeps happening, tell the site owner.',
+    'crash.reload': 'Reload page',
 
     'home.title': 'Pick a cell and look inside.',
     'home.lead':
@@ -244,6 +262,18 @@ export const STRINGS = {
     'quiz.reviewClicked': 'you clicked {name}',
     'quiz.reviewSkipped': 'skipped',
     'title.quiz': 'Organelle quiz | CelVerkenner 3D',
+    'quiz.challenge': 'Someone challenges you: they did this in {time}. Faster?',
+    'quiz.challengeWon': 'You won! You were faster than {time}.',
+    'quiz.challengeLost': 'Not quite: the challenge was {time}.',
+    'quiz.share.button': 'Share your score',
+    'quiz.share.title': 'My score on CelVerkenner 3D',
+    'quiz.share.text': 'I did “{mode}” in {time}. Can you beat that?',
+    'quiz.share.flawless': 'Without a single mistake',
+    'quiz.share.footer': 'Can you beat this? Try it on CelVerkenner 3D',
+    'quiz.share.shared': 'Shared.',
+    'quiz.share.downloaded-copied': 'Picture downloaded and link copied. Paste it into a message.',
+    'quiz.share.downloaded': 'Picture downloaded. Share it together with the link to this page.',
+    'quiz.share.failed': 'Sharing did not work. Take a screenshot instead.',
     'home.docTitle': 'CelVerkenner 3D | Pick a cell',
 
     'nav.home': 'Choose a cell',

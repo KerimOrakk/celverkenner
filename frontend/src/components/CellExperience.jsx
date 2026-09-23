@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLang } from '../i18n/index.jsx';
+import { track } from '../analytics.js';
 import { useCells } from '../hooks/useCells.js';
 import { useCellData } from '../hooks/useCellData.js';
 import { useGlossary } from '../hooks/useGlossary.js';
@@ -89,6 +90,10 @@ export default function CellExperience({ cellId, mode }) {
     if (data.status !== 'ready') return;
     document.title = t(mode === 'intracellular' ? 'title.intracellular' : 'title.viewer', { cell: data.cell.name });
   }, [data, mode, t]);
+
+  useEffect(() => {
+    track('cel-geopend', { cel: cellId, weergave: mode });
+  }, [cellId, mode]);
 
   // A link such as /viewer/plantencel?organel=golgi opens that organelle straight away.
   useEffect(() => {

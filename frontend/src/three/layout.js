@@ -9,7 +9,7 @@
 // positions.
 
 import * as THREE from 'three';
-import { boxCornerRadius } from './geometryUtils.js';
+import { boxCornerRadius, discHalfThickness } from './geometryUtils.js';
 
 export const RESOLVE_OVERLAPS = true;
 
@@ -24,6 +24,7 @@ export function createContainer(shape, scale = 1) {
   const top = shape.flat_top == null ? Infinity : shape.flat_top * scale;
   const bottom = shape.flat_bottom == null ? -Infinity : shape.flat_bottom * scale;
   const isBox = shape.kind === 'box';
+  const isDisc = shape.kind === 'disc';
   const corner = isBox ? boxCornerRadius(radii) : 0;
   const limit = new THREE.Vector3(radii.x - corner, radii.y - corner, radii.z - corner);
   const negLimit = limit.clone().negate();
@@ -39,6 +40,10 @@ export function createContainer(shape, scale = 1) {
     const ey = radii.y - m;
     const ez = radii.z - m;
     if (ex <= 0 || ey <= 0 || ez <= 0) return false;
+    if (isDisc) {
+      const rho = Math.sqrt((point.x / ex) ** 2 + (point.z / ez) ** 2);
+      return rho <= 1 && Math.abs(point.y) <= discHalfThickness(rho) * radii.y - m;
+    }
     return (point.x / ex) ** 2 + (point.y / ey) ** 2 + (point.z / ez) ** 2 <= 1;
   }
 
@@ -50,6 +55,16 @@ export function createContainer(shape, scale = 1) {
       _d.subVectors(point, _inner);
       const allowed = Math.max(corner - m, 0);
       if (_d.length() > allowed) point.copy(_inner).addScaledVector(_d.normalize(), allowed);
+    } else if (isDisc) {
+      const ex = Math.max(radii.x - m, 0.01);
+      const ez = Math.max(radii.z - m, 0.01);
+      const rho = Math.sqrt((point.x / ex) ** 2 + (point.z / ez) ** 2);
+      if (rho > 1) {
+        point.x /= rho;
+        point.z /= rho;
+      }
+      const limit = Math.max(discHalfThickness(Math.min(rho, 1)) * radii.y - m, 0.005);
+      point.y = Math.min(Math.max(point.y, -limit), limit);
     } else {
       const ex = Math.max(radii.x - m, 0.01);
       const ey = Math.max(radii.y - m, 0.01);

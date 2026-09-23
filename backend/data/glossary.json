@@ -570,5 +570,71 @@
       "nl": "Cel met een celkern en membraanorganellen zoals mitochondriën: dieren, planten, schimmels.",
       "en": "A cell with a nucleus and membrane-bound organelles such as mitochondria: animals, plants, fungi."
     }
+  },
+  {
+    "id": "synaps",
+    "term": {
+      "nl": "Synaps",
+      "en": "Synapse"
+    },
+    "definition": {
+      "nl": "Contactplaats tussen twee zenuwcellen (of een zenuwcel en een spier) met een heel smalle spleet ertussen.",
+      "en": "Contact point between two nerve cells (or a nerve cell and a muscle) with a very narrow gap between them."
+    }
+  },
+  {
+    "id": "zenuwimpuls",
+    "term": {
+      "nl": "Zenuwimpuls",
+      "en": "Nerve impulse"
+    },
+    "definition": {
+      "nl": "Elektrisch signaal dat over het membraan van een zenuwcel loopt: een golf van ionen die naar binnen en buiten stromen.",
+      "en": "Electrical signal that travels along the membrane of a nerve cell: a wave of ions flowing in and out."
+    }
+  },
+  {
+    "id": "myeline",
+    "term": {
+      "nl": "Myeline",
+      "en": "Myelin"
+    },
+    "definition": {
+      "nl": "Vettige isolatielaag rond het axon, gemaakt door hulpcellen. Maakt het signaal veel sneller.",
+      "en": "Fatty insulating layer around the axon, made by helper cells. Makes the signal much faster."
+    }
+  },
+  {
+    "id": "neurotransmitter",
+    "term": {
+      "nl": "Neurotransmitter",
+      "en": "Neurotransmitter"
+    },
+    "definition": {
+      "nl": "Stof die aan het eind van het axon wordt losgelaten en het signaal over de synaps naar de volgende cel brengt, zoals dopamine.",
+      "en": "Substance released at the end of the axon that carries the signal across the synapse to the next cell, such as dopamine."
+    }
+  },
+  {
+    "id": "hemoglobine",
+    "term": {
+      "nl": "Hemoglobine",
+      "en": "Haemoglobin"
+    },
+    "definition": {
+      "nl": "Rood eiwit met ijzer dat zuurstof bindt in de longen en loslaat in de weefsels.",
+      "en": "Red protein containing iron that binds oxygen in the lungs and releases it in the tissues."
+    }
+  },
+  {
+    "id": "flagel",
+    "term": {
+      "nl": "Flagel",
+      "en": "Flagellum"
+    },
+    "definition": {
+      "nl": "Zweepstaart waarmee een cel zwemt. Bij bacteriën een draaiende spiraal, bij spermacellen een slaande staart van microtubuli.",
+      "en": "Whip-like tail with which a cell swims. In bacteria a rotating spiral, in sperm cells a beating tail of microtubules."
+    }
   }
 ]

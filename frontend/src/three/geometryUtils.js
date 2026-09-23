@@ -142,11 +142,42 @@ export function boxCornerRadius(radii, scale = 1) {
  * Outer hull of a cell: an ellipsoid (optionally flattened at the top and/or
  * bottom, like a gut cell) or a rounded box (plant cell).
  */
+/**
+ * Half thickness of a biconcave disc (red blood cell) at relative radius rho
+ * (0 = centre, 1 = rim), as a fraction of the maximum half thickness. The
+ * shape follows Evans & Fung (1972), normalised so the thickest ring is 1.
+ */
+export function discHalfThickness(rho) {
+  const r = Math.min(Math.max(rho, 0), 1);
+  return (Math.sqrt(1 - r * r) * (0.207 + 2.003 * r * r - 1.123 * r ** 4)) / 0.656;
+}
+
+function discGeometry(radii) {
+  const steps = 48;
+  const profile = [];
+  for (let i = 0; i <= steps; i += 1) {
+    const rho = i / steps;
+    profile.push(new THREE.Vector2(rho * radii.x, discHalfThickness(rho) * radii.y));
+  }
+  for (let i = steps; i >= 0; i -= 1) {
+    const rho = i / steps;
+    profile.push(new THREE.Vector2(rho * radii.x, -discHalfThickness(rho) * radii.y));
+  }
+  const geometry = new THREE.LatheGeometry(profile, 96);
+  geometry.scale(1, 1, radii.z / radii.x);
+  geometry.computeVertexNormals();
+  geometry.deleteAttribute('uv');
+  return geometry;
+}
+
 export function cellShellGeometry(shape, scale = 1) {
   const radii = new THREE.Vector3(...shape.radii).multiplyScalar(scale);
 
   if (shape.kind === 'box') {
     return roundedBoxGeometry(radii.x, radii.y, radii.z, boxCornerRadius(radii));
+  }
+  if (shape.kind === 'disc') {
+    return discGeometry(radii);
   }
 
   const geometry = new THREE.SphereGeometry(1, 96, 64);

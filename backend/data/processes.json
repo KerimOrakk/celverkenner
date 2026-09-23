@@ -413,5 +413,174 @@
         }
       }
     ]
+  },
+  {
+    "id": "zenuwimpuls",
+    "cells": [
+      "zenuwcel"
+    ],
+    "name": {
+      "nl": "Een zenuwimpuls",
+      "en": "A nerve impulse"
+    },
+    "summary": {
+      "nl": "Van dendriet tot eindknopje: zo reist een signaal door een zenuwcel.",
+      "en": "From dendrite to terminal: how a signal travels through a nerve cell."
+    },
+    "steps": [
+      {
+        "organelle_id": "dendrieten",
+        "title": {
+          "nl": "Signaal komt binnen",
+          "en": "Signal comes in"
+        },
+        "text": {
+          "nl": "Andere zenuwcellen geven via hun [[synaps|synapsen]] een [[neurotransmitter]] af op de dendrieten. Genoeg prikkels samen zetten het membraan van het cellichaam \"aan\".",
+          "en": "Other nerve cells release a [[neurotransmitter]] onto the dendrites through their [[synaps|synapses]]. Enough stimuli together switch the membrane of the cell body \"on\"."
+        }
+      },
+      {
+        "organelle_id": "celnucleus",
+        "title": {
+          "nl": "Het cellichaam beslist",
+          "en": "The cell body decides"
+        },
+        "text": {
+          "nl": "Alle prikkels komen samen bij het cellichaam. Wordt een drempel overschreden, dan ontstaat een [[zenuwimpuls]]: alles of niets.",
+          "en": "All stimuli come together at the cell body. If a threshold is crossed, a [[zenuwimpuls|nerve impulse]] starts: all or nothing."
+        }
+      },
+      {
+        "organelle_id": "mitochondrien",
+        "title": {
+          "nl": "Energie voor de pompen",
+          "en": "Energy for the pumps"
+        },
+        "text": {
+          "nl": "Na elke impuls pompen [[transporteiwitten]] de ionen weer terug. Dat kost [[atp|ATP]]; de hersenen gebruiken daarom een vijfde van al je energie.",
+          "en": "After every impulse [[transporteiwitten|transport proteins]] pump the ions back. That costs [[atp|ATP]]; the brain therefore uses a fifth of all your energy."
+        }
+      },
+      {
+        "organelle_id": "axon",
+        "title": {
+          "nl": "Springen langs het axon",
+          "en": "Jumping along the axon"
+        },
+        "text": {
+          "nl": "De impuls springt van insnoering naar insnoering tussen de [[myeline]]schedes, tot 100 meter per seconde. Aan het eind geven de eindknopjes een neurotransmitter af aan de volgende cel of spier.",
+          "en": "The impulse jumps from gap to gap between the [[myeline|myelin]] sheaths, at up to 100 metres per second. At the end the terminals release a neurotransmitter to the next cell or muscle."
+        }
+      }
+    ]
+  },
+  {
+    "id": "zuurstoftransport",
+    "cells": [
+      "rode_bloedcel"
+    ],
+    "name": {
+      "nl": "Zuurstof vervoeren",
+      "en": "Carrying oxygen"
+    },
+    "summary": {
+      "nl": "Laden in de longen, lossen in de spieren.",
+      "en": "Loading in the lungs, unloading in the muscles."
+    },
+    "steps": [
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Laden in de longen",
+          "en": "Loading in the lungs"
+        },
+        "text": {
+          "nl": "In de longblaasjes gaat zuurstof via [[diffusie]] door het celmembraan de rode bloedcel in. De platte schijfvorm maakt de weg kort.",
+          "en": "In the air sacs of the lungs oxygen passes through the cell membrane into the red blood cell by [[diffusie|diffusion]]. The flat disc shape keeps the distance short."
+        }
+      },
+      {
+        "organelle_id": "hemoglobine",
+        "title": {
+          "nl": "Binden aan hemoglobine",
+          "en": "Binding to haemoglobin"
+        },
+        "text": {
+          "nl": "Elk [[hemoglobine]]molecuul pakt vier zuurstofmoleculen vast. Het bloed kleurt helderrood.",
+          "en": "Each [[hemoglobine|haemoglobin]] molecule grabs four oxygen molecules. The blood turns bright red."
+        }
+      },
+      {
+        "organelle_id": "celmembraan",
+        "title": {
+          "nl": "Lossen in de weefsels",
+          "en": "Unloading in the tissues"
+        },
+        "text": {
+          "nl": "In een spier is weinig zuurstof en veel CO₂. Hemoglobine laat de zuurstof los, die naar de spiercellen diffundeert; een deel van het CO₂ reist mee terug naar de longen.",
+          "en": "In a muscle there is little oxygen and a lot of CO₂. Haemoglobin releases the oxygen, which diffuses to the muscle cells; part of the CO₂ travels back to the lungs."
+        }
+      }
+    ]
+  },
+  {
+    "id": "bevruchting",
+    "cells": [
+      "spermacel"
+    ],
+    "name": {
+      "nl": "Op weg naar de eicel",
+      "en": "On the way to the egg cell"
+    },
+    "summary": {
+      "nl": "Zwemmen, botsen, binnendringen: de taak van een spermacel.",
+      "en": "Swim, collide, get in: the job of a sperm cell."
+    },
+    "steps": [
+      {
+        "organelle_id": "staart",
+        "title": {
+          "nl": "Zwemmen",
+          "en": "Swimming"
+        },
+        "text": {
+          "nl": "De staart slaat golvend heen en weer en stuwt de cel vooruit, een paar millimeter per minuut, tegen de stroom in.",
+          "en": "The tail beats back and forth in waves and drives the cell forward, a few millimetres per minute, against the current."
+        }
+      },
+      {
+        "organelle_id": "middenstuk",
+        "title": {
+          "nl": "Brandstof",
+          "en": "Fuel"
+        },
+        "text": {
+          "nl": "De mitochondriën in het middenstuk maken het [[atp|ATP]] voor de staart. Zonder werkende mitochondriën komt de cel niet ver.",
+          "en": "The mitochondria in the midpiece make the [[atp|ATP]] for the tail. Without working mitochondria the cell does not get far."
+        }
+      },
+      {
+        "organelle_id": "acrosoom",
+        "title": {
+          "nl": "Binnendringen",
+          "en": "Getting in"
+        },
+        "text": {
+          "nl": "Bij de eicel barst het acrosoom open. Zijn [[enzymen]] verteren een gaatje in de beschermlaag van de eicel.",
+          "en": "At the egg cell the acrosome bursts open. Its [[enzymen|enzymes]] digest a hole in the egg cell's protective coat."
+        }
+      },
+      {
+        "organelle_id": "celnucleus",
+        "title": {
+          "nl": "Twee kernen worden één",
+          "en": "Two nuclei become one"
+        },
+        "text": {
+          "nl": "Alleen de kern gaat naar binnen; staart en middenstuk blijven buiten. De kern versmelt met die van de eicel: 23 + 23 [[chromosomen]] = een nieuwe cel met 46.",
+          "en": "Only the nucleus goes in; tail and midpiece stay outside. The nucleus fuses with that of the egg cell: 23 + 23 [[chromosomen|chromosomes]] = a new cell with 46."
+        }
+      }
+    ]
   }
 ]

@@ -218,5 +218,71 @@
       "nl": "Pili zijn korte, dunne eiwitdraden over het hele oppervlak. Ermee plakt de bacterie zich vast aan cellen of oppervlakken, wat een infectie vaak begint. Een speciale, langere pilus (de sekspilus) trekt twee bacteriën naar elkaar toe om [[plasmiden]] uit te wisselen ([[conjugatie]]).",
       "en": "Pili are short, thin protein threads all over the surface. With them the bacterium attaches itself to cells or surfaces, which is often how an infection begins. A special, longer pilus (the sex pilus) pulls two bacteria together to exchange [[plasmiden|plasmids]] ([[conjugatie|conjugation]])."
     }
+  },
+  {
+    "organelle_id": "dendrieten",
+    "text": {
+      "nl": "vangen signalen op",
+      "en": "pick up signals"
+    },
+    "details": {
+      "nl": "Dendrieten zijn de vertakte uitlopers waarmee een zenuwcel signalen ontvangt van andere zenuwcellen. Op elke vertakking zitten duizenden [[synaps|synapsen]]. Hoe meer dendrieten, hoe meer informatie de cel kan verzamelen; sommige neuronen in de hersenen hebben er zoveel dat ze op een boom lijken.",
+      "en": "Dendrites are the branched extensions with which a nerve cell receives signals from other nerve cells. Every branch carries thousands of [[synaps|synapses]]. The more dendrites, the more information the cell can gather; some neurons in the brain have so many that they look like a tree."
+    }
+  },
+  {
+    "organelle_id": "axon",
+    "text": {
+      "nl": "stuurt het signaal door",
+      "en": "sends the signal on"
+    },
+    "details": {
+      "nl": "Het axon is één lange uitloper die de [[zenuwimpuls]] wegvoert van het cellichaam, tot een meter ver (van je rug naar je teen). Om het axon liggen [[myeline]]schedes, met tussen elke twee schedes een insnoering: het signaal springt van insnoering naar insnoering en gaat zo tot 100 meter per seconde. Aan het eind geven de eindknopjes een [[neurotransmitter]] af aan de volgende cel.",
+      "en": "The axon is one long extension that carries the [[zenuwimpuls|nerve impulse]] away from the cell body, up to a metre away (from your back to your toe). The axon is wrapped in [[myeline|myelin]] sheaths with a gap between each pair: the signal jumps from gap to gap and reaches speeds of up to 100 metres per second. At the end the terminals release a [[neurotransmitter]] to the next cell."
+    }
+  },
+  {
+    "organelle_id": "hemoglobine",
+    "text": {
+      "nl": "bindt zuurstof",
+      "en": "binds oxygen"
+    },
+    "details": {
+      "nl": "[[hemoglobine|Hemoglobine]] is een eiwit met vier ijzeratomen; elk ijzeratoom kan één zuurstofmolecuul binden. Een rode bloedcel bevat er zo'n 270 miljoen. In de longen laadt het zuurstof, in de weefsels laat het los en neemt het een deel van het CO₂ mee terug. Het ijzer geeft bloed zijn rode kleur.",
+      "en": "[[hemoglobine|Haemoglobin]] is a protein with four iron atoms; each iron atom can bind one oxygen molecule. A red blood cell contains about 270 million of them. In the lungs it loads oxygen, in the tissues it releases it and takes part of the CO₂ back. The iron gives blood its red colour."
+    }
+  },
+  {
+    "organelle_id": "acrosoom",
+    "text": {
+      "nl": "opent de weg naar de eicel",
+      "en": "opens the way into the egg cell"
+    },
+    "details": {
+      "nl": "Het acrosoom is een kapje vol [[enzymen]] bovenop de kern. Bij contact met de eicel barst het open en verteren de enzymen een gaatje in de beschermlaag van de eicel, zodat de kern van de spermacel naar binnen kan. Het is eigenlijk een omgebouwd Golgi-blaasje.",
+      "en": "The acrosome is a cap full of [[enzymen|enzymes]] on top of the nucleus. On contact with the egg cell it bursts open and the enzymes digest a hole in the egg's protective coat, so the sperm nucleus can get inside. It is really a converted Golgi vesicle."
+    }
+  },
+  {
+    "organelle_id": "middenstuk",
+    "text": {
+      "nl": "levert energie voor de staart",
+      "en": "powers the tail"
+    },
+    "details": {
+      "nl": "In het middenstuk liggen tientallen mitochondriën in een spiraal om de basis van de staart. Ze maken het [[atp|ATP]] waarmee de staart urenlang kan slaan. Bij de bevruchting blijft het middenstuk buiten: daarom erf je je mitochondriën alleen van je moeder.",
+      "en": "In the midpiece dozens of mitochondria lie in a spiral around the base of the tail. They make the [[atp|ATP]] that lets the tail beat for hours. During fertilisation the midpiece stays outside: that is why you inherit your mitochondria only from your mother."
+    }
+  },
+  {
+    "organelle_id": "staart",
+    "text": {
+      "nl": "zwemt naar de eicel",
+      "en": "swims to the egg cell"
+    },
+    "details": {
+      "nl": "De staart is een [[flagel]] van [[microtubuli]] die golvend heen en weer slaat, honderden keren per minuut. Zo zwemt de spermacel enkele millimeters per minuut. De opbouw van de staart is dezelfde als die van de trilharen in je luchtwegen.",
+      "en": "The tail is a [[flagel|flagellum]] of [[microtubuli|microtubules]] that beats back and forth in waves, hundreds of times a minute. That way the sperm cell swims a few millimetres per minute. The tail is built the same way as the cilia in your airways."
+    }
   }
 ]

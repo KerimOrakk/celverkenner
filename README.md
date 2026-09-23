@@ -1,6 +1,6 @@
 # CelVerkenner 3D
 
-Een webapp waarmee leerlingen vier cellen in 3D verkennen: een **hartcel**, een **darmcel** (beide dierlijk), een **plantencel** en een **bacterie** (prokaryoot). Draai de cel rond, open het membraan, klik op een organel voor uitleg, of stap met de intracellulaire modus midden in het cytoplasma.
+Een webapp waarmee leerlingen zeven cellen in 3D verkennen: **hartcel**, **darmcel**, **zenuwcel**, **rode bloedcel** en **spermacel** (dierlijk), een **plantencel** en een **bacterie** (prokaryoot). Draai de cel rond, open het membraan, klik op een organel voor uitleg, of stap met de intracellulaire modus midden in het cytoplasma.
 
 Verder in de app:
 
@@ -9,6 +9,7 @@ Verder in de app:
 - **Begrippenlijst** – alle begrippen uit de uitleg op alfabet, met zoekvak en links naar het organel in 3D.
 - **Quiz** – drie spelvormen: *Vind het organel* (klik in 3D op wat gevraagd wordt), *Hoe heet dit?* (een organel licht op, kies de naam uit vier) en *Welke cel is dit?* (een cel van buiten of van binnen, zonder naam). Timer, straftijd bij fouten, beste tijd per spelvorm en celkeuze wordt onthouden.
 - **Namen tonen** – schakelaar in de 3D-weergave: zwevende naamlabels bij elk organel, klikbaar.
+- **Deel je score** – na een quiz een afbeelding (1200×630) plus een uitdagingslink; wie de link opent krijgt dezelfde spelvorm en cellen en ziet of hij sneller was.
 - **Nederlands en Engels** – schakelaar rechtsboven (of `?lang=en` in het adres); de API levert beide talen.
 - **Offline / installeerbaar (PWA)** – na één bezoek werkt de site zonder internet en kan hij als app op telefoon of laptop worden gezet.
 
@@ -85,6 +86,8 @@ project/
 │   │   ├── favicon.svg, icon-*.png
 │   │   ├── manifest.webmanifest   app-manifest (installeerbaar)
 │   │   └── sw.js                  service worker (offline)
+│   ├── src/analytics.js       Umami/Sentry (optioneel), track()
+│   ├── src/share.js           score-afbeelding tekenen en delen
 │   └── src/
 │       ├── main.jsx, App.jsx   router: /, /viewer/:cellId, /intracellulair/:cellId, /proces/:cellId, /vergelijk, /begrippen
 │       ├── i18n/               strings.js (NL/EN interface-teksten), index.jsx (LanguageProvider, useLang)
@@ -120,6 +123,7 @@ project/
 │           ├── geometryUtils.js    afgeronde doos, celvorm, doorsnedes, samenvoegen
 │           ├── layout.js           plaatsing: ankerposities + overlap wegwerken
 │           └── random.js           herhaalbare toevalsgenerator (seed)
+├── .github/workflows/keepalive.yml   houdt de gratis backend wakker
 ├── .vscode/tasks.json
 └── README.md
 ```
@@ -146,8 +150,9 @@ project/
 
 Elk endpoint accepteert `?lang=nl` (standaard) of `?lang=en`. Alleen de teksten veranderen; id's, kleuren en posities zijn taalonafhankelijk.
 
-Cel-id's: `hartcel`, `darmcel`, `plantencel`, `bacterie`.
-Organel-id's: `celmembraan`, `celwand`, `celnucleus`, `nucleolus`, `mitochondrien`, `ribosomen`, `golgi`, `ruw_er`, `glad_er`, `lysosomen`, `centriolen`, `microvilli`, `chloroplasten`, `vacuole`, en voor de bacterie `kapsel`, `bacteriewand`, `nucleoide`, `plasmiden`, `flagel`, `pili`.
+Cel-id's: `hartcel`, `darmcel`, `zenuwcel`, `rode_bloedcel`, `spermacel`, `plantencel`, `bacterie`.
+Organel-id's: `celmembraan`, `celwand`, `celnucleus`, `nucleolus`, `mitochondrien`, `ribosomen`, `golgi`, `ruw_er`, `glad_er`, `lysosomen`, `centriolen`, `microvilli`, `chloroplasten`, `vacuole`, voor de bacterie `kapsel`, `bacteriewand`, `nucleoide`, `plasmiden`, `flagel`, `pili`; voor de zenuwcel `dendrieten`, `axon`; voor de rode bloedcel `hemoglobine`; voor de spermacel `acrosoom`, `middenstuk`, `staart`.
+Celvormen (`shape.kind`): `ellipsoid`, `box` (afgeronde doos) en `disc` (holle schijf van de rode bloedcel).
 Celtypes (`type` en `cell_types`): `dierlijk`, `plantaardig`, `prokaryoot`.
 
 Voorbeeld van een organelplaatsing uit `GET /cells/hartcel`:
@@ -211,6 +216,10 @@ De backend controleert bij het opstarten dat elke stap een organel noemt dat ook
 
 `comparison.json` is de verschillentabel: per rij een label, de tekst voor de drie celtypes (`animal_text`, `plant_text`, `bacteria_text`) en optioneel `animal`/`plant`/`bacteria` (true, false of null voor "niet van toepassing") en een `organelle_id` om de rij aan een organel te koppelen.
 
+### Gespecialiseerde cellen
+
+Zenuwcel, rode bloedcel en spermacel laten zien hoe vorm en inhoud bij een taak passen. Delen die uit de cel steken (axon, dendrieten, middenstuk, staart, flagel) staan in `OUTSIDE_IDS` in `cellBuilder.js`: ze tellen mee voor de camera-afstand en het middelpunt van het beeld, zodat de hele cel in beeld past. De rode bloedcel heeft `shape.kind: "disc"`: een holle schijf (profiel naar Evans & Fung) als `LatheGeometry`, met een eigen `contains`/`clamp` in `layout.js` zodat de hemoglobinebolletjes binnen de schijf blijven.
+
 ### De bacterie
 
 De bacterie is een gewone cel in `cells.json` met `type: "prokaryoot"` en een langwerpige `ellipsoid`. Haar eigen structuren hebben een 3D-fabriek in `organelles.js`: `nucleoide` (torus-knoop), `plasmiden` (ringen), `flagel` (spiraal met motor); `pili` worden als instanced mesh over het oppervlak gestrooid; `kapsel` en `bacteriewand` zijn extra schillen naast het membraan. Ze is op dezelfde grootte getekend als de andere cellen; in werkelijkheid is ze honderd keer kleiner (zie de rij "Grootte" in de vergelijking).
@@ -235,6 +244,7 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 | Taal | NL / EN rechtsboven, wordt onthouden; `?lang=en` in een link forceert Engels |
 | Rechtstreeks naar een organel | `/viewer/plantencel?organel=golgi` opent de plantencel met het Golgi-apparaat geselecteerd |
 | Installeren als app | Chrome/Edge: adresbalk → installeren; iPhone: Deel → Zet op beginscherm |
+| Deel je score | knop op het uitslagscherm: deelt een afbeelding met tijd en link via het deelmenu van het toestel; op een computer wordt de afbeelding gedownload en de link gekopieerd. De link (`/quiz?mode=…&cells=…&t=…`) zet dezelfde spelvorm en cellen klaar en toont de tijd om te verslaan. |
 | Quiz | `/quiz`: kies spelvorm en cellen. Fout = +3 s, overslaan = +5 s. Bij *Vind het organel* verschijnt de naam niet bij de muis en worden ribosomen niet gevraagd (te klein om eerlijk aan te klikken). *Welke cel is dit?* vraagt minstens twee cellen. Beste tijd per spelvorm en celkeuze staat in de browser (localStorage). |
 | Namen tonen | schakelaar onderaan de 3D-weergave; labels schuiven uit elkaar als ze overlappen en zijn klikbaar. Keuze wordt onthouden. |
 
@@ -259,7 +269,21 @@ Alle inhoud staat in `backend/data/*.json`. Voeg je een organel toe, zet het dan
 | Variabele | Waar | Standaard | Doel |
 |---|---|---|---|
 | `VITE_API_URL` | `frontend/.env` (zie `.env.example`) | `http://localhost:8000` | Adres van de API |
+| `VITE_UMAMI_SRC`, `VITE_UMAMI_ID` | `frontend/.env` of de omgeving van de hosting | leeg | Bezoekersstatistieken via Umami (zie hieronder) |
+| `VITE_SENTRY_LOADER` | idem | leeg | Foutmeldingen via Sentry (zie hieronder) |
 | `FRONTEND_ORIGINS` | omgeving van de backend | leeg | Extra toegestane origins voor CORS, komma-gescheiden. Alle `localhost`- en `127.0.0.1`-poorten zijn altijd toegestaan. |
+
+## Statistieken en foutmeldingen
+
+Beide zijn uit zolang de variabelen leeg zijn; er wordt dan geen enkel extern script geladen.
+
+**Umami** (gratis tot 100 000 gebeurtenissen per maand, geen cookies, AVG-vriendelijk): maak een account op <https://cloud.umami.is>, voeg de site toe en kopieer uit de tracking-code de script-URL en het `data-website-id`. Zet die in de omgeving van de frontend-build als `VITE_UMAMI_SRC` en `VITE_UMAMI_ID` en bouw opnieuw. Naast paginaweergaven worden deze gebeurtenissen geteld: `cel-geopend` (cel, weergave), `proces-gestart`, `quiz-klaar` (spelvorm, cellen, tijd, fouten) en `quiz-gedeeld`.
+
+**Sentry** (gratis tot 5 000 fouten per maand): maak op <https://sentry.io> een project "Browser JavaScript", kies bij de installatie **Loader Script** en kopieer de URL (`https://js.sentry-cdn.com/….min.js`) naar `VITE_SENTRY_LOADER`. Een crash in de app toont dan een herlaadknop in plaats van een leeg scherm (zie `ErrorBoundary.jsx`) en komt met stacktrace in Sentry terecht.
+
+## Backend wakker houden
+
+Op het gratis Render-plan slaapt de API na 15 minuten zonder verkeer; de eerste bezoeker wacht dan tot een minuut. `.github/workflows/keepalive.yml` vraagt daarom elke tien minuten `/health` op. Het werkt zodra de repository op GitHub staat (tab Actions → "Keep backend awake"). Draait de API op een ander adres, zet dan in de repository onder Settings → Secrets and variables → Actions → Variables een variabele `BACKEND_URL`. GitHub zet geplande workflows uit na zestig dagen zonder commits; een nieuwe commit zet ze weer aan. Alternatief zonder GitHub: <https://uptimerobot.com> (gratis), monitor van het type HTTP(s) op dezelfde URL, elke vijf minuten.
 
 ## Productie-build
 

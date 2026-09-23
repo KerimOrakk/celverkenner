@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { track } from '../analytics.js';
 import CellViewer from '../components/CellViewer.jsx';
 import SiteHeader from '../components/SiteHeader.jsx';
 import { useCellData } from '../hooks/useCellData.js';
@@ -6,12 +8,13 @@ import { useCells } from '../hooks/useCells.js';
 import { useLang } from '../i18n/index.jsx';
 import Button from '../ui/Button.jsx';
 import Spinner from '../ui/Spinner.jsx';
+import { renderResultCard, shareResultCard } from '../share.js';
 
 const MODES = ['find', 'name', 'cell'];
 const QUESTIONS = { find: 10, name: 10, cell: 8 };
 const PENALTY_S = 3; // per wrong answer
 const SKIP_S = 5;
-const EXCLUDED = new Set(['ribosomen']); // too small to click fairly
+const EXCLUDED = new Set(['ribosomen', 'hemoglobine']); // too small to click fairly
 const BEST_KEY = 'celverkenner:quiz-best';
 
 const formatTime = (ms) => {
@@ -61,6 +64,9 @@ function buildOrganelleQuestions(mode, cellIds, cellOrganelles) {
   let remainder = total - perCell * order.length;
   const questions = [];
   let previous = null;
+  // Wrong answers come from the same cell; a cell with few parts (red blood
+  // cell) borrows names from the other chosen cells.
+  const everything = [...new Map([...cellOrganelles.values()].flat().map((o) => [o.id, o])).values()];
   order.forEach((cellId) => {
     const all = cellOrganelles.get(cellId);
     const pool = mode === 'find' ? all.filter((o) => !EXCLUDED.has(o.id)) : all;
@@ -75,7 +81,11 @@ function buildOrganelleQuestions(mode, cellIds, cellOrganelles) {
         pick = deck.pop();
       }
       previous = pick.id;
-      const distractors = shuffle(all.filter((o) => o.id !== pick.id)).slice(0, 3);
+      let distractors = shuffle(all.filter((o) => o.id !== pick.id)).slice(0, 3);
+      if (distractors.length < 3) {
+        const used = new Set([pick.id, ...distractors.map((o) => o.id)]);
+        distractors = distractors.concat(shuffle(everything.filter((o) => !used.has(o.id))).slice(0, 3 - distractors.length));
+      }
       questions.push({
         mode,
         cellId,
@@ -131,9 +141,16 @@ function useCellOrganelles(cellIds) {
 export default function QuizPage() {
   const { t, lang } = useLang();
   const { cells, source } = useCells();
+  const [searchParams] = useSearchParams();
 
-  const [mode, setMode] = useState('find');
-  const [chosen, setChosen] = useState(new Set());
+  // A shared link (/quiz?mode=name&cells=hartcel,plantencel&t=45300) pre-fills the choice.
+  const linkMode = MODES.includes(searchParams.get('mode')) ? searchParams.get('mode') : null;
+  const linkCells = (searchParams.get('cells') ?? '').split(',').filter(Boolean);
+  const challengeMs = Number(searchParams.get('t')) || null;
+
+  const [mode, setMode] = useState(linkMode ?? 'find');
+  const [chosen, setChosen] = useState(new Set(linkCells));
+  const [shareState, setShareState] = useState(null);
   const [phase, setPhase] = useState('setup'); // setup | play | done
   const [questions, setQuestions] = useState([]);
   const [index, setIndex] = useState(0);
@@ -199,10 +216,46 @@ export default function QuizPage() {
       const isBest = previousBest == null || total < previousBest;
       if (isBest) writeBest(selectionKey, total);
       setResult({ total, mistakes: finalMistakes, isBest });
+      setShareState(null);
       setPhase('done');
+      track('quiz-klaar', { spelvorm: mode, cellen: chosenIds.join('+'), tijd: Math.round(total / 1000), fouten: finalMistakes.length });
     },
-    [selectionKey],
+    [selectionKey, mode, chosenIds],
   );
+
+  const shareUrl = () => {
+    const params = new URLSearchParams({ mode, cells: chosenIds.join(','), t: String(Math.round(result?.total ?? 0)) });
+    return `${window.location.origin}/quiz?${params}`;
+  };
+
+  const share = async () => {
+    if (!result) return;
+    setShareState('busy');
+    const m = result.mistakes.length;
+    const cellNames = chosenIds.map((id) => cells.find((cell) => cell.id === id)?.name ?? id).join(' · ');
+    const url = shareUrl();
+    try {
+      const blob = await renderResultCard({
+        title: t('app.name'),
+        mode: t(`quiz.mode.${mode}`),
+        time: formatTime(result.total),
+        cells: cellNames,
+        mistakesLine: m === 0 ? t('quiz.share.flawless') : t(m === 1 ? 'quiz.resultMistakes' : 'quiz.resultMistakesPlural', { m, p: Math.round(penaltyMs / 1000) }),
+        footer: t('quiz.share.footer'),
+        url,
+      });
+      const outcome = await shareResultCard(blob, {
+        title: t('quiz.share.title'),
+        text: t('quiz.share.text', { time: formatTime(result.total), mode: t(`quiz.mode.${mode}`) }),
+        url,
+        filename: 'celverkenner-quiz.png',
+      });
+      setShareState(outcome);
+      track('quiz-gedeeld', { spelvorm: mode, via: outcome });
+    } catch {
+      setShareState('failed');
+    }
+  };
 
   const next = useCallback(
     (finalMistakes, finalPenalty) => {
@@ -279,6 +332,9 @@ export default function QuizPage() {
           <div className="page__intro">
             <h1 className="page__title">{t('quiz.title')}</h1>
             <p className="page__lead">{t('quiz.lead', { penalty: PENALTY_S })}</p>
+            {challengeMs && (
+              <p className="quiz-challenge">{t('quiz.challenge', { time: formatTime(challengeMs) })}</p>
+            )}
           </div>
 
           <fieldset className="quiz-modes">
@@ -365,6 +421,11 @@ export default function QuizPage() {
             </p>
           )}
           {result.isBest && <p className="quiz-result__best">{t('quiz.newBest')}</p>}
+          {challengeMs && (
+            <p className={`quiz-result__challenge${result.total < challengeMs ? ' is-won' : ''}`}>
+              {t(result.total < challengeMs ? 'quiz.challengeWon' : 'quiz.challengeLost', { time: formatTime(challengeMs) })}
+            </p>
+          )}
 
           {m > 0 && (
             <section className="quiz-result__review">
@@ -379,10 +440,18 @@ export default function QuizPage() {
 
           <div className="home__actions">
             <Button onClick={start}>{t('quiz.again')}</Button>
-            <Button variant="outline" onClick={() => setPhase('setup')}>
+            <Button variant="outline" onClick={share} disabled={shareState === 'busy'}>
+              {t('quiz.share.button')}
+            </Button>
+            <Button variant="quiet" onClick={() => setPhase('setup')}>
               {t('quiz.other')}
             </Button>
           </div>
+          {shareState && shareState !== 'busy' && shareState !== 'cancelled' && (
+            <p className="quiz-result__share-note" role="status">
+              {t(`quiz.share.${shareState}`)}
+            </p>
+          )}
         </main>
       </div>
     );
